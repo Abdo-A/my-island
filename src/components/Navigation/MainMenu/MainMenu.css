@@ -17,7 +17,3 @@
   background-color: #fff;
   margin: 3px;
 }
-
-.MainMenu a.active .item {
-  background-color: #fff !important;
-}

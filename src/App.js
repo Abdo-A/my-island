@@ -17,7 +17,11 @@ class App extends Component {
             <Layout>
               <Switch>
                 {pages.map(page => (
-                  <Route path={page.path} component={page.component} />
+                  <Route
+                    path={page.path}
+                    component={page.component}
+                    key={page.path}
+                  />
                 ))}
               </Switch>
             </Layout>
