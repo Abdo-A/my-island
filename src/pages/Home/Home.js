@@ -5,7 +5,7 @@ export default class Home extends Component {
   render() {
     return (
       <div>
-        <div>Home</div>
+        <div style={{ height: "1000px" }}>Home</div>
       </div>
     );
   }

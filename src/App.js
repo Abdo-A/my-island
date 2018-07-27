@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import React, { Component } from "react";
 
-import Home from "./pages/Home/Home";
+import { pages } from "./data/pagesData";
 import Intro from "./pages/Intro/Intro";
 import Layout from "./hoc/Layout/Layout";
 
@@ -16,12 +16,9 @@ class App extends Component {
             <Route path="/" exact component={Intro} />
             <Layout>
               <Switch>
-                <Route path="/home" exact component={Home} />
-                <Route
-                  path="/another-page"
-                  exact
-                  render={() => "Another page"}
-                />
+                {pages.map(page => (
+                  <Route path={page.path} component={page.component} />
+                ))}
               </Switch>
             </Layout>
           </Switch>

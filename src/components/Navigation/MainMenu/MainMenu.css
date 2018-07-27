@@ -1,0 +1,23 @@
+.MainMenu_ShowMenuButton {
+  width: 40px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: #343638;
+  border-radius: 5px;
+}
+
+.MainMenu_ShowMenuButton div {
+  width: 80%;
+  height: 2px;
+  background-color: #fff;
+  margin: 3px;
+}
+
+.MainMenu a.active .item {
+  background-color: #fff !important;
+}
