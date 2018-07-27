@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Events.css";
 
-import RapidAPI from "rapidapi-connect";
+const RapidAPI = require("rapidapi-connect");
 
 const rapid = new RapidAPI(
   "loloworld_5b0f0f20e4b089f3dc475407",
