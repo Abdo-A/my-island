@@ -1,19 +1,24 @@
 import { Icon } from "semantic-ui-react";
+import { SketchPicker } from "react-color";
 import CanvasDraw from "react-canvas-draw";
 import React, { Component } from "react";
 
 import "./MyDrawings.css";
 
+let interval;
+
 class MyDrawings extends Component {
   state = {
     currentPageWidth: window.innerWidth,
     currentBrushColor: "#990000",
+    currentBrushSize: 4,
     mainCanvasWidth: 600,
     savedItems: [],
-    newSaveData: null
+    showColorPicker: false,
+    showBrushSizePicker: false
   };
   componentDidMount() {
-    setInterval(() => {
+    interval = setInterval(() => {
       //Determining Canvas Width according to page width
       if (this.state.currentPageWidth !== window.innerWidth) {
         let pageWidth = window.innerWidth;
@@ -31,29 +36,13 @@ class MyDrawings extends Component {
           currentPageWidth: pageWidth,
           mainCanvasWidth: mainCanvasWidth
         }));
+        this.mainCanvas.loadSaveData(this.mainCanvas.getSaveData(), true);
       }
-
-      //   if (this.mainCanvas && this.mainCanvas.getSaveData()) {
-      //     //console.log(this.mainCanvas.getSaveData());
-      //     let prevDraw = this.mainCanvas.getSaveData();
-
-      //     this.secondCanvasElement.loadSaveData(prevDraw, false);
-      //     // console.log(
-      //     //   this.mainCanvas.loadSaveData({
-      //     //     saveData: prevDraw,
-      //     //     immediate: true
-      //     //   })
-      //     // );
-      //   }
-    }, 1000);
+    }, 10);
   }
-
-  componentDidUpdate(prevProps, prevState) {}
-  changeColor = () => {
-    this.setState(() => ({
-      currentBrushColor: "#000099"
-    }));
-  };
+  componentWillUnmount() {
+    clearInterval(interval);
+  }
 
   clearMainCanvas = () => {
     this.mainCanvas.clear();
@@ -83,6 +72,11 @@ class MyDrawings extends Component {
     );
   };
 
+  handleViewSavedItem = index => {
+    let savedDrawing = this.state.savedItems[index].saveData;
+    this.mainCanvas.loadSaveData(savedDrawing, true);
+  };
+
   deleteItem = index => {
     let savedItems = [...this.state.savedItems];
     savedItems.splice(index, 1);
@@ -99,19 +93,84 @@ class MyDrawings extends Component {
     );
   };
 
+  onBrushColorChange = color => {
+    this.setState(() => ({
+      currentBrushColor: color.hex
+    }));
+  };
+
+  onBrushSizeChange = e => {
+    this.setState({
+      currentBrushSize: e.target.value
+    });
+  };
+
+  toggleColorPicker = () => {
+    this.setState(prevState => ({
+      showColorPicker: !prevState.showColorPicker
+    }));
+  };
+
+  toggleBrushSizePicker = () => {
+    this.setState(prevState => ({
+      showBrushSizePicker: !prevState.showBrushSizePicker
+    }));
+  };
+
   render() {
     return (
       <div className="MyDrawings">
-        <button onClick={this.changeColor}>Change Color</button>
         <button onClick={this.clearMainCanvas}>Clear</button>
         <button onClick={this.saveDrawing}>Save</button>
         <button onClick={() => this.saveDrawing("clear")}>
           Save and clear
         </button>
+        <button
+          onClick={this.toggleBrushSizePicker}
+          style={{ position: "relative" }}
+        >
+          Change Brush Size
+          {this.state.showBrushSizePicker ? (
+            <div
+              style={{
+                position: "absolute",
+                right: "20px",
+                top: "20px",
+                backgroundColor: "rgb(39, 18, 18)",
+                padding: "5px"
+              }}
+            >
+              <input
+                type="range"
+                min="0"
+                max="10"
+                value={this.state.currentBrushSize}
+                onChange={e => this.onBrushSizeChange(e)}
+              />
+            </div>
+          ) : null}
+        </button>
+        <button
+          onClick={this.toggleColorPicker}
+          style={{ position: "relative" }}
+        >
+          Change Color
+          {this.state.showColorPicker ? (
+            <div style={{ position: "absolute", right: "20px", top: "20px" }}>
+              <SketchPicker
+                width="150px"
+                color={this.state.currentBrushColor}
+                onChangeComplete={this.onBrushColorChange}
+              />
+            </div>
+          ) : null}
+        </button>
+
         <div className="MyDrawings__MainCanvasContainer">
           <CanvasDraw
             style={{ margin: "20px auto" }}
             brushColor={this.state.currentBrushColor}
+            brushSize={this.state.currentBrushSize}
             canvasWidth={this.state.mainCanvasWidth}
             ref={can1 => {
               this.mainCanvas = can1;
@@ -125,24 +184,33 @@ class MyDrawings extends Component {
             {this.state.savedItems.map((item, index) => (
               <span key={item.id} style={{ margin: "10px" }}>
                 <Icon
+                  title="Remove Drawing"
                   name="close"
                   onClick={() => this.deleteItem(index)}
                   style={{
                     cursor: "pointer",
-                    margin: "0"
+                    margin: "0",
+                    border: "1px solid black",
+                    borderRadius: "50%",
+                    height: "100%"
                   }}
                 />
-                <CanvasDraw
-                  style={{
-                    width: "100px",
-                    border: "2px solid black",
-                    display: "inline-block"
-                  }}
-                  brushColor="#ffffff00"
-                  ref={it => {
-                    this[item.id] = it;
-                  }}
-                />
+                <span
+                  onClick={() => this.handleViewSavedItem(index)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <CanvasDraw
+                    style={{
+                      width: "100px",
+                      border: "2px solid black",
+                      display: "inline-block"
+                    }}
+                    brushColor="#ffffff00"
+                    ref={it => {
+                      this[item.id] = it;
+                    }}
+                  />
+                </span>
               </span>
             ))}
           </div>

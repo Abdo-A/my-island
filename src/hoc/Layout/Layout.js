@@ -11,7 +11,7 @@ export default class Layout extends Component {
       <Aux>
         <h2>Layout components</h2>
         <MainMenu location={this.props.location} />
-        <main>{this.props.children}</main>
+        <main className="container">{this.props.children}</main>
       </Aux>
     );
   }
