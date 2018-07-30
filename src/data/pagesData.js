@@ -1,5 +1,6 @@
 import Events from "../pages/Events/Events";
 import Home from "../pages/Home/Home";
+import MyDrawings from "../pages/MyDrawings/MyDrawings";
 
 //Pages
 
@@ -41,6 +42,6 @@ export const pages = [
     name: "my drawings",
     path: "/drawings",
     icon: "paw",
-    component: () => "Log in for your drawings to be saved"
+    component: MyDrawings
   }
 ];

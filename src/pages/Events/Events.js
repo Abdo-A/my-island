@@ -8,6 +8,6 @@ export default class Events extends Component {
   };
 
   render() {
-    return "events";
+    return <div>Events</div>;
   }
 }
