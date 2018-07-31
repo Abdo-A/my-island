@@ -2,6 +2,7 @@ import Events from "../pages/Events/Events";
 import Home from "../pages/Home/Home";
 import MyDrawings from "../pages/MyDrawings/MyDrawings";
 import MyNotes from "../pages/MyNotes/MyNotes";
+import MyCountryNews from "../pages/MyCountryNews/MyCountryNews";
 
 //Pages
 //Note: the Icon property is the name of the SEMANTIC UI alternative icon
@@ -24,7 +25,7 @@ export const pages = [
     name: "my country's news",
     path: "/local-news",
     icon: "flag outline",
-    component: () => "local news"
+    component: MyCountryNews
   },
   {
     name: "events around me",

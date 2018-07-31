@@ -1,9 +1,8 @@
 import { Collapse, notification, Modal } from "antd";
-import { Form, Input, TextArea, Button, Icon } from "semantic-ui-react";
+import { Form, Input, TextArea, Button } from "semantic-ui-react";
 import React, { Component } from "react";
 
 import "./MyNotes.css";
-import Aux from "../../hoc/Auxe/Auxe";
 
 const Panel = Collapse.Panel;
 
