@@ -4,3 +4,7 @@
   text-align: center;
   user-select: none;
 }
+
+.MyDrawings__MainCanvasContainer {
+  margin: 0 auto;
+}

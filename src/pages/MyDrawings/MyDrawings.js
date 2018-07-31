@@ -9,32 +9,19 @@ let interval;
 
 class MyDrawings extends Component {
   state = {
-    currentPageWidth: 1000,
     currentBrushColor: "#990000",
     currentBrushSize: 4,
-    mainCanvasWidth: 600,
     savedItems: [],
+    currentPageWidth: 1000,
     showColorPicker: false,
     showBrushSizePicker: false
   };
   componentDidMount() {
     interval = setInterval(() => {
-      //Determining Canvas Width according to page width
+      //Updating the canvas drawing in case that page is resized
       if (this.state.currentPageWidth !== window.innerWidth) {
-        let pageWidth = window.innerWidth;
-        let mainCanvasWidth =
-          pageWidth > 1150
-            ? 800
-            : pageWidth > 1000
-              ? 600
-              : pageWidth > 800
-                ? 400
-                : pageWidth > 500
-                  ? 320
-                  : 200;
         this.setState(() => ({
-          currentPageWidth: pageWidth,
-          mainCanvasWidth: mainCanvasWidth
+          currentPageWidth: window.innerWidth
         }));
         this.mainCanvas.loadSaveData(this.mainCanvas.getSaveData(), true);
       }
@@ -48,7 +35,7 @@ class MyDrawings extends Component {
     this.mainCanvas.clear();
   };
 
-  saveDrawing = clearOrNot => {
+  onSaveDrawing = clearOrNot => {
     let drawingToBeSaved = this.mainCanvas.getSaveData();
     let randomId = Math.random();
     let itemToBeSaved = {
@@ -57,14 +44,13 @@ class MyDrawings extends Component {
     };
 
     let savedItems = [...this.state.savedItems];
-    savedItems.push(itemToBeSaved);
+    savedItems.unshift(itemToBeSaved);
     this.setState(
       () => ({
         savedItems: savedItems
       }),
       () => {
         this[randomId].loadSaveData(drawingToBeSaved, true);
-        console.log(this.state.savedItems);
         if (clearOrNot === "clear") {
           this.clearMainCanvas();
         }
@@ -77,7 +63,7 @@ class MyDrawings extends Component {
     this.mainCanvas.loadSaveData(savedDrawing, true);
   };
 
-  deleteItem = index => {
+  onDeleteDrawing = index => {
     let savedItems = [...this.state.savedItems];
     savedItems.splice(index, 1);
 
@@ -120,13 +106,13 @@ class MyDrawings extends Component {
   render() {
     return (
       <div className="MyDrawings">
+        <Button color="green" onClick={this.onSaveDrawing}>
+          Save My Drawing
+        </Button>
         <Button color="red" onClick={this.clearMainCanvas}>
           Clear
         </Button>
-        <Button color="teal" onClick={this.saveDrawing}>
-          Save
-        </Button>
-        <Button color="purple" onClick={() => this.saveDrawing("clear")}>
+        <Button color="purple" onClick={() => this.onSaveDrawing("clear")}>
           Save and clear
         </Button>
 
@@ -188,7 +174,7 @@ class MyDrawings extends Component {
             style={{ margin: "20px auto" }}
             brushColor={this.state.currentBrushColor}
             brushSize={this.state.currentBrushSize}
-            canvasWidth={this.state.mainCanvasWidth}
+            canvasWidth={0.7 * window.innerWidth}
             ref={can1 => {
               this.mainCanvas = can1;
             }}
@@ -205,7 +191,7 @@ class MyDrawings extends Component {
                 <Icon
                   title="Remove Drawing"
                   name="close"
-                  onClick={() => this.deleteItem(index)}
+                  onClick={() => this.onDeleteDrawing(index)}
                   style={{
                     cursor: "pointer",
                     margin: "0",
