@@ -1,4 +1,5 @@
 import { Icon, Button } from "semantic-ui-react";
+import { Modal, notification } from "antd";
 import { SketchPicker } from "react-color";
 import CanvasDraw from "react-canvas-draw";
 import React, { Component } from "react";
@@ -14,7 +15,9 @@ class MyDrawings extends Component {
     savedItems: [],
     currentPageWidth: 1000,
     showColorPicker: false,
-    showBrushSizePicker: false
+    showBrushSizePicker: false,
+    showDeleteDrawingModal: false,
+    drawingToBeDeleted: null
   };
   componentDidMount() {
     interval = setInterval(() => {
@@ -36,15 +39,34 @@ class MyDrawings extends Component {
   };
 
   onSaveDrawing = clearOrNot => {
+    if (JSON.parse(this.mainCanvas.getSaveData()).linesArray.length === 0) {
+      notification.open({
+        message: "Can't Save Yet!",
+        description: "Please make a drawing in order to save it."
+      });
+      return;
+    }
+
     let drawingToBeSaved = this.mainCanvas.getSaveData();
     let randomId = Math.random();
+
+    let currentDate = new Date();
+    let readabledate =
+      currentDate.toLocaleDateString("en-US") +
+      " (" +
+      JSON.stringify(currentDate.getHours()) +
+      ":" +
+      JSON.stringify(currentDate.getMinutes()) +
+      ")";
+
     let itemToBeSaved = {
       id: randomId,
-      saveData: drawingToBeSaved
+      saveData: drawingToBeSaved,
+      date: readabledate
     };
 
     let savedItems = [...this.state.savedItems];
-    savedItems.unshift(itemToBeSaved);
+    savedItems.push(itemToBeSaved);
     this.setState(
       () => ({
         savedItems: savedItems
@@ -63,20 +85,28 @@ class MyDrawings extends Component {
     this.mainCanvas.loadSaveData(savedDrawing, true);
   };
 
-  onDeleteDrawing = index => {
-    let savedItems = [...this.state.savedItems];
-    savedItems.splice(index, 1);
+  onDeleteDrawing = order => {
+    this.setState(() => ({
+      showDeleteDrawingModal: false
+    }));
 
-    this.setState(
-      () => ({
-        savedItems: savedItems
-      }),
-      () => {
-        for (let item of savedItems) {
-          this[item.id].loadSaveData(item.saveData, true);
+    if (order === "ok") {
+      let savedItems = [...this.state.savedItems];
+      savedItems.splice(this.state.drawingToBeDeleted, 1);
+
+      this.setState(
+        () => ({
+          savedItems: savedItems
+        }),
+        () => {
+          for (let item of savedItems) {
+            this[item.id].loadSaveData(item.saveData, true);
+          }
         }
-      }
-    );
+      );
+    } else {
+      return;
+    }
   };
 
   onBrushColorChange = color => {
@@ -104,6 +134,20 @@ class MyDrawings extends Component {
   };
 
   render() {
+    let deleteDrawingModal = (
+      <Modal
+        visible={this.state.showDeleteDrawingModal}
+        onOk={() => {
+          this.onDeleteDrawing("ok");
+        }}
+        onCancel={() => {
+          this.onDeleteDrawing("cancel");
+        }}
+      >
+        <h2>Are you sure you want to remove this drawing?</h2>
+      </Modal>
+    );
+
     return (
       <div className="MyDrawings">
         <Button color="green" onClick={this.onSaveDrawing}>
@@ -180,7 +224,7 @@ class MyDrawings extends Component {
             }}
           />
 
-          {/* Displaying Saved Items through Map:*/}
+          {/* Displaying Saved Items through Map function:*/}
           <div
             ref={itemsContainer => {
               this.itemsContainer = itemsContainer;
@@ -191,7 +235,12 @@ class MyDrawings extends Component {
                 <Icon
                   title="Remove Drawing"
                   name="close"
-                  onClick={() => this.onDeleteDrawing(index)}
+                  onClick={() =>
+                    this.setState(() => ({
+                      showDeleteDrawingModal: true,
+                      drawingToBeDeleted: index
+                    }))
+                  }
                   style={{
                     cursor: "pointer",
                     margin: "0",
@@ -200,8 +249,10 @@ class MyDrawings extends Component {
                     height: "100%"
                   }}
                 />
+                {deleteDrawingModal}
                 <span
                   onClick={() => this.handleViewSavedItem(index)}
+                  title="Show Saved Drawing"
                   style={{ cursor: "pointer" }}
                 >
                   <CanvasDraw
@@ -216,6 +267,14 @@ class MyDrawings extends Component {
                     }}
                   />
                 </span>
+                <small
+                  style={{
+                    display: "inline-block",
+                    width: "70px"
+                  }}
+                >
+                  <strong>{item.date}</strong>
+                </small>
               </span>
             ))}
           </div>

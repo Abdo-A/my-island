@@ -1,4 +1,4 @@
-import { Collapse, notification } from "antd";
+import { Collapse, notification, Modal } from "antd";
 import { Form, Input, TextArea, Button, Icon } from "semantic-ui-react";
 import React, { Component } from "react";
 
@@ -11,7 +11,9 @@ class MyNotes extends Component {
   state = {
     mainNoteTitle: "",
     mainNoteBody: "",
-    savedNotes: []
+    savedNotes: [],
+    showDeleteNoteModal: false,
+    noteToBeDeleted: null
   };
 
   onChangeNoteTitle = (e, { value }) => {
@@ -61,16 +63,37 @@ class MyNotes extends Component {
     );
   };
 
-  onDeleteNote = index => {
-    let savedNotes = [...this.state.savedNotes];
-    savedNotes.splice(index, 1);
-
+  onDeleteNote = order => {
     this.setState(() => ({
-      savedNotes: savedNotes
+      showDeleteNoteModal: false
     }));
+    if (order === "ok") {
+      let savedNotes = [...this.state.savedNotes];
+      savedNotes.splice(this.state.noteToBeDeleted, 1);
+
+      this.setState(() => ({
+        savedNotes: savedNotes
+      }));
+    } else {
+      return;
+    }
   };
 
   render() {
+    let deleteNoteModal = (
+      <Modal
+        visible={this.state.showDeleteNoteModal}
+        onOk={() => {
+          this.onDeleteNote("ok");
+        }}
+        onCancel={() => {
+          this.onDeleteNote("cancel");
+        }}
+      >
+        <h2>Are you sure you want to delete this note?</h2>
+      </Modal>
+    );
+
     return (
       <div className="MyNotes">
         {/**/}
@@ -124,10 +147,16 @@ class MyNotes extends Component {
                     floated="right"
                     size="mini"
                     color="red"
-                    onClick={() => this.onDeleteNote(index)}
+                    onClick={() =>
+                      this.setState(() => ({
+                        showDeleteNoteModal: true,
+                        noteToBeDeleted: index
+                      }))
+                    }
                   >
                     Delete Note
                   </Button>
+                  {deleteNoteModal}
 
                   <br />
                   <strong>{note.body}</strong>
