@@ -1,9 +1,9 @@
 import Events from "../pages/Events/Events";
 import Home from "../pages/Home/Home";
 import MyDrawings from "../pages/MyDrawings/MyDrawings";
+import MyNotes from "../pages/MyNotes/MyNotes";
 
 //Pages
-
 //Note: the Icon property is the name of the SEMANTIC UI alternative icon
 
 export const pages = [
@@ -36,7 +36,7 @@ export const pages = [
     name: "my notes",
     path: "/notes",
     icon: "sticky note outline",
-    component: () => "Log in for your notes to be saved"
+    component: MyNotes
   },
   {
     name: "my drawings",

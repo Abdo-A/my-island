@@ -1,4 +1,4 @@
-import { Icon } from "semantic-ui-react";
+import { Icon, Button } from "semantic-ui-react";
 import { SketchPicker } from "react-color";
 import CanvasDraw from "react-canvas-draw";
 import React, { Component } from "react";
@@ -9,7 +9,7 @@ let interval;
 
 class MyDrawings extends Component {
   state = {
-    currentPageWidth: window.innerWidth,
+    currentPageWidth: 1000,
     currentBrushColor: "#990000",
     currentBrushSize: 4,
     mainCanvasWidth: 600,
@@ -23,14 +23,14 @@ class MyDrawings extends Component {
       if (this.state.currentPageWidth !== window.innerWidth) {
         let pageWidth = window.innerWidth;
         let mainCanvasWidth =
-          pageWidth > 1200
+          pageWidth > 1150
             ? 800
             : pageWidth > 1000
               ? 600
               : pageWidth > 800
                 ? 400
                 : pageWidth > 500
-                  ? 300
+                  ? 320
                   : 200;
         this.setState(() => ({
           currentPageWidth: pageWidth,
@@ -120,12 +120,20 @@ class MyDrawings extends Component {
   render() {
     return (
       <div className="MyDrawings">
-        <button onClick={this.clearMainCanvas}>Clear</button>
-        <button onClick={this.saveDrawing}>Save</button>
-        <button onClick={() => this.saveDrawing("clear")}>
+        <Button color="red" onClick={this.clearMainCanvas}>
+          Clear
+        </Button>
+        <Button color="teal" onClick={this.saveDrawing}>
+          Save
+        </Button>
+        <Button color="purple" onClick={() => this.saveDrawing("clear")}>
           Save and clear
-        </button>
-        <button
+        </Button>
+
+        {/* Button for picking brush size: */}
+
+        <Button
+          color="grey"
           onClick={this.toggleBrushSizePicker}
           style={{ position: "relative" }}
         >
@@ -139,6 +147,7 @@ class MyDrawings extends Component {
                 backgroundColor: "rgb(39, 18, 18)",
                 padding: "5px"
               }}
+              onClick={""}
             >
               <input
                 type="range"
@@ -147,16 +156,23 @@ class MyDrawings extends Component {
                 value={this.state.currentBrushSize}
                 onChange={e => this.onBrushSizeChange(e)}
               />
+              <input value={this.state.currentBrushSize} readOnly />
             </div>
           ) : null}
-        </button>
-        <button
+        </Button>
+
+        {/* Button for picking color: */}
+        <Button
+          color="grey"
           onClick={this.toggleColorPicker}
           style={{ position: "relative" }}
         >
           Change Color
           {this.state.showColorPicker ? (
-            <div style={{ position: "absolute", right: "20px", top: "20px" }}>
+            <div
+              style={{ position: "absolute", right: "20px", top: "20px" }}
+              onClick={""}
+            >
               <SketchPicker
                 width="150px"
                 color={this.state.currentBrushColor}
@@ -164,9 +180,10 @@ class MyDrawings extends Component {
               />
             </div>
           ) : null}
-        </button>
+        </Button>
 
         <div className="MyDrawings__MainCanvasContainer">
+          {/* The main canvas for drawing: */}
           <CanvasDraw
             style={{ margin: "20px auto" }}
             brushColor={this.state.currentBrushColor}
@@ -176,6 +193,8 @@ class MyDrawings extends Component {
               this.mainCanvas = can1;
             }}
           />
+
+          {/* Displaying Saved Items through Map:*/}
           <div
             ref={itemsContainer => {
               this.itemsContainer = itemsContainer;
@@ -202,7 +221,7 @@ class MyDrawings extends Component {
                   <CanvasDraw
                     style={{
                       width: "100px",
-                      border: "2px solid black",
+                      border: "1px solid #555",
                       display: "inline-block"
                     }}
                     brushColor="#ffffff00"
