@@ -6,6 +6,7 @@
     "antd": "^3.7.3",
     "axios": "^0.18.0",
     "prop-types": "^15.6.2",
+    "rapidapi-connect": "0.0.6",
     "react": "^16.4.1",
     "react-canvas-draw": "^0.1.9",
     "react-color": "^2.14.1",
