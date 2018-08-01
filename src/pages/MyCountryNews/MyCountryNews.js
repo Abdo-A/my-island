@@ -1,9 +1,11 @@
-import { Spin } from "antd";
+import { Spin, Carousel } from "antd";
 import axios from "axios";
 import React, { Component } from "react";
 
 import { newsApiKey } from "../../data/apiKeys";
 import NewsCard from "../../components/News/NewsCard/NewsCard";
+import NewsCardsCollection from "../../components/News/NewsCardsCollection/NewsCardsCollection";
+import NewsSlider from "../../components/News/NewsSlider/NewsSlider";
 
 import "./MyCountryNews.css";
 
@@ -16,7 +18,8 @@ class MyCountryNews extends Component {
     newsApiKey: newsApiKey,
     articles: null,
     numberOfRequestedArticles: 25,
-    maximumNumberOfViewedArticles: 18
+    maximumNumberOfArticleCards: 15,
+    maximumNumberOfArticleInSlider: 3
   };
 
   componentDidMount() {
@@ -56,69 +59,60 @@ class MyCountryNews extends Component {
       });
   }
 
-  mountedArticlesCount = 0;
+  mountedArticlesInCardsCount = 0;
+  mountedArticlesInSliderCount = 0;
 
   render() {
     let locationIndication = "";
     if (this.state.userCountryName) {
       locationIndication = (
-        <h3>
-          We can see that you are in{" "}
-          {this.state.userCityName ? this.state.userCityName + ", " : null}
-          {this.state.userCountryName}!
+        <h3 className="MyCountryNews__LocationIndication">
+          Latest news from{" "}
+          <strong>
+            {this.state.userCityName ? this.state.userCityName + ", " : null}
+            {this.state.userCountryName}
+          </strong>
         </h3>
       );
     }
 
-    let articlesToDisplay = "";
-
-    if (this.state.articles) {
-      articlesToDisplay = this.state.articles.map((article, index) => {
-        if (
-          article.title &&
-          article.urlToImage &&
-          article.url &&
-          article.description &&
-          article.publishedAt &&
-          this.mountedArticlesCount < this.state.maximumNumberOfViewedArticles
-        ) {
-          this.mountedArticlesCount++;
-          return (
-            <span
-              key={article.publishedAt}
-              className="MyCountryNews__NewsCardWrapper"
-            >
-              <NewsCard
-                key={article.url}
-                title={article.title}
-                image={article.urlToImage}
-                url={article.url}
-                description={article.description}
-                date={article.publishedAt}
-              />
-            </span>
-          );
-        } else {
-          return null;
-        }
-      });
-    }
-
     return (
       <div>
-        <div>{locationIndication || <Spin />}</div>
-        <div
-          style={{
-            marginTop: "5vh",
-            display: "flex",
-            flexDirection: "row",
-            flexFlow: "row wrap",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          {articlesToDisplay || <Spin />}
+        {/**/}
+        {/*Location indication*/}
+        {/**/}
+        <div>
+          {locationIndication || <Spin style={{ marginTop: "40px" }} />}
         </div>
+
+        {/**/}
+        {/*Image Slider*/}
+        {/**/}
+
+        <div>
+          <NewsSlider
+            articles={this.state.articles}
+            maximumNumberOfArticleInSlider={
+              this.state.maximumNumberOfArticleInSlider
+            }
+          />
+        </div>
+
+        {/**/}
+        {/*News Cards*/}
+        {/**/}
+
+        {!this.state.articles ? (
+          <Spin style={{ marginTop: "40px" }} />
+        ) : (
+          <NewsCardsCollection
+            articles={this.state.articles}
+            maximumNumberOfArticleCards={this.state.maximumNumberOfArticleCards}
+            maximumNumberOfArticleInSlider={
+              this.state.maximumNumberOfArticleInSlider
+            }
+          />
+        )}
       </div>
     );
   }

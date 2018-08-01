@@ -1,9 +1,4 @@
-.MyCountryNews__NewsCardWrapper {
-  width: "33%";
-}
-
-@media (max-width: 800px) {
-  .MyCountryNews__NewsCardWrapper {
-    width: "100%";
-  }
+MyCountryNews__LocationIndication {
+  margin-top: 10px;
+  font-weight: bold;
 }

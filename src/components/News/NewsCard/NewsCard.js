@@ -12,29 +12,39 @@ const newsCard = props => {
       convertUTCDateToLocalDate(new Date(props.date))
     )
   ).replace(/"/g, "");
-  return (
-    <a href={props.url} target="_blank">
-      <Card
-        style={{ display: "inline-block", height: "400px", margin: "20px" }}
-      >
-        <Image src={props.image} style={{ width: "280", height: "220px" }} />
-        <Card.Content>
-          <Card.Header>{props.title}</Card.Header>
-          <Card.Meta>
-            <span className="date">
-              <strong>{actualDate}</strong>
-            </span>
-          </Card.Meta>
-          <Card.Description className="love">
-            {props.description.substr(0, 20) + "..."}
-          </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <strong>{actualDate}</strong>
-        </Card.Content>
-      </Card>
-    </a>
-  );
+  if (
+    props.title &&
+    props.description &&
+    props.image &&
+    props.date &&
+    props.url
+  ) {
+    return (
+      <a href={props.url} target="_blank">
+        <Card
+          style={{ display: "inline-block", height: "400px", margin: "20px" }}
+        >
+          <Image src={props.image} style={{ width: "280", height: "220px" }} />
+          <Card.Content>
+            <Card.Header>{props.title}</Card.Header>
+            <Card.Meta>
+              <span className="date">
+                <strong>{actualDate}</strong>
+              </span>
+            </Card.Meta>
+            <Card.Description className="love">
+              {props.description.substr(0, 20) + "..."}
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            <strong>{actualDate}</strong>
+          </Card.Content>
+        </Card>
+      </a>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default newsCard;
