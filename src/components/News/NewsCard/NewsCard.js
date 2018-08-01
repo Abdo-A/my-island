@@ -1,8 +1,17 @@
 import React from "react";
 import { Card, Image } from "semantic-ui-react";
 import "./NewsCard.css";
+import {
+  convertISODateToReadableDate,
+  convertUTCDateToLocalDate
+} from "../../../data/universalFunctions/dateRelatedFunctions";
 
 const newsCard = props => {
+  let actualDate = JSON.stringify(
+    convertISODateToReadableDate(
+      convertUTCDateToLocalDate(new Date(props.date))
+    )
+  ).replace(/"/g, "");
   return (
     <a href={props.url} target="_blank">
       <Card
@@ -12,14 +21,16 @@ const newsCard = props => {
         <Card.Content>
           <Card.Header>{props.title}</Card.Header>
           <Card.Meta>
-            <span className="date" />
+            <span className="date">
+              <strong>{actualDate}</strong>
+            </span>
           </Card.Meta>
           <Card.Description className="love">
             {props.description.substr(0, 20) + "..."}
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <a>{props.date}</a>
+          <strong>{actualDate}</strong>
         </Card.Content>
       </Card>
     </a>
@@ -29,4 +40,4 @@ const newsCard = props => {
 export default newsCard;
 
 //Expected props:
-//image, title, description, date
+//image, title, description, date(UTC timezone in ISO format)

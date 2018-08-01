@@ -1,8 +1,11 @@
-import React, { Component } from "react";
-import axios from "axios";
 import { Spin } from "antd";
+import axios from "axios";
+import React, { Component } from "react";
+
 import { newsApiKey } from "../../data/apiKeys";
 import NewsCard from "../../components/News/NewsCard/NewsCard";
+
+import "./MyCountryNews.css";
 
 class MyCountryNews extends Component {
   state = {
@@ -11,7 +14,9 @@ class MyCountryNews extends Component {
     userCityName: null,
     newsLanguage: "en",
     newsApiKey: newsApiKey,
-    articles: null
+    articles: null,
+    numberOfRequestedArticles: 25,
+    maximumNumberOfViewedArticles: 18
   };
 
   componentDidMount() {
@@ -33,9 +38,9 @@ class MyCountryNews extends Component {
               .get(
                 `https://newsapi.org/v2/top-headlines?country=${
                   this.state.userCountryCode
-                }&language=${this.state.newsLanguage}&apiKey=${
-                  this.state.newsApiKey
-                }`
+                }&language=${this.state.newsLanguage}&pageSize=${
+                  this.state.numberOfRequestedArticles
+                }&apiKey=${this.state.newsApiKey}`
               )
               .then(res => {
                 console.log(res.data.articles);
@@ -51,6 +56,8 @@ class MyCountryNews extends Component {
       });
   }
 
+  mountedArticlesCount = 0;
+
   render() {
     let locationIndication = "";
     if (this.state.userCountryName) {
@@ -64,19 +71,25 @@ class MyCountryNews extends Component {
     }
 
     let articlesToDisplay = "";
+
     if (this.state.articles) {
-      articlesToDisplay = this.state.articles.map(article => {
+      articlesToDisplay = this.state.articles.map((article, index) => {
         if (
           article.title &&
           article.urlToImage &&
           article.url &&
           article.description &&
-          article.publishedAt
+          article.publishedAt &&
+          this.mountedArticlesCount < this.state.maximumNumberOfViewedArticles
         ) {
+          this.mountedArticlesCount++;
           return (
-            <span style={{ width: window.innerWidth > 800 ? "33%" : "100%" }}>
+            <span
+              key={article.publishedAt}
+              className="MyCountryNews__NewsCardWrapper"
+            >
               <NewsCard
-                key={article.publishedAt}
+                key={article.url}
                 title={article.title}
                 image={article.urlToImage}
                 url={article.url}
@@ -86,7 +99,7 @@ class MyCountryNews extends Component {
             </span>
           );
         } else {
-          return;
+          return null;
         }
       });
     }
