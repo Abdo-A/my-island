@@ -3,6 +3,7 @@ import Home from "../pages/Home/Home";
 import MyDrawings from "../pages/MyDrawings/MyDrawings";
 import MyNotes from "../pages/MyNotes/MyNotes";
 import MyCountryNews from "../pages/MyCountryNews/MyCountryNews";
+import LatestNews from "../pages/LatestNews/LatestNews";
 
 //Pages
 //Note: the Icon property is the name of the SEMANTIC UI alternative icon
@@ -19,7 +20,7 @@ export const pages = [
     name: "latest news!",
     path: "/news",
     icon: "newspaper outline",
-    component: () => "latest news"
+    component: LatestNews
   },
   {
     name: "my country's news",

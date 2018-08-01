@@ -25,7 +25,7 @@ const newsCard = props => {
           style={{
             display: "inline-block",
             height: "400px",
-            margin: "20px",
+            margin: "35px",
             boxShadow: "15px 25px 30px 0px rgba(0,0,0,0.75)"
           }}
         >

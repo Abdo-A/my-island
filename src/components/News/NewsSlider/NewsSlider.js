@@ -3,6 +3,11 @@ import React from "react";
 
 import "./NewsSlider.css";
 
+import {
+  convertISODateToReadableDate,
+  convertUTCDateToLocalDate
+} from "../../../data/universalFunctions/dateRelatedFunctions";
+
 const newsSlider = props => {
   let mountedArticlesInSliderCount = 0;
 
@@ -18,16 +23,22 @@ const newsSlider = props => {
         mountedArticlesInSliderCount < props.maximumNumberOfArticleInSlider
       ) {
         mountedArticlesInSliderCount++;
+        let actualDate = JSON.stringify(
+          convertISODateToReadableDate(
+            convertUTCDateToLocalDate(new Date(article.publishedAt))
+          )
+        ).replace(/"/g, "");
         return (
           <div key={article.url}>
-            <img
-              src={article.urlToImage}
-              className="NewsSlider__Image"
-              alt="news"
-            />
             <a href={article.url} target="_blank">
+              <img
+                src={article.urlToImage}
+                className="NewsSlider__Image"
+                alt="news"
+              />
               <h3 className="NewsSlider__Title">{article.title}</h3>
             </a>
+            <p>{actualDate}</p>
           </div>
         );
       } else {
