@@ -25,6 +25,7 @@ class MainMenu extends Component {
     this.setState(() => ({
       visible: showOrHide === "show" ? true : false
     }));
+    this.props.onMainMenuAction(showOrHide);
   };
 
   handleMenuItemClick = e => {
