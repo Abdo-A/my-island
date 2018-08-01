@@ -22,24 +22,11 @@ const newsSlider = props => {
           <div key={article.url}>
             <img
               src={article.urlToImage}
-              style={{
-                margin: "0 auto",
-                height: "40vh",
-                width: "100%",
-                marginTop: "25px"
-              }}
+              className="NewsSlider__Image"
               alt="news"
             />
             <a href={article.url} target="_blank">
-              <h3
-                style={{
-                  zIndex: "10",
-                  color: "#fff",
-                  marginTop: "5px"
-                }}
-              >
-                {article.title}
-              </h3>
+              <h3 className="NewsSlider__Title">{article.title}</h3>
             </a>
           </div>
         );

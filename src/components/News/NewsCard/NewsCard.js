@@ -22,7 +22,12 @@ const newsCard = props => {
     return (
       <a href={props.url} target="_blank">
         <Card
-          style={{ display: "inline-block", height: "400px", margin: "20px" }}
+          style={{
+            display: "inline-block",
+            height: "400px",
+            margin: "20px",
+            boxShadow: "15px 25px 30px 0px rgba(0,0,0,0.75)"
+          }}
         >
           <Image src={props.image} style={{ width: "280", height: "220px" }} />
           <Card.Content>
