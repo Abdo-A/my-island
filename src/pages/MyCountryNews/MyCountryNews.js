@@ -1,9 +1,8 @@
-import { Spin, Carousel } from "antd";
+import { Spin } from "antd";
 import axios from "axios";
 import React, { Component } from "react";
 
 import { newsApiKey } from "../../data/apiKeys";
-import NewsCard from "../../components/News/NewsCard/NewsCard";
 import NewsCardsCollection from "../../components/News/NewsCardsCollection/NewsCardsCollection";
 import NewsSlider from "../../components/News/NewsSlider/NewsSlider";
 
@@ -17,7 +16,7 @@ class MyCountryNews extends Component {
     newsLanguage: "en",
     newsApiKey: newsApiKey,
     articles: null,
-    numberOfRequestedArticles: 25,
+    numberOfRequestedArticles: 30,
     maximumNumberOfArticleCards: 15,
     maximumNumberOfArticleInSlider: 3
   };
@@ -59,9 +58,6 @@ class MyCountryNews extends Component {
       });
   }
 
-  mountedArticlesInCardsCount = 0;
-  mountedArticlesInSliderCount = 0;
-
   render() {
     let locationIndication = "";
     if (this.state.userCountryName) {
@@ -78,16 +74,9 @@ class MyCountryNews extends Component {
 
     return (
       <div>
-        {/**/}
-        {/*Location indication*/}
-        {/**/}
         <div>
           {locationIndication || <Spin style={{ marginTop: "40px" }} />}
         </div>
-
-        {/**/}
-        {/*Image Slider*/}
-        {/**/}
 
         <div>
           <NewsSlider
@@ -98,12 +87,8 @@ class MyCountryNews extends Component {
           />
         </div>
 
-        {/**/}
-        {/*News Cards*/}
-        {/**/}
-
         {!this.state.articles ? (
-          <Spin style={{ marginTop: "40px" }} />
+          <Spin style={{ marginTop: "80px" }} />
         ) : (
           <NewsCardsCollection
             articles={this.state.articles}
