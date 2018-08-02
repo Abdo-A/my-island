@@ -63,7 +63,7 @@ class MyCountryNews extends Component {
     if (this.state.userCountryName) {
       locationIndication = (
         <h3 className="MyCountryNews__LocationIndication">
-          Latest news from{" "}
+          {" "}
           <strong>
             {this.state.userCityName ? this.state.userCityName + ", " : null}
             {this.state.userCountryName}
@@ -75,7 +75,18 @@ class MyCountryNews extends Component {
     return (
       <div>
         <div>
-          {locationIndication || <Spin style={{ marginTop: "40px" }} />}
+          Latest news in{locationIndication || (
+            <span style={{ marginTop: "30px" }}>
+              ...<Spin style={{ marginLeft: "40px" }} />
+              <br />
+              <br />
+              <br />
+              <h5>
+                (Fetching your city info, if might take a while at the first
+                time)
+              </h5>
+            </span>
+          )}
         </div>
 
         <div>
@@ -88,7 +99,9 @@ class MyCountryNews extends Component {
         </div>
 
         {!this.state.articles ? (
-          <Spin style={{ marginTop: "80px" }} />
+          <Spin
+            style={{ marginTop: window.innerWidth < 800 ? "120px" : "300px" }}
+          />
         ) : (
           <NewsCardsCollection
             articles={this.state.articles}

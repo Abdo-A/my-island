@@ -89,7 +89,11 @@ class MainMenu extends Component {
                   onClick={e => this.handleMenuItemClick(e)}
                 >
                   <Icon name={page.icon} />
-                  <span style={{ textTransform: "capitalize" }}>
+                  <span
+                    style={{
+                      textTransform: "capitalize"
+                    }}
+                  >
                     {page.name}
                   </span>
                 </Menu.Item>

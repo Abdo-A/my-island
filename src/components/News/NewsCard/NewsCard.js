@@ -24,7 +24,7 @@ const newsCard = props => {
         <Card
           style={{
             display: "inline-block",
-            height: "400px",
+            height: "410px",
             margin: "35px",
             boxShadow: "15px 25px 30px 0px rgba(0,0,0,0.75)"
           }}
@@ -41,7 +41,12 @@ const newsCard = props => {
               {props.description.substr(0, 20) + "..."}
             </Card.Description>
           </Card.Content>
-          <Card.Content extra>
+          <Card.Content
+            extra
+            style={{
+              padding: "auto auto"
+            }}
+          >
             <strong>{actualDate}</strong>
           </Card.Content>
         </Card>
