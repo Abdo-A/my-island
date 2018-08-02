@@ -10,8 +10,13 @@ export default class MusicPlayer extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.forcedSong !== this.state.currentSong) {
-      this.Audio.src = songs[nextProps.forcedSong].src;
+    if (
+      nextProps.forcedSong &&
+      nextProps.forcedSong !== this.state.currentSong &&
+      nextProps.forcedSong !== this.props.forcedSong
+    ) {
+      document.getElementById("floatingAudio").src =
+        songs[nextProps.forcedSong].src;
       this.setState(() => ({
         currentSong: nextProps.forcedSong
       }));
@@ -30,7 +35,8 @@ export default class MusicPlayer extends Component {
                 : ""
         }),
         () => {
-          this.Audio.src = songs[this.state.currentSong].src;
+          document.getElementById("floatingAudio").src =
+            songs[this.state.currentSong].src;
         }
       );
   };
@@ -45,12 +51,7 @@ export default class MusicPlayer extends Component {
           <i>{song.singer}</i>
         </strong>
         <br />
-        <audio
-          controls
-          /*autoPlay*/ className=".Audio"
-          ref={aud => (this.Audio = aud)}
-          id="floatingSong"
-        >
+        <audio controls /*autoPlay*/ className=".Audio" id="floatingAudio">
           <source src={song.src} />
           Your browser does not support the audio tag.
         </audio>

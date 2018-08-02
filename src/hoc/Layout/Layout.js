@@ -20,6 +20,7 @@ export default class Layout extends Component {
       <Aux>
         <MainMenu location={this.props.location} />
         <MusicPlayer forcedSong={this.state.forcedSong} />
+        <button onClick={() => this.forcePlaySong("8")}>Force</button>
         <h2>Layout components</h2>
         <main className="container">{this.props.children}</main>
       </Aux>

@@ -20,12 +20,8 @@ const newsCardsCollection = props => {
       ) {
         mountedArticlesInCardsCount++;
         return (
-          <span
-            key={article.publishedAt}
-            className="MyCountryNews__NewsCardWrapper"
-          >
+          <span key={article.url} className="MyCountryNews__NewsCardWrapper">
             <NewsCard
-              key={article.url}
               title={article.title}
               image={article.urlToImage}
               url={article.url}
