@@ -5,12 +5,14 @@ import React, { Component } from "react";
 
 import { pages } from "../../../data/pagesData";
 import Aux from "../../../hoc/Auxe/Auxe";
+import Backdrop from "../../UI/Backdrop/Backdrop";
 
 import "./MainMenu.css";
 
 class MainMenu extends Component {
   state = {
-    visible: true
+    menuVisible: window.innerWidth >= 800 ? true : false,
+    backdropVisible: false
   };
 
   componentDidMount() {
@@ -21,11 +23,11 @@ class MainMenu extends Component {
     });
   }
 
-  handleMainMenuShowAndHideButtonClick = showOrHide => {
+  handleMainMenuShowAndHide = showOrHide => {
     this.setState(() => ({
-      visible: showOrHide === "show" ? true : false
+      menuVisible: showOrHide === "show" ? true : false,
+      backdropVisible: showOrHide === "show" ? true : false
     }));
-    this.props.onMainMenuAction(showOrHide);
   };
 
   handleMenuItemClick = e => {
@@ -38,9 +40,15 @@ class MainMenu extends Component {
   render() {
     return (
       <Aux className="MainMenu">
+        <Backdrop
+          show={this.state.backdropVisible}
+          onClick={() => this.handleMainMenuShowAndHide("hide")}
+          mobileOnly
+        />
+
         <div
           className="MainMenu_ShowMenuButton"
-          onClick={() => this.handleMainMenuShowAndHideButtonClick("show")}
+          onClick={() => this.handleMainMenuShowAndHide("show")}
           style={{ position: "fixed", top: "10px", left: "10px" }}
         >
           <div />
@@ -54,8 +62,9 @@ class MainMenu extends Component {
           icon="labeled"
           inverted
           vertical
-          visible={this.state.visible}
+          visible={this.state.menuVisible}
           width="thin"
+          style={{ zIndex: "200" }}
         >
           <div
             style={{
@@ -66,7 +75,7 @@ class MainMenu extends Component {
           >
             <Icon
               name="close"
-              onClick={() => this.handleMainMenuShowAndHideButtonClick("hide")}
+              onClick={() => this.handleMainMenuShowAndHide("hide")}
               style={{ cursor: "pointer" }}
             />
           </div>
@@ -94,8 +103,7 @@ class MainMenu extends Component {
 }
 
 MainMenu.propTypes = {
-  handleMainMenuShowAndHideButtonClick: PropTypes.func,
-  visible: PropTypes.bool
+  menuVisible: PropTypes.bool
 };
 
 export default MainMenu;

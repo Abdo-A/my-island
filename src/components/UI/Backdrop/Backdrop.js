@@ -1,9 +1,12 @@
 import React from "react";
-import classes from "./Backdrop.css";
+
+import "./Backdrop.css";
 
 const backdrop = props => {
+  let mobileOnly = props.mobileOnly ? "mobileOnly" : "";
+  let classNames = ["Backdrop", mobileOnly];
   return props.show ? (
-    <div className={classes.Backdrop} onClick={props.clicked} />
+    <div className={classNames.join(" ")} onClick={props.onClick} />
   ) : null;
 };
 

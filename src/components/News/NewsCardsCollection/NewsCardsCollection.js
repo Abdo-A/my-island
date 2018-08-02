@@ -16,7 +16,7 @@ const newsCardsCollection = props => {
         article.description &&
         article.publishedAt &&
         mountedArticlesInCardsCount < props.maximumNumberOfArticleCards &&
-        index >= props.maximumNumberOfArticleInSlider
+        index > props.maximumNumberOfArticleInSlider
       ) {
         mountedArticlesInCardsCount++;
         return (

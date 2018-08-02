@@ -76,3 +76,15 @@ body {
   height: 0;
   visibility: hidden;
 }
+
+@media (min-width: 800px) {
+  .mobileOnly {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .desktopOnly {
+    display: none;
+  }
+}
