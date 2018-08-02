@@ -8,20 +8,26 @@ import "./Layout.css";
 
 export default class Layout extends Component {
   state = {
-    forcedSong: null
+    forcedSongOnMusicPlayer: null,
+    showMusicPlayer: true
   };
 
   forcePlaySong = song => {
-    this.setState(() => ({ forcedSong: song }));
+    this.setState(() => ({ forcedSongOnMusicPlayer: song }));
   };
 
   render() {
     return (
       <Aux>
         <MainMenu location={this.props.location} />
-        <MusicPlayer forcedSong={this.state.forcedSong} />
-        <button onClick={() => this.forcePlaySong("8")}>Force</button>
-        <h2>Layout components</h2>
+        <MusicPlayer
+          forcedSong={this.state.forcedSongOnMusicPlayer}
+          show={this.state.showMusicPlayer}
+          autoplay={false}
+        />
+        <h2 style={{ marginTop: this.state.showMusicPlayer ? "23vh" : "" }}>
+          Layout components
+        </h2>
         <main className="container">{this.props.children}</main>
       </Aux>
     );

@@ -8,6 +8,7 @@ import Aux from "../../../hoc/Auxe/Auxe";
 import Backdrop from "../../UI/Backdrop/Backdrop";
 
 import "./MainMenu.css";
+import { MainMenuZIndex } from "../../../data/z-indices";
 
 class MainMenu extends Component {
   state = {
@@ -49,7 +50,12 @@ class MainMenu extends Component {
         <div
           className="MainMenu_ShowMenuButton"
           onClick={() => this.handleMainMenuShowAndHide("show")}
-          style={{ position: "fixed", top: "10px", left: "10px" }}
+          style={{
+            zIndex: MainMenuZIndex,
+            position: "fixed",
+            top: "10px",
+            left: "10px"
+          }}
         >
           <div />
           <div />
@@ -64,7 +70,7 @@ class MainMenu extends Component {
           vertical
           visible={this.state.menuVisible}
           width="thin"
-          style={{ zIndex: "200" }}
+          style={{ zIndex: MainMenuZIndex }}
         >
           <div
             style={{
