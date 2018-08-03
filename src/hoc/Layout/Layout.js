@@ -30,7 +30,7 @@ export default class Layout extends Component {
           forcedSong={this.state.forcedSongOnMusicPlayer}
           show={this.state.showMusicPlayer}
           toggleShow={this.onToggleMusicPlayer}
-          autoplay={true}
+          autoplay={false}
         />
         <h2
           style={{

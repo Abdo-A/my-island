@@ -98,7 +98,7 @@ class MusicPlayer extends Component {
               onClick={() => this.navigateSong("last")}
               disabled={this.state.currentSong === 0}
             >
-              <Icon type="left" />Last
+              <Icon name="backward" />Last
             </Button>
 
             <Popover
@@ -129,23 +129,19 @@ class MusicPlayer extends Component {
             </Popover>
 
             <Button onClick={() => this.navigateSong("next")}>
-              Next<Icon type="right" />
+              Next <Icon name="forward" />
             </Button>
           </div>
         </div>
-        {this.props.screenWidth < maxScreenSizeForHorizontalLyrics ||
-        !this.props.show ? (
-          <Icon
-            name="music"
-            size="big"
-            circular
-            inverted
-            className="MusicPlayer__ToggleIcon"
-            onClick={this.onMusicIconClick}
-          />
-        ) : (
-          ""
-        )}
+
+        <Icon
+          name="music"
+          size="big"
+          circular
+          inverted
+          className="MusicPlayer__ToggleIcon"
+          onClick={this.onMusicIconClick}
+        />
       </div>
     );
   }

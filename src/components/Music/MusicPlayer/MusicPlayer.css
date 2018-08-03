@@ -1,7 +1,7 @@
 .MusicPlayer {
   position: fixed;
   top: 10px;
-  right: 30px;
+  right: 0px;
   text-align: center;
   opacity: 0.6;
   transition: opacity 0.5s ease-in;
@@ -9,6 +9,10 @@
 
 .MusicPlayer:hover {
   opacity: 1;
+}
+
+.MusicPlayer__Body {
+  margin-right: 80px;
 }
 
 .MusicPlayer__LyricsButton {
@@ -58,18 +62,24 @@
     margin-right: auto;
     opacity: 1;
   }
+
   .MusicPlayer__Body {
-    margin-top: 40px;
+    margin-top: 50px;
+    margin-right: 0;
   }
+
   .MusicPlayer__Audio {
     width: 70vw;
   }
+
   .MusicPlayer__LyricsButton {
     position: static;
   }
+
   .ant-popover {
     width: 80vw;
   }
+
   .MusicPlayer__LyricsContainer {
     height: 70vh;
     left: calc(-50vw + 50%);

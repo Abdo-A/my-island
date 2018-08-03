@@ -2,6 +2,7 @@ import { Icon, Menu, Sidebar } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import withSizes from "react-sizes";
 
 import { pages } from "../../../data/pagesData";
 import Aux from "../../../hoc/Auxe/Auxe";
@@ -12,7 +13,7 @@ import { MainMenuZIndex } from "../../../data/z-indices";
 
 class MainMenu extends Component {
   state = {
-    menuVisible: window.innerWidth >= 800 ? true : false,
+    menuVisible: this.props.screenWidth >= 800 ? true : false,
     backdropVisible: false
   };
 
@@ -116,4 +117,8 @@ MainMenu.propTypes = {
   menuVisible: PropTypes.bool
 };
 
-export default MainMenu;
+const mapSizesToProps = ({ width }) => ({
+  screenWidth: width
+});
+
+export default withSizes(mapSizesToProps)(MainMenu);
