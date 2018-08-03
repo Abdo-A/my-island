@@ -29,9 +29,14 @@ export default class Layout extends Component {
         <MusicPlayer
           forcedSong={this.state.forcedSongOnMusicPlayer}
           show={this.state.showMusicPlayer}
+          toggleShow={this.onToggleMusicPlayer}
           autoplay={false}
         />
-        <h2 style={{ marginTop: this.state.showMusicPlayer ? "170px" : "" }}>
+        <h2
+          style={{
+            marginTop: this.state.showMusicPlayer ? "170px" : "20px"
+          }}
+        >
           Layout components
         </h2>
         <main className="container">{this.props.children}</main>

@@ -1,4 +1,5 @@
-import { Popover, Button, Icon } from "antd";
+import { Icon } from "semantic-ui-react";
+import { Popover, Button } from "antd";
 import React, { Component } from "react";
 import withSizes from "react-sizes";
 
@@ -57,6 +58,13 @@ class MusicPlayer extends Component {
     }));
   };
 
+  onMusicIconClick = () => {
+    this.setState(() => ({
+      showLyrics: this.props.screenWidth > 1050 ? true : false
+    }));
+    this.props.toggleShow();
+  };
+
   render() {
     let song = songs[this.state.currentSong];
     return (
@@ -66,60 +74,75 @@ class MusicPlayer extends Component {
           zIndex: MusicPlayerZIndex
         }}
       >
-        <strong className="MusicPlayer__SongInfo">
-          {song.name}
-          {" - "}
-          <i>{song.singer}</i>
-        </strong>
-        <br />
-        <audio
-          controls
-          autoPlay={this.props.autoplay}
-          className="MusicPlayer__Audio"
-          id="floatingAudio"
-        >
-          <source src={song.src} />
-          Your browser does not support the audio tag.
-        </audio>
-        <div>
-          <Button
-            onClick={() => this.navigateSong("last")}
-            disabled={this.state.currentSong === 0}
+        <div style={{ display: this.props.show ? "block" : "none" }}>
+          <strong className="MusicPlayer__SongInfo">
+            {song.name}
+            {" - "}
+            <i>{song.singer}</i>
+          </strong>
+          <br />
+          <audio
+            controls
+            autoPlay={this.props.autoplay}
+            className="MusicPlayer__Audio"
+            id="floatingAudio"
           >
-            <Icon type="left" />Last
-          </Button>
-
-          <Popover
-            placement={
-              this.props.screenWidth > maxScreenSizeForHorizontalLyrics
-                ? "left"
-                : "bottom"
-            }
-            content={
-              <div
-                className="MusicPlayer__LyricsContainer"
-                id="floatingAudioLyricsContainer"
-              >
-                {song.lyrics}
-              </div>
-            }
-            title="Lyrics"
-            trigger="click"
-            visible={this.state.showLyrics}
-          >
+            <source src={song.src} />
+            Your browser does not support the audio tag.
+          </audio>
+          <div>
             <Button
-              type="primary"
-              className="MusicPlayer__LyricsButton"
-              onClick={this.onLyricsToggle}
+              onClick={() => this.navigateSong("last")}
+              disabled={this.state.currentSong === 0}
             >
-              Lyrics
+              <Icon type="left" />Last
             </Button>
-          </Popover>
 
-          <Button onClick={() => this.navigateSong("next")}>
-            Next<Icon type="right" />
-          </Button>
+            <Popover
+              placement={
+                this.props.screenWidth > maxScreenSizeForHorizontalLyrics
+                  ? "left"
+                  : "bottom"
+              }
+              content={
+                <div
+                  className="MusicPlayer__LyricsContainer"
+                  id="floatingAudioLyricsContainer"
+                >
+                  {song.lyrics}
+                </div>
+              }
+              title="Lyrics"
+              trigger="click"
+              visible={this.state.showLyrics}
+            >
+              <Button
+                type="primary"
+                className="MusicPlayer__LyricsButton"
+                onClick={this.onLyricsToggle}
+              >
+                Lyrics
+              </Button>
+            </Popover>
+
+            <Button onClick={() => this.navigateSong("next")}>
+              Next<Icon type="right" />
+            </Button>
+          </div>
         </div>
+        {this.props.screenWidth < maxScreenSizeForHorizontalLyrics ||
+        !this.props.show ? (
+          <Icon
+            name="music"
+            size="big"
+            circular
+            inverted
+            className="MusicPlayer__ToggleIcon"
+            onClick={this.onMusicIconClick}
+          />
+        ) : (
+          ""
+        )}
       </div>
     );
   }

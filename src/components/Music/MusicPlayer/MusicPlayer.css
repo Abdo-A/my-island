@@ -40,6 +40,15 @@
   transform: scale(1.05);
 }
 
+.MusicPlayer__ToggleIcon {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #343638;
+}
+
 @media (max-width: 1050px) {
   .MusicPlayer {
     left: calc(-50vw + 50%);
