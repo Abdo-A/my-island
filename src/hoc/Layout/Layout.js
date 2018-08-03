@@ -12,8 +12,14 @@ export default class Layout extends Component {
     showMusicPlayer: true
   };
 
-  forcePlaySong = song => {
+  onForcePlaySong = song => {
     this.setState(() => ({ forcedSongOnMusicPlayer: song }));
+  };
+
+  onToggleMusicPlayer = () => {
+    this.setState(prevState => ({
+      showMusicPlayer: !prevState.showMusicPlayer
+    }));
   };
 
   render() {
@@ -25,7 +31,7 @@ export default class Layout extends Component {
           show={this.state.showMusicPlayer}
           autoplay={false}
         />
-        <h2 style={{ marginTop: this.state.showMusicPlayer ? "23vh" : "" }}>
+        <h2 style={{ marginTop: this.state.showMusicPlayer ? "170px" : "" }}>
           Layout components
         </h2>
         <main className="container">{this.props.children}</main>

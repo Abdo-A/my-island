@@ -1,4 +1,4 @@
-import { Popover, Button, Icon, Card } from "antd";
+import { Popover, Button, Icon } from "antd";
 import React, { Component } from "react";
 import withSizes from "react-sizes";
 
@@ -7,7 +7,7 @@ import songs from "../../../data/songs/songs";
 
 import "./MusicPlayer.css";
 
-let maxScreenSizeForHorizontalLyrics = 1040;
+let maxScreenSizeForHorizontalLyrics = 1050;
 
 class MusicPlayer extends Component {
   state = {
@@ -44,6 +44,9 @@ class MusicPlayer extends Component {
         () => {
           document.getElementById("floatingAudio").src =
             songs[this.state.currentSong].src;
+          document
+            .getElementById("floatingAudioLyricsContainer")
+            .scrollTo(0, 0);
         }
       );
   };
@@ -63,7 +66,7 @@ class MusicPlayer extends Component {
           zIndex: MusicPlayerZIndex
         }}
       >
-        <strong>
+        <strong className="MusicPlayer__SongInfo">
           {song.name}
           {" - "}
           <i>{song.singer}</i>
@@ -72,7 +75,7 @@ class MusicPlayer extends Component {
         <audio
           controls
           autoPlay={this.props.autoplay}
-          className="Audio"
+          className="MusicPlayer__Audio"
           id="floatingAudio"
         >
           <source src={song.src} />
@@ -85,11 +88,20 @@ class MusicPlayer extends Component {
           >
             <Icon type="left" />Last
           </Button>
-          {/*
+
           <Popover
-            placement={this.props.screenWidth > 1040 ? "left" : "bottom"}
+            placement={
+              this.props.screenWidth > maxScreenSizeForHorizontalLyrics
+                ? "left"
+                : "bottom"
+            }
             content={
-              <div className="MusicPlayer__LyricsContainer">{song.lyrics}</div>
+              <div
+                className="MusicPlayer__LyricsContainer"
+                id="floatingAudioLyricsContainer"
+              >
+                {song.lyrics}
+              </div>
             }
             title="Lyrics"
             trigger="click"
@@ -102,22 +114,7 @@ class MusicPlayer extends Component {
             >
               Lyrics
             </Button>
-          </Popover>*/}
-          <Button
-            type="primary"
-            className="MusicPlayer__LyricsButton"
-            onClick={this.onLyricsToggle}
-          >
-            Lyrics
-          </Button>
-          <Card
-            className="MusicPlayer__LyricsCard"
-            style={{
-              display: this.state.showLyrics ? "block" : "none"
-            }}
-          >
-            <div className="MusicPlayer__LyricsContainer">{song.lyrics}</div>
-          </Card>
+          </Popover>
 
           <Button onClick={() => this.navigateSong("next")}>
             Next<Icon type="right" />
