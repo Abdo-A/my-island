@@ -74,7 +74,10 @@ class MusicPlayer extends Component {
           zIndex: MusicPlayerZIndex
         }}
       >
-        <div style={{ display: this.props.show ? "block" : "none" }}>
+        <div
+          className="MusicPlayer__Body"
+          style={{ display: this.props.show ? "block" : "none" }}
+        >
           <strong className="MusicPlayer__SongInfo">
             {song.name}
             {" - "}
