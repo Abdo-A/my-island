@@ -23,7 +23,7 @@ export default class Home extends Component {
     return (
       <div>
         <div>Home</div>
-        <h3>Welcome to your island, the only place where you can</h3>
+        <h3>Welcome to your island</h3>
       </div>
     );
   }
