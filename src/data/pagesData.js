@@ -4,7 +4,7 @@ import LatestNews from "../pages/LatestNews/LatestNews";
 import MyCountryNews from "../pages/MyCountryNews/MyCountryNews";
 import MyDrawings from "../pages/MyDrawings/MyDrawings";
 import MyNotes from "../pages/MyNotes/MyNotes";
-import TodaysComic from "../pages/TodaysComic/TodaysComic";
+import RandomComic from "../pages/RandomComic/RandomComic";
 
 //Pages
 //Note: the Icon property is the name of the SEMANTIC UI alternative icon
@@ -30,10 +30,10 @@ export const pages = [
     component: MyCountryNews
   },
   {
-    name: "today's comic",
-    path: "/today-comic",
+    name: "random comic",
+    path: "/random-comic",
     icon: "smile",
-    component: TodaysComic
+    component: RandomComic
   },
   {
     name: "events around me",

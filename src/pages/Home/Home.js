@@ -21,22 +21,7 @@ export default class Home extends Component {
   render() {
     return (
       <div>
-        <div>Home</div>
-        <h3>Welcome to your island</h3>
-        <ul>
-          <li>your city's weather</li>today's random quote<li />
-          <li />
-          <li />
-          <li />
-          <li />
-        </ul>
-
-        <Icon
-          name="circle outline"
-          style={{
-            width: "100px"
-          }}
-        />
+        <div />
       </div>
     );
   }

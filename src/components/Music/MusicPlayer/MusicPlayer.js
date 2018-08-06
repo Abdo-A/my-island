@@ -80,7 +80,7 @@ class MusicPlayer extends Component {
         >
           <strong className="MusicPlayer__SongInfo">
             {song.name}
-            {" - "}
+            {this.props.screenWidth < 800 ? <br /> : " - "}
             <i>{song.singer}</i>
           </strong>
           <br />

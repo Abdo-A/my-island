@@ -1,0 +1,20 @@
+.RandomComic__Comic {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.RandomComic__Comic h2,
+.RandomComic__Comic img {
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.RandomComic__LoadNewComicButton {
+  width: 30%;
+}
+
+@media (max-width: 800px) {
+  .RandomComic__Comic img {
+    width: 85vw;
+  }
+}
