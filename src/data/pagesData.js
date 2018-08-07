@@ -18,7 +18,7 @@ export const pages = [
     component: () => "Log in for more music features!"
   },
   {
-    name: "latest news!",
+    name: "latest news",
     path: "/news",
     icon: "newspaper outline",
     component: LatestNews

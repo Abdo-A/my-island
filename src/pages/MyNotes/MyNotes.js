@@ -52,14 +52,9 @@ class MyNotes extends Component {
     };
     let savedNotes = [...this.state.savedNotes];
     savedNotes.unshift(noteToBeSaved);
-    this.setState(
-      () => ({
-        savedNotes: savedNotes
-      }),
-      () => {
-        console.log(this.state.savedNotes);
-      }
-    );
+    this.setState(() => ({
+      savedNotes: savedNotes
+    }));
   };
 
   onDeleteNote = order => {

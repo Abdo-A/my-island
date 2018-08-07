@@ -1,0 +1,129 @@
+.Home__NewsPiecesWrapper {
+  margin-top: 3vh;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.Home__Header {
+  font-weight: bold;
+  height: 40px;
+  line-height: 40px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-bottom: 0;
+}
+
+.Home__NewsPiece {
+  width: 40%;
+}
+
+.Home__NewsPiece__Header__Serious {
+  color: thistle;
+  background-color: rgb(17, 9, 9);
+}
+
+.Home__NewsPiece__Header__Silly {
+  color: rgb(17, 9, 9);
+  background-color: thistle;
+}
+
+.Home__Weather {
+  margin-bottom: 50px;
+}
+
+.Home__Weather__Header {
+  color: seashell;
+  background-color: sienna;
+}
+
+.Home__Quote {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.Home__Quote__Header {
+  color: seashell;
+  background-color: sienna;
+}
+
+.Home__Quote__Quote {
+  font-family: "Lora", serif;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.Home__Quote__Quote p {
+  margin: 0;
+}
+
+.Home__Quote__Text {
+  width: 70%;
+  display: block;
+  margin-bottom: 6%;
+  font-size: 30px;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 85%;
+}
+
+.Home__Quote__Author {
+  font-size: 20px;
+  padding-top: 20px;
+  font-weight: bold;
+}
+
+.Home__Quote__Icon {
+  color: #16b6df;
+  width: 100%;
+}
+
+.Home__Advice {
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+.Home__Advice__Header {
+  color: #cacaca;
+  background-color: #484848;
+}
+
+@media (max-width: 900px) {
+  .Home__NewsPiece {
+    width: initial;
+  }
+  .Home__NewsPiece:nth-child(even) {
+    margin-top: 6vh;
+  }
+
+  .Home__Header {
+    font-size: 15px;
+  }
+
+  .Home__Quote__Text {
+    font-size: 20px;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 85%;
+  }
+
+  .Home__Quote__Author {
+    font-size: 12px;
+  }
+
+  .Home__Advice__Comic {
+    width: 85%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 600px) {
+  .Home__NewsPiece {
+    margin: 0 3vw;
+  }
+}

@@ -7,7 +7,6 @@ const newsCardsCollection = props => {
   let articleCardsToDisplay = "";
   let mountedArticlesInCardsCount = 0;
   if (props.articles) {
-    console.log(props.maximumNumberOfArticleInSlider);
     articleCardsToDisplay = props.articles.map((article, index) => {
       if (
         article.title &&

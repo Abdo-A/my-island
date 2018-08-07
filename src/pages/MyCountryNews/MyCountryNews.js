@@ -45,7 +45,6 @@ class MyCountryNews extends Component {
                 }&apiKey=${this.state.newsApiKey}`
               )
               .then(res => {
-                console.log(res.data.articles);
                 this.setState(() => ({
                   articles: res.data.articles
                 }));

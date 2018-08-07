@@ -35,7 +35,7 @@ export default class Layout extends Component {
         <main
           className="container"
           style={{
-            marginTop: this.state.showMusicPlayer ? "170px" : "20px"
+            marginTop: this.state.showMusicPlayer ? "170px" : "40px"
           }}
         >
           {this.props.children}

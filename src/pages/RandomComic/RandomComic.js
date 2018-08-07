@@ -27,7 +27,7 @@ class RandomComic extends Component {
       for (let key in response.data) {
         comicIdsArray.unshift(response.data[key]);
       }
-      console.log(comicIdsArray[0]);
+      console.log("Comic Id", comicIdsArray[0]);
       let currentComicId = comicIdsArray[0] % 2028;
       this.setState(
         () => ({
