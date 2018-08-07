@@ -156,24 +156,26 @@ export default class Home extends Component {
             <h3 className="Home__Header Home__Weather__Header">
               What's the WEATHER in your city NOW?
             </h3>
-            <div>
-              {this.state.userCityName ? (
-                this.state.userCityName
-              ) : (
-                <Spin style={{ marginTop: "20px", marginBottom: "20px" }} />
-              )}
-            </div>
-            <div>
-              {this.state.userCityWeather ? (
-                <span>Temperature: {this.state.userCityWeather.temp}</span>
-              ) : (
-                <Spin style={{ marginTop: "20px", marginBottom: "20px" }} />
-              )}
-            </div>
-            <div>
-              {this.state.userCityWeather
-                ? this.state.userCityWeather.description
-                : null}
+            <div className="Home__Weather__Parts__Wrapper">
+              <div className="Home__Weather__Part">
+                {this.state.userCityName ? (
+                  this.state.userCityName
+                ) : (
+                  <Spin style={{ margin: "20px" }} />
+                )}
+              </div>
+              <div className="Home__Weather__Part">
+                {this.state.userCityWeather ? (
+                  <span>{this.state.userCityWeather.temp}</span>
+                ) : (
+                  <Spin style={{ margin: "20px" }} />
+                )}
+              </div>
+              <div className="Home__Weather__Part">
+                {this.state.userCityWeather
+                  ? this.state.userCityWeather.description
+                  : null}
+              </div>
             </div>
           </Card>
         </div>

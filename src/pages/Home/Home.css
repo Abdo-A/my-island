@@ -40,6 +40,16 @@
   background-color: sienna;
 }
 
+.Home__Weather__Parts__Wrapper {
+}
+
+.Home__Weather__Part {
+  width: 33%;
+  float: left;
+  display: inline-block;
+  margin: 20px;
+}
+
 .Home__Quote {
   text-align: center;
   margin-bottom: 50px;
@@ -75,6 +85,7 @@
   font-size: 20px;
   padding-top: 20px;
   font-weight: bold;
+  color: #16b6df;
 }
 
 .Home__Quote__Icon {
@@ -88,8 +99,8 @@
 }
 
 .Home__Advice__Header {
-  color: #cacaca;
-  background-color: #484848;
+  color: seashell;
+  background-color: sienna;
 }
 
 @media (max-width: 900px) {

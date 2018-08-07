@@ -1,0 +1,21 @@
+.MyMusic__MusicList {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.MyMusic__MusicItem {
+  cursor: pointer;
+  background-color: #ccc;
+  padding: 10px;
+}
+
+.MyMusic__MusicItem:hover {
+  background-color: #eee;
+  font-weight: bold;
+}
+
+@media (max-width: 900px) {
+  .MyMusic__MusicList {
+    width: 85%;
+  }
+}

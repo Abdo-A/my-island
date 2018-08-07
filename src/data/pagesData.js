@@ -3,6 +3,7 @@ import Home from "../pages/Home/Home";
 import LatestNews from "../pages/LatestNews/LatestNews";
 import MyCountryNews from "../pages/MyCountryNews/MyCountryNews";
 import MyDrawings from "../pages/MyDrawings/MyDrawings";
+import MyMusic from "../pages/MyMusic/MyMusic";
 import MyNotes from "../pages/MyNotes/MyNotes";
 import RandomComic from "../pages/RandomComic/RandomComic";
 
@@ -15,7 +16,7 @@ export const pages = [
     name: "my music",
     path: "/music",
     icon: "itunes note",
-    component: () => "Log in for more music features!"
+    component: MyMusic
   },
   {
     name: "latest news",
@@ -35,12 +36,12 @@ export const pages = [
     icon: "smile",
     component: RandomComic
   },
-  {
-    name: "events around me",
-    path: "/events",
-    icon: "eye",
-    component: Events
-  },
+  // {
+  //   name: "events around me",
+  //   path: "/events",
+  //   icon: "eye",
+  //   component: Events
+  // },
   {
     name: "my notes",
     path: "/notes",
