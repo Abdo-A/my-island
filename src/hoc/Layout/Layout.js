@@ -8,12 +8,7 @@ import "./Layout.css";
 
 export default class Layout extends Component {
   state = {
-    forcedSongOnMusicPlayer: null,
     showMusicPlayer: true
-  };
-
-  onForcePlaySong = song => {
-    this.setState(() => ({ forcedSongOnMusicPlayer: song }));
   };
 
   onToggleMusicPlayer = () => {
@@ -27,7 +22,6 @@ export default class Layout extends Component {
       <Aux>
         <MainMenu location={this.props.location} />
         <MusicPlayer
-          forcedSong={this.state.forcedSongOnMusicPlayer}
           show={this.state.showMusicPlayer}
           toggleShow={this.onToggleMusicPlayer}
           autoplay={false}

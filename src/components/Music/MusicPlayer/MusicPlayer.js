@@ -1,3 +1,4 @@
+import { connect } from "react-redux";
 import { Icon } from "semantic-ui-react";
 import { Popover, Button } from "antd";
 import React, { Component } from "react";
@@ -151,7 +152,15 @@ const mapSizesToProps = ({ width }) => ({
   screenWidth: width
 });
 
-export default withSizes(mapSizesToProps)(MusicPlayer);
+const mapStateToProps = state => {
+  return {
+    forcedSong: state.forcedSongOnMusicPlayer
+  };
+};
+
+export default connect(mapStateToProps)(
+  withSizes(mapSizesToProps)(MusicPlayer)
+);
 
 //navigating through songs in this component depends on the index of the song in the songs array
 //not on the song's id
