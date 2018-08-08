@@ -1,19 +1,18 @@
+import { Icon } from "semantic-ui-react";
+import { Spin, Card } from "antd";
+import { connect } from "react-redux";
 import axios from "axios";
 import React, { Component } from "react";
+import ReactHtmlParser from "react-html-parser";
 
 import { newsApiKey } from "../../data/apiKeys";
 import NewsCard from "../../components/News/NewsCard/NewsCard";
-import ReactHtmlParser from "react-html-parser";
 
 import "./Home.css";
-import { Spin, Card } from "antd";
-import { Icon } from "semantic-ui-react";
+import * as actionTypes from "../../store/actions";
 
-export default class Home extends Component {
+class Home extends Component {
   state = {
-    userCountryName: null,
-    userCountryCode: null,
-    userCityName: null,
     userCityWeather: null,
     seriousNews: null,
     sillyNews: null,
@@ -21,36 +20,33 @@ export default class Home extends Component {
   };
 
   componentDidMount() {
-    //API call to get userCityName
+    //API call to get user location input and save them to the redux store
 
     axios
       .get("https://geoip-db.com/json/")
       .then(res => {
-        this.setState(
-          () => ({
-            userCountryName: res.data.country_name,
-            userCountryCode: res.data.country_code,
-            userCityName: res.data.city
-          }),
-          () => {
-            //API call to get userCityWeather
+        this.props.setUserLocationInfo({
+          userCountryName: res.data.country_name,
+          userCountryCode: res.data.country_code,
+          userCityName: res.data.city
+        });
 
-            axios
-              .get(
-                `http://api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
-                  this.state.userCityName
-                }&units=metric`
-              )
-              .then(res => {
-                this.setState(() => ({
-                  userCityWeather: {
-                    temp: res.data.main.temp,
-                    description: res.data.weather[0].description
-                  }
-                }));
-              });
-          }
-        );
+        //API call to get userCityWeather
+
+        axios
+          .get(
+            `http://api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
+              this.props.userCityName
+            }&units=metric`
+          )
+          .then(res => {
+            this.setState(() => ({
+              userCityWeather: {
+                temp: res.data.main.temp,
+                description: res.data.weather[0].description
+              }
+            }));
+          });
       })
       .catch(err => {
         console.log(err);
@@ -86,7 +82,7 @@ export default class Home extends Component {
         `https://cors.io/?http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&_jsonp=mycallback`
       )
       .then(res => {
-        console.log(JSON.parse(res.data.substring(16, res.data.length - 2)));
+        //console.log(JSON.parse(res.data.substring(16, res.data.length - 2)));
         this.setState(
           () => ({
             quote: JSON.parse(res.data.substring(16, res.data.length - 2))
@@ -158,8 +154,9 @@ export default class Home extends Component {
             </h3>
             <div className="Home__Weather__Parts__Wrapper">
               <div className="Home__Weather__Part">
-                {this.state.userCityName ? (
-                  this.state.userCityName
+                {this.props.test}
+                {this.props.userCityName ? (
+                  this.props.userCityName
                 ) : (
                   <Spin style={{ margin: "20px" }} />
                 )}
@@ -188,7 +185,7 @@ export default class Home extends Component {
             </h3>
             {this.state.quote ? (
               <span>
-                <p className="Home__Quote__Quote">
+                <div className="Home__Quote__Quote">
                   <span className="Home__Quote__Icon">
                     <Icon name="quote left" size="huge" />
                   </span>
@@ -198,10 +195,10 @@ export default class Home extends Component {
                   <span className="Home__Quote__Icon">
                     <Icon name="quote right" size="huge" />
                   </span>
-                  <p className="Home__Quote__Author">
+                  <div className="Home__Quote__Author">
                     {this.state.quote.title}
-                  </p>
-                </p>
+                  </div>
+                </div>
               </span>
             ) : (
               <Spin style={{ marginTop: "50px", marginBottom: "50px" }} />
@@ -226,6 +223,26 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    userCountryName: state.userCountryName,
+    userCountryCode: state.userCountryCode,
+    userCityName: state.userCityName
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setUserLocationInfo: info =>
+      dispatch({ type: actionTypes.SET_USER_LOCATION_INFO, ...info })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
 
 /*
   What's the world serious about now?

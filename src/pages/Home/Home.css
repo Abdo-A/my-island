@@ -47,7 +47,6 @@
   width: 33%;
   float: left;
   display: inline-block;
-  margin: 20px;
 }
 
 .Home__Quote {
@@ -66,15 +65,11 @@
   padding-bottom: 30px;
 }
 
-.Home__Quote__Quote p {
-  margin: 0;
-}
-
 .Home__Quote__Text {
   width: 70%;
   display: block;
   margin-bottom: 6%;
-  font-size: 30px;
+  font-size: 26px;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -86,6 +81,7 @@
   padding-top: 20px;
   font-weight: bold;
   color: #16b6df;
+  margin: 0;
 }
 
 .Home__Quote__Icon {
