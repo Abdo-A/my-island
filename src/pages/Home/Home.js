@@ -20,37 +20,58 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    //API call to get user location input and save them to the redux store
+    //If the user location information is not in the redux store:
 
-    axios
-      .get("https://geoip-db.com/json/")
-      .then(res => {
-        this.props.setUserLocationInfo({
-          userCountryName: res.data.country_name,
-          userCountryCode: res.data.country_code,
-          userCityName: res.data.city
+    if (!this.props.userCountryName)
+      //API call to get user location input and save them to the redux store
+      axios
+        .get("https://geoip-db.com/json/")
+        .then(res => {
+          this.props.setUserLocationInfo({
+            userCountryName: res.data.country_name,
+            userCountryCode: res.data.country_code,
+            userCityName: res.data.city
+          });
+
+          //API call to get userCityWeather
+
+          axios
+            .get(
+              `http://api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
+                this.props.userCityName
+              }&units=metric`
+            )
+            .then(res => {
+              this.setState(() => ({
+                userCityWeather: {
+                  temp: res.data.main.temp,
+                  description: res.data.weather[0].description
+                }
+              }));
+            });
+        })
+        .catch(err => {
+          console.log(err);
         });
 
-        //API call to get userCityWeather
+    //If the user location information is in the redux store:
 
-        axios
-          .get(
-            `http://api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
-              this.props.userCityName
-            }&units=metric`
-          )
-          .then(res => {
-            this.setState(() => ({
-              userCityWeather: {
-                temp: res.data.main.temp,
-                description: res.data.weather[0].description
-              }
-            }));
-          });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (this.props.userCountryName) {
+      axios
+        .get(
+          `http://api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
+            this.props.userCityName
+          }&units=metric`
+        )
+        .then(res => {
+          this.setState(() => ({
+            userCityWeather: {
+              temp: res.data.main.temp,
+              description: res.data.weather[0].description
+            }
+          }));
+        });
+    }
 
     //NewsAPI call for serious news
     axios
