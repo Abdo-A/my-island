@@ -5,21 +5,6 @@ import songs from "../../data/songs/songs";
 
 import "./MyMusic.css";
 
-const data = [
-  {
-    title: "Ant Design Title 1"
-  },
-  {
-    title: "Ant Design Title 2"
-  },
-  {
-    title: "Ant Design Title 3"
-  },
-  {
-    title: "Ant Design Title 4"
-  }
-];
-
 class MyMusic extends Component {
   render() {
     return (

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import React, { Component } from "react";
 
 import { pages } from "./data/pagesData";
@@ -11,22 +11,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={Intro} />
-            <Layout>
-              <Switch>
-                {pages.map(page => (
-                  <Route
-                    path={page.path}
-                    component={page.component}
-                    key={page.path}
-                  />
-                ))}
-              </Switch>
-            </Layout>
-          </Switch>
-        </BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={Intro} />
+          <Layout>
+            <Switch>
+              {pages.map(page => (
+                <Route
+                  path={page.path}
+                  component={page.component}
+                  key={page.path}
+                />
+              ))}
+            </Switch>
+          </Layout>
+        </Switch>
       </div>
     );
   }

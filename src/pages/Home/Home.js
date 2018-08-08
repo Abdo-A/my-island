@@ -218,6 +218,7 @@ export default class Home extends Component {
             <img
               className="Home__Advice__Comic"
               src="http://belikebill.azurewebsites.net/billgen-API.php?default=1"
+              alt="comic"
             />
           </Card>
         </div>

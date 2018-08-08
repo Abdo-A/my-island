@@ -1,4 +1,4 @@
-import Events from "../pages/Events/Events";
+//import Events from "../pages/Events/Events";
 import Home from "../pages/Home/Home";
 import LatestNews from "../pages/LatestNews/LatestNews";
 import MyCountryNews from "../pages/MyCountryNews/MyCountryNews";
