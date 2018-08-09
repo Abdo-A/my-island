@@ -6,13 +6,17 @@ const initialState = {
   userCountryName: null,
   userCountryCode: null,
   userCityName: null,
-  userCityWeather: null
+  userCityWeather: null,
+  seriousNews: null,
+  sillyNews: null,
+  randomComic: null,
+  loadingComic: false
 };
 
 const internetReducer = (state = initialState, action) => {
   switch (action.type) {
     //
-    //Setting user location
+    //LOCATION
     //
     case actionTypes.SET_USER_LOCATION_INFO:
       return {
@@ -23,12 +27,53 @@ const internetReducer = (state = initialState, action) => {
       };
 
     //
-    //Setting user weather
+    //WEATHER
     //
     case actionTypes.SET_USER_WEATHER_INFO:
       return {
         ...state,
         userCityWeather: action.info
+      };
+
+    //
+    //SERIOUS NEWS
+    //
+    case actionTypes.SET_SERIOUS_NEWS:
+      return {
+        ...state,
+        seriousNews: action.news
+      };
+
+    //
+    //SILLY NEWS
+    //
+    case actionTypes.SET_SILLY_NEWS:
+      return {
+        ...state,
+        sillyNews: action.news
+      };
+
+    //
+    //QUOTE
+    //
+    case actionTypes.SET_QUOTE:
+      return {
+        ...state,
+        quote: action.quote
+      };
+
+    //
+    //COMIC
+    //
+    case actionTypes.SET_RANDOM_COMIC:
+      return {
+        ...state,
+        randomComic: action.comic
+      };
+    case actionTypes.SET_LOADING_COMIC:
+      return {
+        ...state,
+        loadingComic: action.loadingComic
       };
 
     default:

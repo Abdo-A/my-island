@@ -1,5 +1,7 @@
-import * as actionTypes from "./actionTypes";
 import axios from "axios";
+
+import { newsApiKey } from "../../data/apiKeys";
+import * as actionTypes from "./actionTypes";
 
 ///////////////////////////////////////REQUEST LOCATION///////////////////////////////////////////////
 //
@@ -9,7 +11,6 @@ import axios from "axios";
 //
 /*1*/ export const requestUserLocationInfo = () => {
   return dispatch => {
-    console.log("requestUserLocationInfo from redux");
     axios
       .get("https://geoip-db.com/json/")
       .then(res => {
@@ -32,9 +33,7 @@ import axios from "axios";
 //Setting user location info
 //
 //
-/*2*/ export const setUserLocationInfo = info => {
-  console.log("setUserLocationInfo from redux");
-
+/*2*/ const setUserLocationInfo = info => {
   return {
     type: actionTypes.SET_USER_LOCATION_INFO,
     ...info
@@ -69,9 +68,7 @@ import axios from "axios";
 //Setting weather for user city
 //
 //
-/*2*/ export const setUserWeatherInfo = info => {
-  console.log("setUserWeatherInfo from redux");
-
+/*2*/ const setUserWeatherInfo = info => {
   return {
     type: actionTypes.SET_USER_WEATHER_INFO,
     info: info
@@ -115,5 +112,165 @@ export const requestUserLocationInfoAndRequestUserWeatherInfo = () => {
       .catch(err => {
         console.log(err);
       });
+  };
+};
+
+///////////////////////////////////////REQUEST SERIOUS NEWS///////////////////////////////////////////////
+
+//
+//
+//Requesting serious news
+//
+//
+/*1*/ export const requestSeriousNews = () => {
+  return dispatch => {
+    axios
+      .get(
+        `https://newsapi.org/v2/top-headlines?sources=abc-news,bbc-news,google-news,business-insider&language=en&apiKey=${newsApiKey}`
+      )
+      .then(res => {
+        dispatch(setSeriousNews(res.data.articles[0]));
+      })
+
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
+
+//
+//
+//Setting serious news
+//
+//
+/*2*/ const setSeriousNews = info => {
+  return {
+    type: actionTypes.SET_SERIOUS_NEWS,
+    news: info
+  };
+};
+
+///////////////////////////////////////REQUEST SILLY NEWS///////////////////////////////////////////////
+
+//
+//
+//Requesting silly news
+//
+//
+/*1*/ export const requestSillyNews = () => {
+  return dispatch => {
+    axios
+      .get(
+        `https://newsapi.org/v2/everything?sources=buzzfeed&language=en&apiKey=${newsApiKey}`
+      )
+      .then(res => {
+        dispatch(setSillyNews(res.data.articles[0]));
+      })
+
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
+
+//
+//
+//Setting silly news
+//
+//
+/*2*/ const setSillyNews = info => {
+  return {
+    type: actionTypes.SET_SILLY_NEWS,
+    news: info
+  };
+};
+
+///////////////////////////////////////REQUEST QUOTE///////////////////////////////////////////////
+
+//
+//
+//Requesting quote
+//
+//
+/*1*/ export const requestQuote = () => {
+  return dispatch => {
+    axios
+      .get(
+        `https://cors.io/?http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&_jsonp=mycallback`
+      )
+      .then(res => {
+        const quote = JSON.parse(res.data.substring(16, res.data.length - 2));
+        dispatch(setQuote(quote));
+      })
+
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
+
+//
+//
+//Setting quote
+//
+//
+/*2*/ const setQuote = info => {
+  return {
+    type: actionTypes.SET_QUOTE,
+    quote: info
+  };
+};
+
+///////////////////////////////////////REQUEST RANDOM COMIC///////////////////////////////////////////////
+
+//
+//
+//Requesting random comic
+//
+//
+/*1*/ export const requestComic = () => {
+  return dispatch => {
+    dispatch(setLoadingComic(true));
+
+    const randomNumber = Math.floor(Math.random() * 2028) + 26;
+
+    axios
+      .get(`https://cors.io/?https://xkcd.com/${randomNumber}/info.0.json`)
+      .then(response => {
+        let comic = {
+          title: response.data.title,
+          text: response.data.transcript,
+          alt: response.data.alt,
+          img: response.data.img
+        };
+
+        dispatch(setComic(comic));
+
+        dispatch(setLoadingComic(false));
+      });
+  };
+};
+
+//
+//
+//Setting random comic
+//
+//
+/*2*/ const setComic = info => {
+  return {
+    type: actionTypes.SET_RANDOM_COMIC,
+    comic: info
+  };
+};
+
+//
+//
+//Setting loading comic
+//
+//
+/*3*/ const setLoadingComic = info => {
+  return {
+    type: actionTypes.SET_LOADING_COMIC,
+    loadingComic: info //true or false
   };
 };

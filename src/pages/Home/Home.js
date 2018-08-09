@@ -21,6 +21,11 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    this.props.requestUserLocationInfoAndRequestUserWeatherInfo();
+    this.props.requestSeriousNews();
+    this.props.requestSillyNews();
+    this.props.requestQuote();
+
     // //If the user location information is not in the redux store:
 
     // if (!this.props.userCountryName)
@@ -74,74 +79,67 @@ class Home extends Component {
     //     });
     // }
 
-    this.props.requestUserLocationAndWeatherInfo();
+    // //NewsAPI call for serious news
+    // axios
+    //   .get(
+    //     `https://newsapi.org/v2/top-headlines?sources=abc-news,bbc-news,google-news,business-insider&language=en&apiKey=${newsApiKey}`
+    //   )
+    //   .then(res => {
+    //     this.setState(() => ({
+    //       seriousNews: res.data.articles[0]
+    //     }));
+    //   })
+    //   .catch(error => console.log(error));
 
-    //NewsAPI call for serious news
-    axios
-      .get(
-        `https://newsapi.org/v2/top-headlines?sources=abc-news,bbc-news,google-news,business-insider&language=en&apiKey=${newsApiKey}`
-      )
-      .then(res => {
-        this.setState(() => ({
-          seriousNews: res.data.articles[0]
-        }));
-      })
-      .catch(error => console.log(error));
-
-    //NewsAPI call for silly news
-    axios
-      .get(
-        `https://newsapi.org/v2/everything?sources=buzzfeed&language=en&apiKey=${newsApiKey}`
-      )
-      .then(res => {
-        this.setState(() => ({
-          sillyNews: res.data.articles[0]
-        }));
-      })
-      .catch(error => console.log(error));
+    // //NewsAPI call for silly news
+    // axios
+    //   .get(
+    //     `https://newsapi.org/v2/everything?sources=buzzfeed&language=en&apiKey=${newsApiKey}`
+    //   )
+    //   .then(res => {
+    //     this.setState(() => ({
+    //       sillyNews: res.data.articles[0]
+    //     }));
+    //   })
+    //   .catch(error => console.log(error));
 
     //API call for the quote
-    axios
-      .get(
-        `https://cors.io/?http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&_jsonp=mycallback`
-      )
-      .then(res => {
-        //console.log(JSON.parse(res.data.substring(16, res.data.length - 2)));
-        this.setState(
-          () => ({
-            quote: JSON.parse(res.data.substring(16, res.data.length - 2))
-          }),
-          () => {
-            //console.log("quote", this.state.quote);
-          }
-        );
-      })
-      .catch(error => console.log(error));
+    // axios
+    //   .get(
+    //     `https://cors.io/?http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&_jsonp=mycallback`
+    //   )
+    //   .then(res => {
+    //     //console.log(JSON.parse(res.data.substring(16, res.data.length - 2)));
+    //     this.setState(() => ({
+    //       quote: JSON.parse(res.data.substring(16, res.data.length - 2))
+    //     }));
+    //   })
+    //   .catch(error => console.log(error));
   }
 
   render() {
     let seriousNews = <Spin style={{ marginTop: "100px" }} />;
     let sillyNews = <Spin style={{ marginTop: "100px" }} />;
 
-    if (this.state.seriousNews) {
+    if (this.props.seriousNews) {
       seriousNews = (
         <NewsCard
-          title={this.state.seriousNews.title}
-          image={this.state.seriousNews.urlToImage}
-          url={this.state.seriousNews.url}
-          description={this.state.seriousNews.description}
+          title={this.props.seriousNews.title}
+          image={this.props.seriousNews.urlToImage}
+          url={this.props.seriousNews.url}
+          description={this.props.seriousNews.description}
           noMargin
         />
       );
     }
 
-    if (this.state.sillyNews) {
+    if (this.props.sillyNews) {
       sillyNews = (
         <NewsCard
-          title={this.state.sillyNews.title}
-          image={this.state.sillyNews.urlToImage}
-          url={this.state.sillyNews.url}
-          description={this.state.sillyNews.description}
+          title={this.props.sillyNews.title}
+          image={this.props.sillyNews.urlToImage}
+          url={this.props.sillyNews.url}
+          description={this.props.sillyNews.description}
           noMargin
         />
       );
@@ -207,20 +205,20 @@ class Home extends Component {
             <h3 className="Home__Header Home__Quote__Header">
               What's today's most valuable saying?
             </h3>
-            {this.state.quote ? (
+            {this.props.quote ? (
               <span>
                 <div className="Home__Quote__Quote">
                   <span className="Home__Quote__Icon">
                     <Icon name="quote left" size="huge" />
                   </span>
                   <span className="Home__Quote__Text">
-                    {ReactHtmlParser(this.state.quote.content)}
+                    {ReactHtmlParser(this.props.quote.content)}
                   </span>
                   <span className="Home__Quote__Icon">
                     <Icon name="quote right" size="huge" />
                   </span>
                   <div className="Home__Quote__Author">
-                    {this.state.quote.title}
+                    {this.props.quote.title}
                   </div>
                 </div>
               </span>
@@ -253,14 +251,20 @@ const mapStateToProps = state => {
     userCountryName: state.internet.userCountryName,
     userCountryCode: state.internet.userCountryCode,
     userCityName: state.internet.userCityName,
-    userCityWeather: state.internet.userCityWeather
+    userCityWeather: state.internet.userCityWeather,
+    seriousNews: state.internet.seriousNews,
+    sillyNews: state.internet.sillyNews,
+    quote: state.internet.quote
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    requestUserLocationAndWeatherInfo: () =>
-      dispatch(actions.requestUserLocationInfoAndRequestUserWeatherInfo())
+    requestUserLocationInfoAndRequestUserWeatherInfo: () =>
+      dispatch(actions.requestUserLocationInfoAndRequestUserWeatherInfo()),
+    requestSeriousNews: () => dispatch(actions.requestSeriousNews()),
+    requestSillyNews: () => dispatch(actions.requestSillyNews()),
+    requestQuote: () => dispatch(actions.requestQuote())
   };
 };
 
