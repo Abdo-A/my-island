@@ -37,7 +37,7 @@ class Home extends Component {
 
           axios
             .get(
-              `http://api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
+              `//api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
                 this.props.userCityName
               }&units=metric`
             )
@@ -59,7 +59,7 @@ class Home extends Component {
     if (this.props.userCountryName) {
       axios
         .get(
-          `http://api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
+          `//api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
             this.props.userCityName
           }&units=metric`
         )
