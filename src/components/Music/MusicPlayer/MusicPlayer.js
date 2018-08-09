@@ -99,7 +99,8 @@ class MusicPlayer extends Component {
               onClick={() => this.navigateSong("last")}
               disabled={this.state.currentSong === 0}
             >
-              <Icon name="backward" />Last
+              <Icon name="backward" />
+              Last
             </Button>
 
             <Popover
@@ -154,7 +155,7 @@ const mapSizesToProps = ({ width }) => ({
 
 const mapStateToProps = state => {
   return {
-    forcedSong: state.forcedSongOnMusicPlayer
+    forcedSong: state.basic.forcedSongOnMusicPlayer
   };
 };
 

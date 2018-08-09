@@ -1,8 +1,9 @@
-import { List, Avatar } from "antd";
 import { connect } from "react-redux";
+import { List, Avatar } from "antd";
 import React, { Component } from "react";
 
-import * as actionTypes from "../../store/actions";
+import * as actions from "../../store/actions/index";
+import * as actionTypes from "../../store/actions/actionTypes";
 import songs from "../../data/songs/songs";
 
 import "./MyMusic.css";
@@ -41,10 +42,7 @@ class MyMusic extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     forceSongOnMusicPlayer: index =>
-      dispatch({
-        type: actionTypes.SET_FORCED_SONG_ON_MUSIC_PLAYER,
-        songIndex: index
-      })
+      dispatch(actions.setForcedSongOnMusicPlayer(index))
   };
 };
 

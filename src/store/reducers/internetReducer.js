@@ -1,14 +1,19 @@
-import * as actionTypes from "./actions";
+//It is the reducer that has the states that needs api requests
+
+import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   userCountryName: null,
   userCountryCode: null,
   userCityName: null,
-  forcedSongOnMusicPlayer: null
+  userCityWeather: null
 };
 
-const reducer = (state = initialState, action) => {
+const internetReducer = (state = initialState, action) => {
   switch (action.type) {
+    //
+    //Setting user location
+    //
     case actionTypes.SET_USER_LOCATION_INFO:
       return {
         ...state,
@@ -17,10 +22,13 @@ const reducer = (state = initialState, action) => {
         userCityName: action.userCityName
       };
 
-    case actionTypes.SET_FORCED_SONG_ON_MUSIC_PLAYER:
+    //
+    //Setting user weather
+    //
+    case actionTypes.SET_USER_WEATHER_INFO:
       return {
         ...state,
-        forcedSongOnMusicPlayer: action.songIndex
+        userCityWeather: action.info
       };
 
     default:
@@ -28,4 +36,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default internetReducer;

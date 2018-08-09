@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { Component } from "react";
 
 import { newsApiKey } from "../../data/apiKeys";
-import * as actionTypes from "../../store/actions";
+import * as actionTypes from "../../store/actions/actionTypes";
 import NewsCardsCollection from "../../components/News/NewsCardsCollection/NewsCardsCollection";
 import NewsSlider from "../../components/News/NewsSlider/NewsSlider";
 
@@ -94,9 +94,11 @@ class MyCountryNews extends Component {
     return (
       <div>
         <div>
-          Latest news in{locationIndication || (
+          Latest news in
+          {locationIndication || (
             <span style={{ marginTop: "30px" }}>
-              ...<Spin style={{ marginLeft: "40px" }} />
+              ...
+              <Spin style={{ marginLeft: "40px" }} />
               <br />
               <br />
               <br />
@@ -143,9 +145,9 @@ class MyCountryNews extends Component {
 
 const mapStateToProps = state => {
   return {
-    userCountryName: state.userCountryName,
-    userCountryCode: state.userCountryCode,
-    userCityName: state.userCityName
+    userCountryName: state.internet.userCountryName,
+    userCountryCode: state.internet.userCountryCode,
+    userCityName: state.internet.userCityName
   };
 };
 

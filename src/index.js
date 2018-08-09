@@ -1,16 +1,25 @@
 import { BrowserRouter } from "react-router-dom";
-import { createStore } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom";
 
 import App from "./App";
-import reducer from "./store/reducer";
+import basicReducer from "./store/reducers/basicReducer";
+import internetReducer from "./store/reducers/internetReducer";
 import registerServiceWorker from "./registerServiceWorker";
 
 import "./index.css";
+import thunk from "redux-thunk";
 
-const store = createStore(reducer);
+const reducer = combineReducers({
+  basic: basicReducer,
+  internet: internetReducer
+});
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,15 +1,16 @@
+import { connect } from "react-redux";
 import { Icon } from "semantic-ui-react";
 import { Spin, Card } from "antd";
-import { connect } from "react-redux";
 import axios from "axios";
 import React, { Component } from "react";
 import ReactHtmlParser from "react-html-parser";
 
 import { newsApiKey } from "../../data/apiKeys";
+import * as actionTypes from "../../store/actions/actionTypes";
 import NewsCard from "../../components/News/NewsCard/NewsCard";
 
 import "./Home.css";
-import * as actionTypes from "../../store/actions";
+import * as actions from "../../store/actions/index";
 
 class Home extends Component {
   state = {
@@ -20,58 +21,60 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    //If the user location information is not in the redux store:
+    // //If the user location information is not in the redux store:
 
-    if (!this.props.userCountryName)
-      //API call to get user location input and save them to the redux store
-      axios
-        .get("https://geoip-db.com/json/")
-        .then(res => {
-          this.props.setUserLocationInfo({
-            userCountryName: res.data.country_name,
-            userCountryCode: res.data.country_code,
-            userCityName: res.data.city
-          });
+    // if (!this.props.userCountryName)
+    //   //API call to get user location input and save them to the redux store
+    //   axios
+    //     .get("https://geoip-db.com/json/")
+    //     .then(res => {
+    //       this.props.setUserLocationInfo({
+    //         userCountryName: res.data.country_name,
+    //         userCountryCode: res.data.country_code,
+    //         userCityName: res.data.city
+    //       });
 
-          //API call to get userCityWeather
+    //       //API call to get userCityWeather
 
-          axios
-            .get(
-              `//api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
-                this.props.userCityName
-              }&units=metric`
-            )
-            .then(res => {
-              this.setState(() => ({
-                userCityWeather: {
-                  temp: res.data.main.temp,
-                  description: res.data.weather[0].description
-                }
-              }));
-            });
-        })
-        .catch(err => {
-          console.log(err);
-        });
+    //       axios
+    //         .get(
+    //           `//api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
+    //             this.props.userCityName
+    //           }&units=metric`
+    //         )
+    //         .then(res => {
+    //           this.setState(() => ({
+    //             userCityWeather: {
+    //               temp: res.data.main.temp,
+    //               description: res.data.weather[0].description
+    //             }
+    //           }));
+    //         });
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
 
-    //If the user location information is in the redux store:
+    // //If the user location information is in the redux store:
 
-    if (this.props.userCountryName) {
-      axios
-        .get(
-          `//api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
-            this.props.userCityName
-          }&units=metric`
-        )
-        .then(res => {
-          this.setState(() => ({
-            userCityWeather: {
-              temp: res.data.main.temp,
-              description: res.data.weather[0].description
-            }
-          }));
-        });
-    }
+    // if (this.props.userCountryName) {
+    //   axios
+    //     .get(
+    //       `//api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
+    //         this.props.userCityName
+    //       }&units=metric`
+    //     )
+    //     .then(res => {
+    //       this.setState(() => ({
+    //         userCityWeather: {
+    //           temp: res.data.main.temp,
+    //           description: res.data.weather[0].description
+    //         }
+    //       }));
+    //     });
+    // }
+
+    this.props.requestUserLocationAndWeatherInfo();
 
     //NewsAPI call for serious news
     axios
@@ -183,15 +186,15 @@ class Home extends Component {
                 )}
               </div>
               <div className="Home__Weather__Part">
-                {this.state.userCityWeather ? (
-                  <span>{this.state.userCityWeather.temp}</span>
+                {this.props.userCityWeather ? (
+                  <span>{this.props.userCityWeather.temp}</span>
                 ) : (
                   <Spin style={{ margin: "20px" }} />
                 )}
               </div>
               <div className="Home__Weather__Part">
-                {this.state.userCityWeather
-                  ? this.state.userCityWeather.description
+                {this.props.userCityWeather
+                  ? this.props.userCityWeather.description
                   : null}
               </div>
             </div>
@@ -247,16 +250,17 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    userCountryName: state.userCountryName,
-    userCountryCode: state.userCountryCode,
-    userCityName: state.userCityName
+    userCountryName: state.internet.userCountryName,
+    userCountryCode: state.internet.userCountryCode,
+    userCityName: state.internet.userCityName,
+    userCityWeather: state.internet.userCityWeather
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    setUserLocationInfo: info =>
-      dispatch({ type: actionTypes.SET_USER_LOCATION_INFO, ...info })
+    requestUserLocationAndWeatherInfo: () =>
+      dispatch(actions.requestUserLocationInfoAndRequestUserWeatherInfo())
   };
 };
 
