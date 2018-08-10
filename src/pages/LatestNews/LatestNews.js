@@ -15,7 +15,8 @@ class LatestNews extends Component {
   };
 
   componentDidMount() {
-    this.props.requestLatestNews();
+    if (this.props.numberOfMassiveAPIRequests === 0)
+      this.props.requestEverythingFromInternet();
   }
 
   render() {
@@ -48,13 +49,15 @@ class LatestNews extends Component {
 
 const mapStateToProps = state => {
   return {
-    articles: state.internet.latestNews
+    articles: state.internet.latestNews,
+    numberOfMassiveAPIRequests: state.internet.numberOfMassiveAPIRequests
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    requestLatestNews: () => dispatch(actions.requestLatestNews())
+    requestEverythingFromInternet: () =>
+      dispatch(actions.requestEverythingFromInternet())
   };
 };
 

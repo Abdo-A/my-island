@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/index";
 
-export default class Intro extends Component {
+class Intro extends Component {
+  componentDidMount() {
+    if (this.props.numberOfMassiveAPIRequests === 0)
+      this.props.requestEverythingFromInternet();
+  }
   render() {
     return (
       <div>
@@ -16,3 +22,21 @@ export default class Intro extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    numberOfMassiveAPIRequests: state.internet.numberOfMassiveAPIRequests
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    requestEverythingFromInternet: () =>
+      dispatch(actions.requestEverythingFromInternet())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Intro);

@@ -43,8 +43,8 @@ const songs = [
   },
   {
     id: 6,
-    name: "Ed Sheeran",
-    singer: "The A Team",
+    name: "The A Team",
+    singer: "Ed Sheeran",
     src:
       "https://vocaroo.com/media_command.php?media=s0O3sFgpuOi0&command=download_mp3",
     lyrics: getLyrics(6)

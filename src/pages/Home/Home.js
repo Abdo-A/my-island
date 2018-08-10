@@ -11,10 +11,8 @@ import * as actions from "../../store/actions/index";
 
 class Home extends Component {
   componentDidMount() {
-    this.props.requestUserLocationInfoAndRequestUserWeatherInfo();
-    this.props.requestSeriousNews();
-    this.props.requestSillyNews();
-    this.props.requestQuote();
+    if (this.props.numberOfMassiveAPIRequests === 0)
+      this.props.requestEverythingFromInternet();
   }
 
   render() {
@@ -154,17 +152,15 @@ const mapStateToProps = state => {
     userCityWeather: state.internet.userCityWeather,
     seriousNews: state.internet.seriousNews,
     sillyNews: state.internet.sillyNews,
-    quote: state.internet.quote
+    quote: state.internet.quote,
+    numberOfMassiveAPIRequests: state.internet.numberOfMassiveAPIRequests
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    requestUserLocationInfoAndRequestUserWeatherInfo: () =>
-      dispatch(actions.requestUserLocationInfoAndRequestUserWeatherInfo()),
-    requestSeriousNews: () => dispatch(actions.requestSeriousNews()),
-    requestSillyNews: () => dispatch(actions.requestSillyNews()),
-    requestQuote: () => dispatch(actions.requestQuote())
+    requestEverythingFromInternet: () =>
+      dispatch(actions.requestEverythingFromInternet())
   };
 };
 

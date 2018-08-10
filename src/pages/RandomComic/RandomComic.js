@@ -8,7 +8,8 @@ import * as actions from "../../store/actions/index";
 
 class RandomComic extends Component {
   componentDidMount() {
-    this.getNewComic();
+    if (this.props.numberOfMassiveAPIRequests === 0)
+      this.props.requestEverythingFromInternet();
   }
 
   getNewComic = () => {
@@ -47,13 +48,16 @@ class RandomComic extends Component {
 const mapStateToProps = state => {
   return {
     comic: state.internet.randomComic,
-    loadingComic: state.internet.loadingComic
+    loadingComic: state.internet.loadingComic,
+    numberOfMassiveAPIRequests: state.internet.numberOfMassiveAPIRequests
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    requestComic: () => dispatch(actions.requestComic())
+    requestComic: () => dispatch(actions.requestComic()),
+    requestEverythingFromInternet: () =>
+      dispatch(actions.requestEverythingFromInternet())
   };
 };
 

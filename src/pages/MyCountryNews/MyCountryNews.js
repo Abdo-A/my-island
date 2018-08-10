@@ -15,7 +15,8 @@ class MyCountryNews extends Component {
   };
 
   componentDidMount() {
-    this.props.requestUserLocationInfoAndRequestMyCountryNews();
+    if (this.props.numberOfMassiveAPIRequests === 0)
+      this.props.requestEverythingFromInternet();
   }
 
   render() {
@@ -88,14 +89,15 @@ const mapStateToProps = state => {
   return {
     userCountryName: state.internet.userCountryName,
     userCityName: state.internet.userCityName,
-    articles: state.internet.myCountryNews
+    articles: state.internet.myCountryNews,
+    numberOfMassiveAPIRequests: state.internet.numberOfMassiveAPIRequests
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    requestUserLocationInfoAndRequestMyCountryNews: () =>
-      dispatch(actions.requestUserLocationInfoAndRequestMyCountryNews())
+    requestEverythingFromInternet: () =>
+      dispatch(actions.requestEverythingFromInternet())
   };
 };
 

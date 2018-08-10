@@ -3,6 +3,7 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
+  numberOfMassiveAPIRequests: 0,
   userCountryName: null,
   userCountryCode: null,
   userCityName: null,
@@ -94,6 +95,15 @@ const internetReducer = (state = initialState, action) => {
       return {
         ...state,
         myCountryNews: action.news
+      };
+
+    //
+    //MyCountry NEWS
+    //
+    case actionTypes.INCREMENT_MASSIVE_REQUESTS_COUNT:
+      return {
+        ...state,
+        numberOfMassiveAPIRequests: state.numberOfMassiveAPIRequests + 1
       };
 
     default:
