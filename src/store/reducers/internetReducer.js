@@ -10,7 +10,9 @@ const initialState = {
   seriousNews: null,
   sillyNews: null,
   randomComic: null,
-  loadingComic: false
+  loadingComic: false,
+  latestNews: null,
+  myCountryNews: null
 };
 
 const internetReducer = (state = initialState, action) => {
@@ -74,6 +76,24 @@ const internetReducer = (state = initialState, action) => {
       return {
         ...state,
         loadingComic: action.loadingComic
+      };
+
+    //
+    //LATEST NEWS
+    //
+    case actionTypes.SET_LATEST_NEWS:
+      return {
+        ...state,
+        latestNews: action.news
+      };
+
+    //
+    //MyCountry NEWS
+    //
+    case actionTypes.SET_MYCOUNTRY_NEWS:
+      return {
+        ...state,
+        myCountryNews: action.news
       };
 
     default:

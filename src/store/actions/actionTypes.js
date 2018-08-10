@@ -16,3 +16,7 @@ export const SET_QUOTE = "SET_QUOTE";
 export const SET_RANDOM_COMIC = "SET_RANDOM_COMIC";
 
 export const SET_LOADING_COMIC = "SET_LOADING_COMIC";
+
+export const SET_LATEST_NEWS = "SET_LATEST_NEWS";
+
+export const SET_MYCOUNTRY_NEWS = "SET_MYCOUNTRY_NEWS";
