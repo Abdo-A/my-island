@@ -1,9 +1,7 @@
 import { connect } from "react-redux";
 import { Spin } from "antd";
-import axios from "axios";
 import React, { Component } from "react";
 
-import { newsApiKey } from "../../data/apiKeys";
 import * as actions from "../../store/actions/index";
 import NewsCardsCollection from "../../components/News/NewsCardsCollection/NewsCardsCollection";
 import NewsSlider from "../../components/News/NewsSlider/NewsSlider";
@@ -18,18 +16,6 @@ class LatestNews extends Component {
 
   componentDidMount() {
     this.props.requestLatestNews();
-    // axios
-    //   .get(
-    //     `https://newsapi.org/v2/top-headlines?language=en&apiKey=${
-    //       this.state.newsApiKey
-    //     }`
-    //   )
-    //   .then(res => {
-    //     this.setState(() => ({
-    //       articles: res.data.articles
-    //     }));
-    //   })
-    //   .catch(error => error);
   }
 
   render() {

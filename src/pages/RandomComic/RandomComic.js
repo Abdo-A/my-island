@@ -1,72 +1,18 @@
 import { Button } from "semantic-ui-react";
 import { Spin } from "antd";
-import axios from "axios";
 import React, { Component } from "react";
-
-import axiosDatabase from "../../axios";
 
 import "./RandomComic.css";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 
 class RandomComic extends Component {
-  state = {
-    comicId: null,
-    comic: null,
-    loadingComic: false
-  };
-
   componentDidMount() {
     this.getNewComic();
   }
 
   getNewComic = () => {
     this.props.requestComic();
-    // this.setState(() => ({
-    //   loadingComic: true
-    // }));
-    // axiosDatabase.get("/randomcomicid.json/").then(response => {
-    //   const comicIdsArray = [];
-    //   for (let key in response.data) {
-    //     comicIdsArray.unshift(response.data[key]);
-    //   }
-    //   console.log("Comic Id", comicIdsArray[0]);
-    //   let currentComicId = comicIdsArray[0] % 2028;
-    //   this.setState(
-    //     () => ({
-    //       comicId: currentComicId
-    //     }),
-    //     () => {
-    //       axios
-    //         .get(
-    //           `https://cors.io/?https://xkcd.com/${
-    //             this.state.comicId
-    //           }/info.0.json`
-    //         )
-    //         .then(response => {
-    //           let comic = {
-    //             title: response.data.title,
-    //             text: response.data.transcript,
-    //             alt: response.data.alt,
-    //             img: response.data.img
-    //           };
-    //           this.setState(
-    //             () => ({
-    //               comic: comic
-    //             }),
-    //             () => {
-    //               this.setState(() => ({
-    //                 loadingComic: false
-    //               }));
-    //               axiosDatabase
-    //                 .post("/randomcomicid.json", this.state.comicId + 1)
-    //                 .then(respose => {});
-    //             }
-    //           );
-    //         });
-    //     }
-    //   );
-    // });
   };
   render() {
     let comic = null;

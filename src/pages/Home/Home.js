@@ -1,120 +1,20 @@
 import { connect } from "react-redux";
 import { Icon } from "semantic-ui-react";
 import { Spin, Card } from "antd";
-import axios from "axios";
 import React, { Component } from "react";
 import ReactHtmlParser from "react-html-parser";
 
-import { newsApiKey } from "../../data/apiKeys";
-import * as actionTypes from "../../store/actions/actionTypes";
 import NewsCard from "../../components/News/NewsCard/NewsCard";
 
 import "./Home.css";
 import * as actions from "../../store/actions/index";
 
 class Home extends Component {
-  state = {
-    userCityWeather: null,
-    seriousNews: null,
-    sillyNews: null,
-    quote: null
-  };
-
   componentDidMount() {
     this.props.requestUserLocationInfoAndRequestUserWeatherInfo();
     this.props.requestSeriousNews();
     this.props.requestSillyNews();
     this.props.requestQuote();
-
-    // //If the user location information is not in the redux store:
-
-    // if (!this.props.userCountryName)
-    //   //API call to get user location input and save them to the redux store
-    //   axios
-    //     .get("https://geoip-db.com/json/")
-    //     .then(res => {
-    //       this.props.setUserLocationInfo({
-    //         userCountryName: res.data.country_name,
-    //         userCountryCode: res.data.country_code,
-    //         userCityName: res.data.city
-    //       });
-
-    //       //API call to get userCityWeather
-
-    //       axios
-    //         .get(
-    //           `//api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
-    //             this.props.userCityName
-    //           }&units=metric`
-    //         )
-    //         .then(res => {
-    //           this.setState(() => ({
-    //             userCityWeather: {
-    //               temp: res.data.main.temp,
-    //               description: res.data.weather[0].description
-    //             }
-    //           }));
-    //         });
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
-
-    // //If the user location information is in the redux store:
-
-    // if (this.props.userCountryName) {
-    //   axios
-    //     .get(
-    //       `//api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
-    //         this.props.userCityName
-    //       }&units=metric`
-    //     )
-    //     .then(res => {
-    //       this.setState(() => ({
-    //         userCityWeather: {
-    //           temp: res.data.main.temp,
-    //           description: res.data.weather[0].description
-    //         }
-    //       }));
-    //     });
-    // }
-
-    // //NewsAPI call for serious news
-    // axios
-    //   .get(
-    //     `https://newsapi.org/v2/top-headlines?sources=abc-news,bbc-news,google-news,business-insider&language=en&apiKey=${newsApiKey}`
-    //   )
-    //   .then(res => {
-    //     this.setState(() => ({
-    //       seriousNews: res.data.articles[0]
-    //     }));
-    //   })
-    //   .catch(error => console.log(error));
-
-    // //NewsAPI call for silly news
-    // axios
-    //   .get(
-    //     `https://newsapi.org/v2/everything?sources=buzzfeed&language=en&apiKey=${newsApiKey}`
-    //   )
-    //   .then(res => {
-    //     this.setState(() => ({
-    //       sillyNews: res.data.articles[0]
-    //     }));
-    //   })
-    //   .catch(error => console.log(error));
-
-    //API call for the quote
-    // axios
-    //   .get(
-    //     `https://cors.io/?http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&_jsonp=mycallback`
-    //   )
-    //   .then(res => {
-    //     //console.log(JSON.parse(res.data.substring(16, res.data.length - 2)));
-    //     this.setState(() => ({
-    //       quote: JSON.parse(res.data.substring(16, res.data.length - 2))
-    //     }));
-    //   })
-    //   .catch(error => console.log(error));
   }
 
   render() {

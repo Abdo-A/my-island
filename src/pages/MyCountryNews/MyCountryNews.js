@@ -1,11 +1,8 @@
 import { connect } from "react-redux";
 import { Spin } from "antd";
-import axios from "axios";
 import React, { Component } from "react";
 
-import { newsApiKey } from "../../data/apiKeys";
 import * as actions from "../../store/actions/index";
-import * as actionTypes from "../../store/actions/actionTypes";
 import NewsCardsCollection from "../../components/News/NewsCardsCollection/NewsCardsCollection";
 import NewsSlider from "../../components/News/NewsSlider/NewsSlider";
 
@@ -19,49 +16,6 @@ class MyCountryNews extends Component {
 
   componentDidMount() {
     this.props.requestUserLocationInfoAndRequestMyCountryNews();
-    //If the user location information is not in the redux store:
-    // if (!this.props.userCountryName)
-    //   //Getting the user's location information from the location api
-    //   axios
-    //     .get("https://geoip-db.com/json/")
-    //     .then(res => {
-    //       this.props.setUserLocationInfo({
-    //         userCountryName: res.data.country_name,
-    //         userCountryCode: res.data.country_code,
-    //         userCityName: res.data.city
-    //       });
-    //       //setState callback
-    //       //getting headlines for userCountryCode
-    //       axios
-    //         .get(
-    //           `https://newsapi.org/v2/top-headlines?country=${
-    //             this.props.userCountryCode
-    //           }&language=en&apiKey=${this.state.newsApiKey}`
-    //         )
-    //         .then(res => {
-    //           this.setState(() => ({
-    //             articles: res.data.articles
-    //           }));
-    //         });
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
-    // //If the user location information is in the redux store:
-    // if (this.props.userCountryName) {
-    //   //getting headlines for userCountryCode
-    //   axios
-    //     .get(
-    //       `https://newsapi.org/v2/top-headlines?country=${
-    //         this.props.userCountryCode
-    //       }&language=en&apiKey=${this.state.newsApiKey}`
-    //     )
-    //     .then(res => {
-    //       this.setState(() => ({
-    //         articles: res.data.articles
-    //       }));
-    //     });
-    // }
   }
 
   render() {

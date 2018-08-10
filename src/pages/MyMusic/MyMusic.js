@@ -3,7 +3,6 @@ import { List, Avatar } from "antd";
 import React, { Component } from "react";
 
 import * as actions from "../../store/actions/index";
-import * as actionTypes from "../../store/actions/actionTypes";
 import songs from "../../data/songs/songs";
 
 import "./MyMusic.css";
