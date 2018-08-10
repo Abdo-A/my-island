@@ -20,7 +20,7 @@ class MusicPlayer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (
-      nextProps.forcedSong &&
+      nextProps.forcedSong !== null &&
       nextProps.forcedSong !== this.state.currentSong &&
       nextProps.forcedSong !== this.props.forcedSong
     ) {

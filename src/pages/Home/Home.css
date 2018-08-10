@@ -40,13 +40,9 @@
   background-color: sienna;
 }
 
-.Home__Weather__Parts__Wrapper {
-}
-
 .Home__Weather__Part {
   width: 33%;
   float: left;
-  display: inline-block;
 }
 
 .Home__Quote {
@@ -108,7 +104,7 @@
   }
 
   .Home__Header {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   .Home__Quote__Text {

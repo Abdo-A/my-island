@@ -1,10 +1,13 @@
-import React from "react";
 import { Card, Image } from "semantic-ui-react";
+import React from "react";
+
 import "./NewsCard.css";
+
 import {
   convertISODateToReadableDate,
   convertUTCDateToLocalDate
 } from "../../../data/universalFunctions/dateRelatedFunctions";
+import { withSizes } from "react-sizes";
 
 const newsCard = props => {
   let actualDate = JSON.stringify(
@@ -18,7 +21,8 @@ const newsCard = props => {
         <Card
           style={{
             display: "inline-block",
-            height: props.date ? "410px" : "360px",
+            height:
+              props.screenWidth < 900 ? "auto" : props.date ? "410px" : "360px",
             margin: props.noMargin ? "" : "35px",
             boxShadow: "15px 25px 30px 0px rgba(0,0,0,0.75)"
           }}
@@ -55,7 +59,11 @@ const newsCard = props => {
   }
 };
 
-export default newsCard;
+const mapSizesToProps = ({ width }) => ({
+  screenWidth: width
+});
+
+export default withSizes(mapSizesToProps)(newsCard);
 
 //Expected props:
 //image, title, description, date(UTC timezone in ISO format)

@@ -1,7 +1,11 @@
+import { Button } from "semantic-ui-react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import React, { Component } from "react";
-import { connect } from "react-redux";
+
 import * as actions from "../../store/actions/index";
+
+import "./Intro.css";
 
 class Intro extends Component {
   componentDidMount() {
@@ -10,14 +14,17 @@ class Intro extends Component {
   }
   render() {
     return (
-      <div>
-        <div>Intro</div>
-        <h1>Welcome to your island..</h1>
-        <h2>
-          The only place online where you will be able to express yourself while
-          getting the world's latest updates.
-        </h2>
-        <Link to="/home">Let me in</Link>
+      <div className="Intro" style={{ backgroundImage: "" }}>
+        <div className="Intro__Start">
+          <h1 className="Intro__Start__Header">My Island</h1>
+          <p className="Intro__Start__Text">
+            The only place online where you will be able to express yourself
+            while getting the world's latest updates.
+          </p>
+          <Link to="/home">
+            <Button color="green">Let me in</Button>
+          </Link>
+        </div>
       </div>
     );
   }
