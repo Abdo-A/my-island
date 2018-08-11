@@ -49,7 +49,7 @@
   display: none;
   position: absolute;
   top: 0px;
-  right: 10px;
+  right: 20px;
   cursor: pointer;
   color: #343638;
 }
@@ -78,10 +78,11 @@
 
   .ant-popover {
     width: 80vw;
+    margin-top: 25vh;
   }
 
   .MusicPlayer__LyricsContainer {
-    height: 70vh;
+    height: 60vh;
     left: calc(-50vw + 50%);
     right: calc(-50vw + 50%);
     margin-left: 0;
@@ -99,10 +100,19 @@
   .MusicPlayer__SongInfo {
     font-size: 12px;
   }
+  .MusicPlayer__ToggleIcon {
+    right: 10px;
+  }
 }
 @media (max-width: 350px) {
   .MusicPlayer__SongInfo {
     font-size: 10px;
+  }
+  .ant-popover {
+    top: 40px !important;
+  }
+  .MusicPlayer__LyricsContainer {
+    height: 50vh;
   }
 }
 
