@@ -1,5 +1,4 @@
 .Intro {
-  height: 100vh;
   width: 100vw;
   overflow: hidden;
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
@@ -24,9 +23,9 @@
 .Intro__Start__Text {
   font-family: "Permanent Marker", cursive;
   font-size: 24px;
-  color: burlywood;
-  margin-left: 100px;
-  margin-right: 100px;
+  color: #ff9000;
+  margin-left: 200px;
+  margin-right: 200px;
 }
 
 @media (max-width: 600px) {

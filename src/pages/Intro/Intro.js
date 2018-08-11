@@ -6,6 +6,7 @@ import React, { Component } from "react";
 import * as actions from "../../store/actions/index";
 
 import "./Intro.css";
+import { withSizes } from "react-sizes";
 
 class Intro extends Component {
   componentDidMount() {
@@ -14,7 +15,7 @@ class Intro extends Component {
   }
   render() {
     return (
-      <div className="Intro" style={{ backgroundImage: "" }}>
+      <div className="Intro" style={{ height: this.props.screenHeight + "px" }}>
         <div className="Intro__Start">
           <h1 className="Intro__Start__Header">My Island</h1>
           <p className="Intro__Start__Text">
@@ -29,6 +30,10 @@ class Intro extends Component {
     );
   }
 }
+
+const mapSizesToProps = ({ width, height }) => ({
+  screenHeight: height
+});
 
 const mapStateToProps = state => {
   return {
@@ -46,4 +51,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Intro);
+)(withSizes(mapSizesToProps)(Intro));
