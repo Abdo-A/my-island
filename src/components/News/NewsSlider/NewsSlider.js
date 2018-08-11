@@ -1,4 +1,5 @@
 import { Carousel } from "antd";
+import { Icon } from "semantic-ui-react";
 import React from "react";
 
 import "./NewsSlider.css";
@@ -30,15 +31,35 @@ const newsSlider = props => {
         ).replace(/"/g, "");
         return (
           <div key={article.url}>
-            <a href={article.url} target="_blank">
-              <img
-                src={article.urlToImage}
-                className="NewsSlider__Image"
-                alt="news"
+            <div className="NewsSlider__HorizontalContainer">
+              <Icon
+                name="angle left"
+                size="huge"
+                className="NewsSlider__Arrow NewsSlider__LeftArrow"
+                onClick={() => this.carousel.prev()}
               />
+              <a
+                href={article.url}
+                target="_blank"
+                className="NewsSlider__ImageContainer"
+              >
+                <img
+                  src={article.urlToImage}
+                  className="NewsSlider__Image"
+                  alt="news"
+                />
+              </a>
+              <Icon
+                name="angle right"
+                size="huge"
+                className="NewsSlider__Arrow NewsSlider__RightArrow"
+                onClick={() => this.carousel.next()}
+              />
+            </div>
+            <a href={article.url} target="_blank">
               <h3 className="NewsSlider__Title">{article.title}</h3>
+              <p className="NewsSlider__Date">{actualDate}</p>
             </a>
-            <p>{actualDate}</p>
           </div>
         );
       } else {
@@ -46,7 +67,17 @@ const newsSlider = props => {
       }
     });
   }
-  return <Carousel autoplay>{articlesSlider}</Carousel>;
+  return (
+    <Carousel
+      autoplay
+      effect="fade"
+      ref={carousel => {
+        this.carousel = carousel;
+      }}
+    >
+      {articlesSlider}
+    </Carousel>
+  );
 };
 
 export default newsSlider;
