@@ -29,6 +29,8 @@
 .MusicPlayer__LyricsCard {
   z-index: 0;
   position: fixed;
+  background-color: darkgoldenrod;
+  color: antiquewhite;
 }
 
 .MusicPlayer__LyricsContainer {
