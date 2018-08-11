@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { Icon } from "semantic-ui-react";
-import { Popover, Button } from "antd";
+import { Popover, Button, Card } from "antd";
 import React, { Component } from "react";
 import withSizes from "react-sizes";
 
@@ -102,7 +102,7 @@ class MusicPlayer extends Component {
               <Icon name="backward" />
               Last
             </Button>
-
+            {/*
             <Popover
               placement={
                 this.props.screenWidth > maxScreenSizeForHorizontalLyrics
@@ -129,6 +129,26 @@ class MusicPlayer extends Component {
                 Lyrics
               </Button>
             </Popover>
+            */}
+            <Card
+              className="MusicPlayer__LyricsCard"
+              style={{ display: this.state.showLyrics ? "block" : "none" }}
+            >
+              <div
+                className="MusicPlayer__LyricsContainer"
+                id="floatingAudioLyricsContainer"
+              >
+                {song.lyrics}
+              </div>
+            </Card>
+
+            <Button
+              type="primary"
+              className="MusicPlayer__LyricsButton"
+              onClick={this.onLyricsToggle}
+            >
+              Lyrics
+            </Button>
 
             <Button onClick={() => this.navigateSong("next")}>
               Next <Icon name="forward" />
