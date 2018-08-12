@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { Icon } from "semantic-ui-react";
-import { Popover, Button, Card } from "antd";
+import { Button, Card, Anchor } from "antd";
 import React, { Component } from "react";
 import withSizes from "react-sizes";
 
@@ -16,6 +16,13 @@ class MusicPlayer extends Component {
     currentSong: 0,
     showLyrics:
       this.props.screenWidth > maxScreenSizeForHorizontalLyrics ? true : false
+  };
+
+  handleScroll = () => {
+    this.setState(() => ({
+      showLyrics: false
+    }));
+    console.log("hi");
   };
 
   componentWillReceiveProps(nextProps) {
@@ -72,7 +79,8 @@ class MusicPlayer extends Component {
       <div
         className="MusicPlayer"
         style={{
-          zIndex: MusicPlayerZIndex
+          zIndex: MusicPlayerZIndex,
+          paddingBottom: this.props.show ? "10px" : "0"
         }}
       >
         <div
@@ -88,6 +96,7 @@ class MusicPlayer extends Component {
           <audio
             controls
             autoPlay={this.props.autoplay}
+            preload="auto"
             className="MusicPlayer__Audio"
             id="floatingAudio"
           >
@@ -102,34 +111,6 @@ class MusicPlayer extends Component {
               <Icon name="backward" />
               Last
             </Button>
-            {/*
-            <Popover
-              placement={
-                this.props.screenWidth > maxScreenSizeForHorizontalLyrics
-                  ? "left"
-                  : "bottom"
-              }
-              content={
-                <div
-                  className="MusicPlayer__LyricsContainer"
-                  id="floatingAudioLyricsContainer"
-                >
-                  {song.lyrics}
-                </div>
-              }
-              title="Lyrics"
-              trigger="click"
-              visible={this.state.showLyrics}
-            >
-              <Button
-                type="primary"
-                className="MusicPlayer__LyricsButton"
-                onClick={this.onLyricsToggle}
-              >
-                Lyrics
-              </Button>
-            </Popover>
-            */}
             <Card
               className="MusicPlayer__LyricsCard"
               style={{ display: this.state.showLyrics ? "block" : "none" }}

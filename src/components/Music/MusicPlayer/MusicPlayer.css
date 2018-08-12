@@ -1,7 +1,7 @@
 .MusicPlayer {
   position: fixed;
-  top: 10px;
-  right: 0px;
+  top: 0;
+  right: 0;
   text-align: center;
   opacity: 0.6;
   transition: opacity 0.5s ease-in;
@@ -20,11 +20,6 @@
   left: -25%;
   top: 40px;
 }
-
-/* .ant-popover {
-  z-index: 0;
-  position: fixed;
-} */
 
 .MusicPlayer__LyricsCard {
   z-index: 0;
@@ -68,6 +63,7 @@
     margin-left: auto;
     margin-right: auto;
     opacity: 1;
+    background-color: darkgoldenrod;
   }
 
   .MusicPlayer__Body {
@@ -83,18 +79,13 @@
     position: static;
   }
 
-  /* .ant-popover {
-    width: 80vw;
-    margin-top: 25vh !important;
-  } */
-
   .MusicPlayer__LyricsCard {
     width: 80vw;
     margin-left: 10vw;
     margin-right: 10vw;
     height: 55vh;
     overflow: auto;
-    margin-top: 3px;
+    margin-top: 15px;
   }
 
   .MusicPlayer__LyricsContainer {
@@ -122,9 +113,6 @@
   .MusicPlayer__SongInfo {
     font-size: 10px;
   }
-  /* .ant-popover {
-    top: 40px !important;
-  } */
 
   .MusicPlayer__LyricsContainer {
     height: 50vh;
@@ -132,27 +120,16 @@
 }
 
 @media (min-width: 1050px) {
-  /* .ant-popover {
-    opacity: 0.6;
-    margin-top: 30px !important;
-    width: 40vw;
-    transition: opacity 0.5s ease-in;
-  } */
-
   .MusicPlayer__LyricsCard {
     opacity: 0.6;
     transition: opacity 0.5s ease-in;
     left: 19%;
-    top: 6%;
+    top: 3%;
   }
 
   .MusicPlayer__LyricsCard:hover {
     opacity: 1;
   }
-
-  /* .ant-popover:hover {
-    opacity: 1;
-  } */
 }
 
 @media (max-width: 1250px) and (min-width: 1050px) {
