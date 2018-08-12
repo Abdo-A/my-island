@@ -49,7 +49,7 @@ class Home extends Component {
         <div className="Home__NewsPiecesWrapper">
           <span className="Home__NewsPiece">
             <h3 className="Home__Header Home__NewsPiece__Header__Serious">
-              What's the world SERIOUS about NOW? test
+              What's the world SERIOUS about NOW?
             </h3>
             {seriousNews}
           </span>
