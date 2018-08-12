@@ -104,6 +104,11 @@
   }
 
   .Home__Header {
+    font-size: 14px;
+  }
+
+  .Home__Weather__Header,
+  .Home__Quote__Header {
     font-size: 12px;
   }
 

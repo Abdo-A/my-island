@@ -48,21 +48,17 @@ class Home extends Component {
         {/* Serious and silly news */}
         <div className="Home__NewsPiecesWrapper">
           <span className="Home__NewsPiece">
-            <Card>
-              <h3 className="Home__Header Home__NewsPiece__Header__Serious">
-                What's the world SERIOUS about NOW?
-              </h3>
-              {seriousNews}
-            </Card>
+            <h3 className="Home__Header Home__NewsPiece__Header__Serious">
+              What's the world SERIOUS about NOW?
+            </h3>
+            {seriousNews}
           </span>
 
           <span className="Home__NewsPiece">
-            <Card>
-              <h3 className="Home__Header Home__NewsPiece__Header__Silly">
-                What's the world SILLY about NOW?
-              </h3>
-              {sillyNews}
-            </Card>
+            <h3 className="Home__Header Home__NewsPiece__Header__Silly">
+              What's the world SILLY about NOW?
+            </h3>
+            {sillyNews}
           </span>
         </div>
 

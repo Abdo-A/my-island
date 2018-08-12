@@ -18,13 +18,6 @@ class MusicPlayer extends Component {
       this.props.screenWidth > maxScreenSizeForHorizontalLyrics ? true : false
   };
 
-  handleScroll = () => {
-    this.setState(() => ({
-      showLyrics: false
-    }));
-    console.log("hi");
-  };
-
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.forcedSong !== null &&

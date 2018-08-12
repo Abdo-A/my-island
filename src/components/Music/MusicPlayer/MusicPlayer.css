@@ -18,7 +18,7 @@
 .MusicPlayer__LyricsButton {
   position: absolute;
   left: -25%;
-  top: 40px;
+  top: 50px;
 }
 
 .MusicPlayer__LyricsCard {
@@ -50,7 +50,7 @@
 .MusicPlayer__ToggleIcon {
   display: none;
   position: absolute;
-  top: 0px;
+  top: 10px;
   right: 20px;
   cursor: pointer;
   color: #343638;
@@ -120,6 +120,10 @@
 }
 
 @media (min-width: 1050px) {
+  .MusicPlayer__Body {
+    margin-top: 10px;
+  }
+
   .MusicPlayer__LyricsCard {
     opacity: 0.6;
     transition: opacity 0.5s ease-in;
