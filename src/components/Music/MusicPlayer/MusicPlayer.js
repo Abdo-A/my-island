@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { Icon } from "semantic-ui-react";
-import { Button, Card, Anchor } from "antd";
+import { Button, Card } from "antd";
 import React, { Component } from "react";
 import withSizes from "react-sizes";
 

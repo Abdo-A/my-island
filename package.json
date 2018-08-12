@@ -2,10 +2,12 @@
   "name": "my-island",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://abdo-a.github.io/my-island/",
   "dependencies": {
     "@material-ui/core": "^1.4.3",
     "antd": "^3.7.3",
     "axios": "^0.18.0",
+    "gh-pages": "^1.2.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-canvas-draw": "^0.1.9",
@@ -26,6 +28,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   }
 }
