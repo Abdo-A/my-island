@@ -2,7 +2,6 @@
   "name": "my-island",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://abdo-a.github.io/my-island/",
   "dependencies": {
     "@material-ui/core": "^1.4.3",
     "antd": "^3.7.3",
