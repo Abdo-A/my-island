@@ -3,7 +3,9 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  forcedSongOnMusicPlayer: null
+  forcedSongOnMusicPlayer: null,
+  openSignIn: false,
+  openSignUp: false
 };
 
 const basicReducer = (state = initialState, action) => {
@@ -13,6 +15,30 @@ const basicReducer = (state = initialState, action) => {
       return {
         ...state,
         forcedSongOnMusicPlayer: action.songIndex
+      };
+
+    case actionTypes.OPEN_SIGN_IN:
+      return {
+        ...state,
+        openSignIn: true
+      };
+
+    case actionTypes.CLOSE_SIGN_IN:
+      return {
+        ...state,
+        openSignIn: false
+      };
+
+    case actionTypes.OPEN_SIGN_UP:
+      return {
+        ...state,
+        openSignUp: true
+      };
+
+    case actionTypes.CLOSE_SIGN_UP:
+      return {
+        ...state,
+        openSignUp: false
       };
 
     default:

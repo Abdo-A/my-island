@@ -1,15 +1,17 @@
-import { Icon, Menu, Sidebar } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { Icon, Menu, Sidebar, Button } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import withSizes from "react-sizes";
 
+import { MainMenuZIndex } from "../../../data/z-indices";
 import { pages } from "../../../data/pagesData";
+import * as actions from "../../../store/actions/basicActions";
 import Aux from "../../../hoc/Auxe/Auxe";
 import Backdrop from "../../UI/Backdrop/Backdrop";
 
 import "./MainMenu.css";
-import { MainMenuZIndex } from "../../../data/z-indices";
 
 class MainMenu extends Component {
   state = {
@@ -87,6 +89,18 @@ class MainMenu extends Component {
             />
           </div>
 
+          <Button.Group size="tiny">
+            <Button onClick={this.props.openSignUp} color="teal" size="tiny">
+              Sign Up
+            </Button>
+            <br />
+            <Button.Or />
+            <br />
+            <Button positive onClick={this.props.openSignIn} size="tiny">
+              Sign In
+            </Button>
+          </Button.Group>
+
           {pages.map(page => {
             return (
               <NavLink to={page.path} key={page.path}>
@@ -121,4 +135,14 @@ const mapSizesToProps = ({ width }) => ({
   screenWidth: width
 });
 
-export default withSizes(mapSizesToProps)(MainMenu);
+const mapDispatchToProps = dispatch => {
+  return {
+    openSignUp: () => dispatch(actions.openSignUp()),
+    openSignIn: () => dispatch(actions.openSignIn())
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withSizes(mapSizesToProps)(MainMenu));

@@ -6,8 +6,7 @@ const songs = [
     name: "I need a doctor",
     singer: "Eminem and Skyler Grey",
     src:
-      //"https://vocaroo.com/media_command.php?media=s0qe7ewBhSpX&command=download_mp3",
-      "https://instaud.io/_/2xOR.mp3",
+      "https://vocaroo.com/media_command.php?media=s0qe7ewBhSpX&command=download_mp3",
     lyrics: getLyrics(1)
   },
   {

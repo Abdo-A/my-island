@@ -6,3 +6,27 @@ export const setForcedSongOnMusicPlayer = songIndex => {
     songIndex: songIndex
   };
 };
+
+export const openSignIn = songIndex => {
+  return {
+    type: actionTypes.OPEN_SIGN_IN
+  };
+};
+
+export const closeSignIn = songIndex => {
+  return {
+    type: actionTypes.CLOSE_SIGN_IN
+  };
+};
+
+export const openSignUp = songIndex => {
+  return {
+    type: actionTypes.OPEN_SIGN_UP
+  };
+};
+
+export const closeSignUp = songIndex => {
+  return {
+    type: actionTypes.CLOSE_SIGN_UP
+  };
+};
