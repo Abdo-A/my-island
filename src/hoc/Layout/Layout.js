@@ -7,8 +7,9 @@ import MusicPlayer from "../../components/Music/MusicPlayer/MusicPlayer";
 import "./Layout.css";
 import SignIn from "../../components/Authentication/SignIn/SignIn";
 import SignUp from "../../components/Authentication/SignUp/SignUp";
+import { connect } from "react-redux";
 
-export default class Layout extends Component {
+class Layout extends Component {
   state = {
     showMusicPlayer: true
   };
@@ -37,9 +38,20 @@ export default class Layout extends Component {
             marginTop: this.state.showMusicPlayer ? "170px" : "40px"
           }}
         >
+          {this.props.authenticated
+            ? "Welcome to your account"
+            : "Please sign up"}
           {this.props.children}
         </main>
       </Aux>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    authenticated: state.authentication.authenticated
+  };
+};
+
+export default connect(mapStateToProps)(Layout);

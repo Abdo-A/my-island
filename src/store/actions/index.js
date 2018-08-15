@@ -5,6 +5,8 @@ export * from "./basicActions";
 
 export * from "./internetActions";
 
+export * from "./authenticationActions";
+
 export const requestEverythingFromInternet = () => {
   return dispatch => {
     dispatch(

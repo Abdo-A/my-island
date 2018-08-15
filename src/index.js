@@ -3,18 +3,20 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom";
+import thunk from "redux-thunk";
 
 import App from "./App";
+import authenticationReducer from "./store/reducers/authenticationReducer";
 import basicReducer from "./store/reducers/basicReducer";
 import internetReducer from "./store/reducers/internetReducer";
 import registerServiceWorker from "./registerServiceWorker";
 
 import "./index.css";
-import thunk from "redux-thunk";
 
 const reducer = combineReducers({
   basic: basicReducer,
-  internet: internetReducer
+  internet: internetReducer,
+  authentication: authenticationReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -1,9 +1,9 @@
-import { Button, Header, Image, Modal } from "semantic-ui-react";
+import { Modal } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { Upload } from "antd";
 import React, { Component } from "react";
 
 import * as actions from "../../../store/actions";
+import SignUpForm from "./SignUpForm/SignUpForm";
 
 class SignUp extends Component {
   openSignInInstead = () => {
@@ -13,14 +13,25 @@ class SignUp extends Component {
 
   render() {
     return (
-      <Modal open={this.props.open} onClose={this.props.closeSignUp}>
+      <Modal
+        open={this.props.open}
+        onClose={this.props.closeSignUp}
+        size="tiny"
+        style={{ paddingLeft: "10px", paddingRight: "10px" }}
+      >
         <Modal.Header>Sign Up</Modal.Header>
         <Modal.Content>
+          <SignUpForm />
+          <br />
           <p>
             Have an account?{" "}
             <span
               onClick={this.openSignInInstead}
-              style={{ color: "#16AB39", cursor: "pointer" }}
+              style={{
+                color: "#009C95",
+                cursor: "pointer",
+                fontWeight: "bold"
+              }}
             >
               Sign In
             </span>

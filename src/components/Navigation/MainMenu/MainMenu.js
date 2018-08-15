@@ -7,7 +7,7 @@ import withSizes from "react-sizes";
 
 import { MainMenuZIndex } from "../../../data/z-indices";
 import { pages } from "../../../data/pagesData";
-import * as actions from "../../../store/actions/basicActions";
+import * as actions from "../../../store/actions";
 import Aux from "../../../hoc/Auxe/Auxe";
 import Backdrop from "../../UI/Backdrop/Backdrop";
 
@@ -16,7 +16,8 @@ import "./MainMenu.css";
 class MainMenu extends Component {
   state = {
     menuVisible: this.props.screenWidth >= 800 ? true : false,
-    backdropVisible: false
+    backdropVisible: false,
+    loadingLogout: false
   };
 
   componentDidMount() {
@@ -41,7 +42,48 @@ class MainMenu extends Component {
     e.currentTarget.style.backgroundColor = "rgba(96, 101, 101, 0.39)";
   };
 
+  logout = () => {
+    this.setState(() => ({
+      loadingLogout: true
+    }));
+
+    setTimeout(() => {
+      this.setState(() => ({
+        loadingLogout: false
+      }));
+
+      this.props.logout();
+    }, 1000);
+  };
+
   render() {
+    let signInAndSignUpButtons = null;
+    let logoutButton = null;
+
+    if (this.props.authenticated) {
+      logoutButton = (
+        <Button onClick={this.logout} loading={this.state.loadingLogout}>
+          Logout
+        </Button>
+      );
+    }
+
+    if (!this.props.authenticated) {
+      signInAndSignUpButtons = (
+        <Button.Group size="tiny">
+          <Button onClick={this.props.openSignIn} color="teal" size="tiny">
+            Sign In
+          </Button>
+          <br />
+          <Button.Or />
+          <br />
+          <Button positive onClick={this.props.openSignUp} size="tiny">
+            Sign Up
+          </Button>
+        </Button.Group>
+      );
+    }
+
     return (
       <Aux className="MainMenu">
         <Backdrop
@@ -89,17 +131,7 @@ class MainMenu extends Component {
             />
           </div>
 
-          <Button.Group size="tiny">
-            <Button onClick={this.props.openSignUp} color="teal" size="tiny">
-              Sign Up
-            </Button>
-            <br />
-            <Button.Or />
-            <br />
-            <Button positive onClick={this.props.openSignIn} size="tiny">
-              Sign In
-            </Button>
-          </Button.Group>
+          {signInAndSignUpButtons}
 
           {pages.map(page => {
             return (
@@ -121,6 +153,7 @@ class MainMenu extends Component {
               </NavLink>
             );
           })}
+          {logoutButton}
         </Sidebar>
       </Aux>
     );
@@ -135,14 +168,21 @@ const mapSizesToProps = ({ width }) => ({
   screenWidth: width
 });
 
+const mapStateToProps = state => {
+  return {
+    authenticated: state.authentication.authenticated
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     openSignUp: () => dispatch(actions.openSignUp()),
-    openSignIn: () => dispatch(actions.openSignIn())
+    openSignIn: () => dispatch(actions.openSignIn()),
+    logout: () => dispatch(actions.authenticationLogout())
   };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withSizes(mapSizesToProps)(MainMenu));
