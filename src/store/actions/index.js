@@ -7,6 +7,8 @@ export * from "./internetActions";
 
 export * from "./authenticationActions";
 
+export * from "./saveAndFetchActions";
+
 export const requestEverythingFromInternet = () => {
   return dispatch => {
     dispatch(

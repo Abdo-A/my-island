@@ -10,13 +10,15 @@ import authenticationReducer from "./store/reducers/authenticationReducer";
 import basicReducer from "./store/reducers/basicReducer";
 import internetReducer from "./store/reducers/internetReducer";
 import registerServiceWorker from "./registerServiceWorker";
+import saveAndFetchReducer from "./store/reducers/saveAndFetchReducer";
 
 import "./index.css";
 
 const reducer = combineReducers({
   basic: basicReducer,
   internet: internetReducer,
-  authentication: authenticationReducer
+  authentication: authenticationReducer,
+  saveAndFetch: saveAndFetchReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

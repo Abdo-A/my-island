@@ -1,6 +1,9 @@
-import { Collapse, notification, Modal } from "antd";
+import { Collapse, notification, Modal, Spin } from "antd";
+import { connect } from "react-redux";
 import { Form, Input, TextArea, Button } from "semantic-ui-react";
 import React, { Component } from "react";
+
+import * as actions from "../../store/actions";
 
 import "./MyNotes.css";
 
@@ -10,10 +13,14 @@ class MyNotes extends Component {
   state = {
     mainNoteTitle: "",
     mainNoteBody: "",
-    savedNotes: [],
     showDeleteNoteModal: false,
     noteToBeDeleted: null
   };
+
+  componentDidMount() {
+    if (this.props.authenticated)
+      this.props.onFetchNotes(this.props.tokenId, this.props.userId, "notes");
+  }
 
   onChangeNoteTitle = (e, { value }) => {
     this.setState(() => ({ mainNoteTitle: value }));
@@ -46,15 +53,18 @@ class MyNotes extends Component {
     let noteToBeSaved = {
       title: this.state.mainNoteTitle,
       body: this.state.mainNoteBody,
-      id: Math.random(),
+      id: Math.floor(Math.random() * 1000000000 + 1),
       date: currentDay,
       time: currentTime
     };
-    let savedNotes = [...this.state.savedNotes];
-    savedNotes.unshift(noteToBeSaved);
-    this.setState(() => ({
-      savedNotes: savedNotes
-    }));
+
+    if (this.props.authenticated)
+      this.props.onSaveNote(
+        noteToBeSaved,
+        this.props.tokenId,
+        this.props.userId,
+        "notes"
+      );
   };
 
   onDeleteNote = order => {
@@ -62,12 +72,15 @@ class MyNotes extends Component {
       showDeleteNoteModal: false
     }));
     if (order === "ok") {
-      let savedNotes = [...this.state.savedNotes];
-      savedNotes.splice(this.state.noteToBeDeleted, 1);
+      // let savedNotes = [...this.state.savedNotes];
+      // savedNotes.splice(this.state.noteToBeDeleted, 1);
 
-      this.setState(() => ({
-        savedNotes: savedNotes
-      }));
+      this.props.onDeleteNote(
+        this.state.noteToBeDeleted,
+        this.props.tokenId,
+        this.props.userId,
+        "notes"
+      );
     } else {
       return;
     }
@@ -87,6 +100,52 @@ class MyNotes extends Component {
         <h2>Are you sure you want to delete this note?</h2>
       </Modal>
     );
+
+    let savedNotes = "";
+    if (this.props.loadingFetchingNotes) {
+      savedNotes = <Spin style={{ marginTop: "20px" }} />;
+    }
+    if (this.props.notes) {
+      console.log(this.props.notes);
+      savedNotes = (
+        <Collapse
+          bordered={false}
+          style={{ width: "80%", margin: "30px auto" }}
+        >
+          {this.props.notes.map((note, index) => {
+            return (
+              <Panel header={note.title} key={index}>
+                <p>
+                  <small style={{ float: "left", textAlign: "left" }}>
+                    {note.date}
+                    <br />
+                    <strong>{note.time}</strong>
+                  </small>
+
+                  <Button
+                    floated="right"
+                    size="mini"
+                    color="red"
+                    onClick={() =>
+                      this.setState(() => ({
+                        showDeleteNoteModal: true,
+                        noteToBeDeleted: note
+                      }))
+                    }
+                  >
+                    Delete Note
+                  </Button>
+                  {deleteNoteModal}
+
+                  <br />
+                  <strong>{note.body}</strong>
+                </p>
+              </Panel>
+            );
+          })}
+        </Collapse>
+      );
+    }
 
     return (
       <div className="MyNotes">
@@ -116,52 +175,47 @@ class MyNotes extends Component {
               onChange={this.onChangeNoteBody}
             />
           </Form.Field>
-          <Button type="submit" color="green" onClick={this.onSaveNote}>
+          <Button
+            type="submit"
+            color="green"
+            onClick={this.onSaveNote}
+            loading={this.props.loadingSavingNotes}
+          >
             Save Note
           </Button>
         </Form>
         {/**/}
         {/* Viewing saved notes: */}
         {/**/}
-        <Collapse
-          bordered={false}
-          style={{ width: "80%", margin: "30px auto" }}
-        >
-          {this.state.savedNotes.map((note, index) => {
-            return (
-              <Panel header={note.title} key={index}>
-                <p>
-                  <small style={{ float: "left", textAlign: "left" }}>
-                    {note.date}
-                    <br />
-                    <strong>{note.time}</strong>
-                  </small>
-
-                  <Button
-                    floated="right"
-                    size="mini"
-                    color="red"
-                    onClick={() =>
-                      this.setState(() => ({
-                        showDeleteNoteModal: true,
-                        noteToBeDeleted: index
-                      }))
-                    }
-                  >
-                    Delete Note
-                  </Button>
-                  {deleteNoteModal}
-
-                  <br />
-                  <strong>{note.body}</strong>
-                </p>
-              </Panel>
-            );
-          })}
-        </Collapse>,
+        {savedNotes}
       </div>
     );
   }
 }
 
-export default MyNotes;
+const mapStateToProps = state => {
+  return {
+    authenticated: state.authentication.authenticated,
+    tokenId: state.authentication.tokenId,
+    userId: state.authentication.userId,
+    notes: state.saveAndFetch.notes,
+    loadingSavingNotes: state.saveAndFetch.loadingSavingNotes,
+    loadingFetchingNotes: state.saveAndFetch.loadingFetchingNotes
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSaveNote: (itemData, tokenId, userId, itemType) =>
+      dispatch(actions.saveItem(itemData, tokenId, userId, itemType)),
+    onFetchNotes: (tokenId, userId, itemType) =>
+      dispatch(actions.fetchItems(tokenId, userId, itemType)),
+    onDeleteNote: (itemData, tokenId, userId, itemType) =>
+      dispatch(actions.deleteItem(itemData, tokenId, userId, itemType))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyNotes);
