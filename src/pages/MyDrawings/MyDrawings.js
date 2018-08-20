@@ -1,8 +1,11 @@
+import { connect } from "react-redux";
 import { Icon, Button } from "semantic-ui-react";
-import { Modal, notification } from "antd";
+import { Modal, notification, Spin } from "antd";
 import { SketchPicker } from "react-color";
 import CanvasDraw from "react-canvas-draw";
 import React, { Component } from "react";
+
+import * as actions from "../../store/actions";
 
 import "./MyDrawings.css";
 
@@ -10,16 +13,25 @@ let interval;
 
 class MyDrawings extends Component {
   state = {
+    unauthenticatedUserDrawings: [],
     currentBrushColor: "#990000",
     currentBrushSize: 4,
-    savedItems: [],
     currentPageWidth: 1000,
     showColorPicker: false,
     showBrushSizePicker: false,
     showDeleteDrawingModal: false,
-    drawingToBeDeleted: null
+    drawingToBeDeleted: null,
+    itemsAreFetchedOnFirstRender: false
   };
+
   componentDidMount() {
+    if (this.props.authenticated)
+      this.props.onFetchDrawings(
+        this.props.tokenId,
+        this.props.userId,
+        "drawings"
+      );
+
     interval = setInterval(() => {
       //Updating the canvas drawing in case that page is resized
       if (this.state.currentPageWidth !== window.innerWidth) {
@@ -30,6 +42,18 @@ class MyDrawings extends Component {
       }
     }, 10);
   }
+
+  componentDidUpdate() {
+    //Updating the thumbnails for authenticated users
+    if (this.props.authenticated && this.props.drawings) {
+      for (let item of this.props.drawings) {
+        if (this[item.idForThumbnail]) {
+          this[item.idForThumbnail].loadSaveData(item.saveData, true);
+        }
+      }
+    }
+  }
+
   componentWillUnmount() {
     clearInterval(interval);
   }
@@ -48,6 +72,7 @@ class MyDrawings extends Component {
     }
 
     let drawingToBeSaved = this.mainCanvas.getSaveData();
+
     let randomId = Math.random();
 
     let currentDate = new Date();
@@ -59,25 +84,38 @@ class MyDrawings extends Component {
       JSON.stringify(currentDate.getMinutes()) +
       ")";
 
+    if (clearOrNot === "clear") {
+      this.clearMainCanvas();
+    }
+
     let itemToBeSaved = {
-      id: randomId,
       saveData: drawingToBeSaved,
-      date: readabledate
+      date: readabledate,
+      idForThumbnail: randomId
     };
 
-    let savedItems = [...this.state.savedItems];
-    savedItems.push(itemToBeSaved);
-    this.setState(
-      () => ({
-        savedItems: savedItems
-      }),
-      () => {
-        this[randomId].loadSaveData(drawingToBeSaved, true);
-        if (clearOrNot === "clear") {
-          this.clearMainCanvas();
+    //for unauthenticated users
+    if (!this.props.authenticated) {
+      let savedItems = [...this.state.unauthenticatedUserDrawings];
+      savedItems.unshift(itemToBeSaved);
+      this.setState(
+        () => ({
+          unauthenticatedUserDrawings: savedItems
+        }),
+        () => {
+          this[randomId].loadSaveData(drawingToBeSaved, true);
         }
-      }
-    );
+      );
+    }
+
+    //for authenticated users
+    if (this.props.authenticated)
+      this.props.onSaveDrawing(
+        itemToBeSaved,
+        this.props.tokenId,
+        this.props.userId,
+        "drawings"
+      );
   };
 
   handleViewSavedItem = index => {
@@ -91,19 +129,35 @@ class MyDrawings extends Component {
     }));
 
     if (order === "ok") {
-      let savedItems = [...this.state.savedItems];
-      savedItems.splice(this.state.drawingToBeDeleted, 1);
+      //for unauthenticated users
+      if (!this.props.authenticated) {
+        let savedItems = [...this.state.unauthenticatedUserDrawings];
+        let idOfDrawingToBeDeleted = savedItems.indexOf(
+          this.state.drawingToBeDeleted
+        );
+        savedItems.splice(idOfDrawingToBeDeleted, 1);
 
-      this.setState(
-        () => ({
-          savedItems: savedItems
-        }),
-        () => {
-          for (let item of savedItems) {
-            this[item.id].loadSaveData(item.saveData, true);
+        this.setState(
+          () => ({
+            unauthenticatedUserDrawings: savedItems
+          }),
+          () => {
+            for (let item of savedItems) {
+              this[item.idForThumbnail].loadSaveData(item.saveData, true);
+            }
           }
-        }
-      );
+        );
+      }
+
+      //for authenticated users
+      if (this.props.authenticated) {
+        this.props.onDeleteDrawing(
+          this.state.drawingToBeDeleted,
+          this.props.tokenId,
+          this.props.userId,
+          "drawings"
+        );
+      }
     } else {
       return;
     }
@@ -134,6 +188,18 @@ class MyDrawings extends Component {
   };
 
   render() {
+    //To update the items once when the page is refreshed
+    if (this.props.authenticated && !this.state.itemsAreFetchedOnFirstRender) {
+      this.props.onFetchDrawings(
+        this.props.tokenId,
+        this.props.userId,
+        "drawings"
+      );
+      this.setState(() => ({
+        itemsAreFetchedOnFirstRender: true
+      }));
+    }
+
     let deleteDrawingModal = (
       <Modal
         visible={this.state.showDeleteDrawingModal}
@@ -147,6 +213,72 @@ class MyDrawings extends Component {
         <h2>Are you sure you want to remove this drawing?</h2>
       </Modal>
     );
+
+    let savedDrawings = "";
+    if (this.props.loadingFetchingDrawings) {
+      savedDrawings = <Spin style={{ marginTop: "20px" }} />;
+    }
+
+    let drawingsToBeFetched = this.state.unauthenticatedUserDrawings;
+    if (this.props.authenticated) drawingsToBeFetched = this.props.drawings;
+
+    if (drawingsToBeFetched) {
+      savedDrawings = (
+        <div
+          ref={itemsContainer => {
+            this.itemsContainer = itemsContainer;
+          }}
+        >
+          {drawingsToBeFetched.map((item, index) => (
+            <span key={item.idForThumbnail} style={{ margin: "10px" }}>
+              <Icon
+                title="Remove Drawing"
+                name="close"
+                onClick={() =>
+                  this.setState(() => ({
+                    showDeleteDrawingModal: true,
+                    drawingToBeDeleted: item
+                  }))
+                }
+                style={{
+                  cursor: "pointer",
+                  margin: "0",
+                  border: "1px solid black",
+                  borderRadius: "50%",
+                  height: "100%"
+                }}
+              />
+              {deleteDrawingModal}
+              <span
+                onClick={() => this.handleViewSavedItem(index)}
+                title="Show Saved Drawing"
+                style={{ cursor: "pointer" }}
+              >
+                <CanvasDraw
+                  style={{
+                    width: "100px",
+                    border: "1px solid #555",
+                    display: "inline-block"
+                  }}
+                  brushColor="#ffffff00"
+                  ref={it => {
+                    this[item.idForThumbnail] = it;
+                  }}
+                />
+              </span>
+              <small
+                style={{
+                  display: "inline-block",
+                  width: "70px"
+                }}
+              >
+                <strong>{item.date}</strong>
+              </small>
+            </span>
+          ))}
+        </div>
+      );
+    }
 
     return (
       <div className="MyDrawings">
@@ -225,63 +357,37 @@ class MyDrawings extends Component {
           />
 
           {/* Displaying Saved Items through Map function:*/}
-          <div
-            ref={itemsContainer => {
-              this.itemsContainer = itemsContainer;
-            }}
-          >
-            {this.state.savedItems.map((item, index) => (
-              <span key={item.id} style={{ margin: "10px" }}>
-                <Icon
-                  title="Remove Drawing"
-                  name="close"
-                  onClick={() =>
-                    this.setState(() => ({
-                      showDeleteDrawingModal: true,
-                      drawingToBeDeleted: index
-                    }))
-                  }
-                  style={{
-                    cursor: "pointer",
-                    margin: "0",
-                    border: "1px solid black",
-                    borderRadius: "50%",
-                    height: "100%"
-                  }}
-                />
-                {deleteDrawingModal}
-                <span
-                  onClick={() => this.handleViewSavedItem(index)}
-                  title="Show Saved Drawing"
-                  style={{ cursor: "pointer" }}
-                >
-                  <CanvasDraw
-                    style={{
-                      width: "100px",
-                      border: "1px solid #555",
-                      display: "inline-block"
-                    }}
-                    brushColor="#ffffff00"
-                    ref={it => {
-                      this[item.id] = it;
-                    }}
-                  />
-                </span>
-                <small
-                  style={{
-                    display: "inline-block",
-                    width: "70px"
-                  }}
-                >
-                  <strong>{item.date}</strong>
-                </small>
-              </span>
-            ))}
-          </div>
+
+          {savedDrawings}
         </div>
       </div>
     );
   }
 }
 
-export default MyDrawings;
+const mapStateToProps = state => {
+  return {
+    authenticated: state.authentication.authenticated,
+    tokenId: state.authentication.tokenId,
+    userId: state.authentication.userId,
+    drawings: state.saveAndFetch.drawings,
+    loadingSavingDrawings: state.saveAndFetch.loadingSavingDrawings,
+    loadingFetchingDrawings: state.saveAndFetch.loadingFetchingDrawings
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSaveDrawing: (itemData, tokenId, userId, itemType) =>
+      dispatch(actions.saveItem(itemData, tokenId, userId, itemType)),
+    onFetchDrawings: (tokenId, userId, itemType) =>
+      dispatch(actions.fetchItems(tokenId, userId, itemType)),
+    onDeleteDrawing: (itemData, tokenId, userId, itemType) =>
+      dispatch(actions.deleteItem(itemData, tokenId, userId, itemType))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyDrawings);

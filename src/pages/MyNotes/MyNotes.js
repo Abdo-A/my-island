@@ -11,15 +11,18 @@ const Panel = Collapse.Panel;
 
 class MyNotes extends Component {
   state = {
+    unauthenticatedUserNotes: [],
     mainNoteTitle: "",
     mainNoteBody: "",
     showDeleteNoteModal: false,
-    noteToBeDeleted: null
+    noteToBeDeleted: null,
+    itemsAreFetchedOnFirstRender: false
   };
 
   componentDidMount() {
-    if (this.props.authenticated)
+    if (this.props.authenticated) {
       this.props.onFetchNotes(this.props.tokenId, this.props.userId, "notes");
+    }
   }
 
   onChangeNoteTitle = (e, { value }) => {
@@ -58,6 +61,16 @@ class MyNotes extends Component {
       time: currentTime
     };
 
+    //for unauthenticated users
+    if (!this.props.authenticated) {
+      let savedNotes = [...this.state.unauthenticatedUserNotes];
+      savedNotes.unshift(noteToBeSaved);
+      this.setState(() => ({
+        unauthenticatedUserNotes: savedNotes
+      }));
+    }
+
+    //for authenticated users
     if (this.props.authenticated)
       this.props.onSaveNote(
         noteToBeSaved,
@@ -72,21 +85,37 @@ class MyNotes extends Component {
       showDeleteNoteModal: false
     }));
     if (order === "ok") {
-      // let savedNotes = [...this.state.savedNotes];
-      // savedNotes.splice(this.state.noteToBeDeleted, 1);
+      //For unauthenticated users
+      if (!this.props.authenticated) {
+        let savedNotes = [...this.state.unauthenticatedUserNotes];
+        savedNotes.splice(this.state.noteToBeDeleted, 1);
+        this.setState(() => ({
+          unauthenticatedUserNotes: savedNotes
+        }));
+      }
 
-      this.props.onDeleteNote(
-        this.state.noteToBeDeleted,
-        this.props.tokenId,
-        this.props.userId,
-        "notes"
-      );
+      //For authenticated users
+      if (this.props.authenticated)
+        this.props.onDeleteNote(
+          this.state.noteToBeDeleted,
+          this.props.tokenId,
+          this.props.userId,
+          "notes"
+        );
     } else {
       return;
     }
   };
 
   render() {
+    //To update the items once when the page is refreshed
+    if (this.props.authenticated && !this.state.itemsAreFetchedOnFirstRender) {
+      this.props.onFetchNotes(this.props.tokenId, this.props.userId, "notes");
+      this.setState(() => ({
+        itemsAreFetchedOnFirstRender: true
+      }));
+    }
+
     let deleteNoteModal = (
       <Modal
         visible={this.state.showDeleteNoteModal}
@@ -105,14 +134,17 @@ class MyNotes extends Component {
     if (this.props.loadingFetchingNotes) {
       savedNotes = <Spin style={{ marginTop: "20px" }} />;
     }
-    if (this.props.notes) {
-      console.log(this.props.notes);
+
+    let notesToBeFetched = this.state.unauthenticatedUserNotes;
+    if (this.props.authenticated) notesToBeFetched = this.props.notes;
+
+    if (notesToBeFetched) {
       savedNotes = (
         <Collapse
           bordered={false}
           style={{ width: "80%", margin: "30px auto" }}
         >
-          {this.props.notes.map((note, index) => {
+          {notesToBeFetched.map((note, index) => {
             return (
               <Panel header={note.title} key={index}>
                 <p>
