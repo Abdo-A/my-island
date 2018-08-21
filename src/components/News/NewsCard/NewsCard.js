@@ -20,23 +20,24 @@ const newsCard = props => {
       <a href={props.url} target="_blank">
         <Card
           style={{
-            display: "inline-block",
+            display: "flex",
             height:
-              props.screenWidth < 900 ? "auto" : props.date ? "410px" : "360px",
-            margin: props.noMargin ? "" : "35px",
+              props.screenWidth < 900 ? "auto" : props.date ? "440px" : "380px",
+            margin: props.noMargin ? "0 auto" : "35px",
             boxShadow: "15px 25px 30px 0px rgba(0,0,0,0.75)"
           }}
         >
           <Image src={props.image} style={{ width: "280", height: "220px" }} />
-          <Card.Content>
+          <Card.Content
+            style={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              justifyContent: "center"
+            }}
+          >
             <Card.Header>{props.title}</Card.Header>
-            {props.date ? (
-              <Card.Meta>
-                <span className="date">
-                  <strong>{actualDate}</strong>
-                </span>
-              </Card.Meta>
-            ) : null}
+
             <Card.Description className="love">
               {props.description.substr(0, 45) + "..."}
             </Card.Description>
@@ -45,7 +46,9 @@ const newsCard = props => {
             <Card.Content
               extra
               style={{
-                padding: "auto auto"
+                padding: "auto auto",
+                alignSelf: "flex-end",
+                margin: "0 auto"
               }}
             >
               <strong>{actualDate}</strong>

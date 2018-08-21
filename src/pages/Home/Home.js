@@ -63,35 +63,37 @@ class Home extends Component {
         </div>
 
         {/* Weather */}
-        <div className="Home__Weather">
-          <Card>
-            <h3 className="Home__Header Home__Weather__Header">
-              What's the WEATHER in your city NOW?
-            </h3>
-            <div className="Home__Weather__Parts__Wrapper">
-              <div className="Home__Weather__Part">
-                {this.props.test}
-                {this.props.userCityName ? (
-                  this.props.userCityName
-                ) : (
-                  <Spin style={{ margin: "20px" }} />
-                )}
+        {this.props.userCityName == null || (
+          <div className="Home__Weather">
+            <Card>
+              <h3 className="Home__Header Home__Weather__Header">
+                What's the WEATHER in your city NOW?
+              </h3>
+              <div className="Home__Weather__Parts__Wrapper">
+                <div className="Home__Weather__Part">
+                  {this.props.test}
+                  {this.props.userCityName ? (
+                    this.props.userCityName
+                  ) : (
+                    <Spin style={{ margin: "20px" }} />
+                  )}
+                </div>
+                <div className="Home__Weather__Part">
+                  {this.props.userCityWeather ? (
+                    <span>{this.props.userCityWeather.temp}</span>
+                  ) : (
+                    <Spin style={{ margin: "20px" }} />
+                  )}
+                </div>
+                <div className="Home__Weather__Part">
+                  {this.props.userCityWeather
+                    ? this.props.userCityWeather.description
+                    : null}
+                </div>
               </div>
-              <div className="Home__Weather__Part">
-                {this.props.userCityWeather ? (
-                  <span>{this.props.userCityWeather.temp}</span>
-                ) : (
-                  <Spin style={{ margin: "20px" }} />
-                )}
-              </div>
-              <div className="Home__Weather__Part">
-                {this.props.userCityWeather
-                  ? this.props.userCityWeather.description
-                  : null}
-              </div>
-            </div>
-          </Card>
-        </div>
+            </Card>
+          </div>
+        )}
 
         {/* Today's Quote */}
         <div className="Home__Quote">

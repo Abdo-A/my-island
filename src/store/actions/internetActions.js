@@ -129,14 +129,16 @@ export const requestUserLocationInfoAndRequestUserWeatherInfo = () => {
         `https://newsapi.org/v2/top-headlines?sources=abc-news,bbc-news,google-news,business-insider&language=en&apiKey=${newsApiKey}`
       )
       .then(res => {
-        let i = 0;
+        let i;
         for (i = 0; i < res.data.articles.length; i++) {
           if (
             res.data.articles[i].title &&
             res.data.articles[i].urlToImage &&
-            res.data.articles[i].description
-          )
+            res.data.articles[i].description &&
+            res.data.articles[i].title.length < 90
+          ) {
             break;
+          }
         }
         dispatch(setSeriousNews(res.data.articles[i]));
       })
@@ -173,14 +175,16 @@ export const requestUserLocationInfoAndRequestUserWeatherInfo = () => {
         `https://newsapi.org/v2/everything?sources=buzzfeed&language=en&apiKey=${newsApiKey}`
       )
       .then(res => {
-        let i = 0;
+        let i;
         for (i = 0; i < res.data.articles.length; i++) {
           if (
             res.data.articles[i].title &&
             res.data.articles[i].urlToImage &&
-            res.data.articles[i].description
-          )
+            res.data.articles[i].description &&
+            res.data.articles[i].title.length < 90
+          ) {
             break;
+          }
         }
         dispatch(setSillyNews(res.data.articles[i]));
       })

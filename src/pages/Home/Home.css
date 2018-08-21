@@ -3,9 +3,9 @@
   margin-bottom: 50px;
   display: flex;
   flex-direction: row;
-  flex-flow: row wrap;
+  /* flex-flow: row wrap;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 
 .Home__Header {
@@ -96,9 +96,16 @@
 }
 
 @media (max-width: 900px) {
+  .Home__NewsPiecesWrapper {
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
   .Home__NewsPiece {
     width: initial;
   }
+
   .Home__NewsPiece:nth-child(even) {
     margin-top: 6vh;
   }
