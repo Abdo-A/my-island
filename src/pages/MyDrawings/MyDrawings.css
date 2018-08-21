@@ -8,3 +8,14 @@
 .MyDrawings__MainCanvasContainer {
   margin: 0 auto;
 }
+
+.MyDrawings__SavedDrawing {
+  margin: 10px;
+}
+
+@media (min-width: 800px) {
+  .MyDrawings__SavedDrawing {
+    width: 45%;
+    float: left;
+  }
+}

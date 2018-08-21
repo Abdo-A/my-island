@@ -230,7 +230,7 @@ class MyDrawings extends Component {
           }}
         >
           {drawingsToBeFetched.map((item, index) => (
-            <span key={item.idForThumbnail} style={{ margin: "10px" }}>
+            <div key={item.idForThumbnail} className="MyDrawings__SavedDrawing">
               <Icon
                 title="Remove Drawing"
                 name="close"
@@ -274,7 +274,7 @@ class MyDrawings extends Component {
               >
                 <strong>{item.date}</strong>
               </small>
-            </span>
+            </div>
           ))}
         </div>
       );

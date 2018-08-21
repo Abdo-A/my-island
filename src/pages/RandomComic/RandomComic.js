@@ -7,6 +7,10 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 
 class RandomComic extends Component {
+  state = {
+    comicImageIsLoaded: false
+  };
+
   componentDidMount() {
     if (this.props.numberOfMassiveAPIRequests === 0)
       this.props.requestEverythingFromInternet();
@@ -15,6 +19,15 @@ class RandomComic extends Component {
   getNewComic = () => {
     this.props.requestComic();
   };
+
+  onComicImageLoad = () => {
+    if (!this.state.comicImageIsLoaded) {
+      this.setState(() => ({
+        comicImageIsLoaded: true
+      }));
+    }
+  };
+
   render() {
     let comic = null;
     if (this.props.loadingComic) {
@@ -23,10 +36,18 @@ class RandomComic extends Component {
       comic = (
         <div className="RandomComic__Comic">
           <h2>{this.props.comic.title}</h2>
-          {<img src={this.props.comic.img} alt={this.props.comic.alt} />}
+          {this.state.comicImageIsLoaded || (
+            <h5>(Note that the image can take seconds to load)</h5>
+          )}
+          <img
+            src={this.props.comic.img}
+            alt={this.props.comic.alt}
+            onLoad={this.onComicImageLoad}
+          />
         </div>
       );
     }
+
     return (
       <div className="RandomComic">
         <Button
