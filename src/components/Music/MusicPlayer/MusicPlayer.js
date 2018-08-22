@@ -4,7 +4,6 @@ import { Icon } from "semantic-ui-react";
 import Drawer from '@material-ui/core/Drawer';
 import React, { Component } from "react";
 import withSizes from "react-sizes";
-import ReactAudioPlayer from 'react-audio-player';
 
 import { MusicPlayerZIndex } from "../../../data/z-indices";
 import songs from "../../../data/songs/songs";
@@ -147,7 +146,7 @@ class MusicPlayer extends Component {
           style={{visibility:this.state.showLyrics?'visible':'hidden'}}>
           <div style={{width:'100%', backgroundColor:'red'}}>
             <span style={{width:'20%'}} className="MusicPlayer__Drawer__DesktopJustify"></span>
-            <ReactAudioPlayer
+            <audio
             controls
             autoPlay={this.props.autoplay}
             preload="auto"
@@ -155,7 +154,7 @@ class MusicPlayer extends Component {
           >
               <source src={song.src} />
             Your browser does not support the audio tag.
-            </ReactAudioPlayer>
+            </audio>
           </div>
         </Drawer>
 
