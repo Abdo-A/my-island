@@ -3,7 +3,7 @@
   top: 0;
   right: 0;
   text-align: center;
-  opacity: 0.6;
+  /* opacity: 0.6; */
   transition: opacity 0.5s ease-in;
 }
 
@@ -40,6 +40,8 @@
   margin-top: 10px;
 }
 
+
+
 .MusicPlayer__Audio:hover,
 .MusicPlayer__Audio:focus,
 .MusicPlayer__Audio:active {
@@ -55,6 +57,15 @@
   cursor: pointer;
   color: #343638;
 }
+
+/* MusicPlayer__Drawer__DesktopJustify {
+  width: 20%;
+}
+
+.MusicPlayer__Drawer__Audio {
+  border-radius: 0;
+  width:80%;
+} */
 
 @media (max-width: 1050px) {
   .MusicPlayer {

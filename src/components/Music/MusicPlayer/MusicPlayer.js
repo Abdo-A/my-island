@@ -1,8 +1,10 @@
+import { Button, Card } from "antd";
 import { connect } from "react-redux";
 import { Icon } from "semantic-ui-react";
-import { Button, Card } from "antd";
+import Drawer from '@material-ui/core/Drawer';
 import React, { Component } from "react";
 import withSizes from "react-sizes";
+import ReactAudioPlayer from 'react-audio-player';
 
 import { MusicPlayerZIndex } from "../../../data/z-indices";
 import songs from "../../../data/songs/songs";
@@ -76,6 +78,12 @@ class MusicPlayer extends Component {
           paddingBottom: this.props.show ? "10px" : "0"
         }}
       >
+
+
+
+
+
+
         <div
           className="MusicPlayer__Body"
           style={{ display: this.props.show ? "block" : "none" }}
@@ -129,6 +137,32 @@ class MusicPlayer extends Component {
             </Button>
           </div>
         </div>
+
+
+
+
+
+
+        <Drawer anchor="bottom" variant="permanent"
+          style={{visibility:this.state.showLyrics?'visible':'hidden'}}>
+          <div style={{width:'100%', backgroundColor:'red'}}>
+            <span style={{width:'20%'}} className="MusicPlayer__Drawer__DesktopJustify"></span>
+            <ReactAudioPlayer
+            controls
+            autoPlay={this.props.autoplay}
+            preload="auto"
+            style={{width:'80%', float:'right', borderRadius:'0px'}}
+          >
+              <source src={song.src} />
+            Your browser does not support the audio tag.
+            </ReactAudioPlayer>
+          </div>
+        </Drawer>
+
+
+
+
+
 
         <Icon
           name="music"
