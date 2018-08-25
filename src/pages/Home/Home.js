@@ -50,8 +50,8 @@ class Home extends Component {
           <span className="Home__NewsPiece">
             <h3 className="Home__Header Home__NewsPiece__Header__Serious">
               What's the world{" "}
-              <span className="Home__Header__FocusWord">serious</span> about
-              NOW?
+              <span className="Home__Header__FocusWord2">serious</span> about{" "}
+              <span className="Home__Header__FocusWord">NOW</span>?
             </h3>
             {seriousNews}
           </span>
@@ -59,7 +59,8 @@ class Home extends Component {
           <span className="Home__NewsPiece">
             <h3 className="Home__Header Home__NewsPiece__Header__Silly">
               What's the world{" "}
-              <span className="Home__Header__FocusWord">silly</span> about NOW?
+              <span className="Home__Header__FocusWord2">silly</span> about{" "}
+              <span className="Home__Header__FocusWord">NOW</span>?
             </h3>
             {sillyNews}
           </span>
@@ -71,8 +72,8 @@ class Home extends Component {
             <Card>
               <h3 className="Home__Header Home__Weather__Header">
                 What's the{" "}
-                <span className="Home__Header__FocusWord">weather</span> in your
-                city NOW?
+                <span className="Home__Header__FocusWord2">weather</span> in
+                your city <span className="Home__Header__FocusWord">NOW</span>?
               </h3>
               <div className="Home__Weather__Parts__Wrapper">
                 <div className="Home__Weather__Part">
@@ -104,8 +105,8 @@ class Home extends Component {
         <div className="Home__Picture">
           <Card>
             <h3 className="Home__Header Home__Picture__Header">
-              What's today's best{" "}
-              <span className="Home__Header__FocusWord">picture</span>?
+              What's <span className="Home__Header__FocusWord">today's</span>{" "}
+              best <span className="Home__Header__FocusWord2">picture</span>?
             </h3>
             <img
               className="Home__Picture__Picture"
@@ -119,8 +120,9 @@ class Home extends Component {
         <div className="Home__Quote">
           <Card>
             <h3 className="Home__Header Home__Quote__Header">
-              What's today's most valuable{" "}
-              <span className="Home__Header__FocusWord">saying</span>?
+              What's <span className="Home__Header__FocusWord">today's</span>{" "}
+              most valuable{" "}
+              <span className="Home__Header__FocusWord2">saying</span>?
             </h3>
             {this.props.quote ? (
               <span>
@@ -149,8 +151,8 @@ class Home extends Component {
         <div className="Home__Advice">
           <Card>
             <h3 className="Home__Header Home__Advice__Header">
-              What's today's best{" "}
-              <span className="Home__Header__FocusWord">advice</span>?
+              What's <span className="Home__Header__FocusWord">today's</span>{" "}
+              best <span className="Home__Header__FocusWord2">advice</span>?
             </h3>
             <img
               className="Home__Advice__Comic"

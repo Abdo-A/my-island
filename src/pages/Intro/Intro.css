@@ -2,9 +2,9 @@
   width: 100vw;
   overflow: hidden;
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("../../assets/images/intro_background.jpg");
+    url("../../assets/images/intro_background_v4.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: 40% 80%;
   background-attachment: fixed;
 
   display: flex;

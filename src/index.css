@@ -7,7 +7,11 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Open Sans", sans-serif;
-  background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+  background-image: linear-gradient(to right, #c9d6ff86, #e2e2e25e),
+    url("../src/assets/images/intro_background_v2.jpg");
+  background-size: cover;
+  background-position: 40% 80%;
+  background-attachment: fixed;
 }
 
 .container {
