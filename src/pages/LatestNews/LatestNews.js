@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { Menu } from "semantic-ui-react";
 import { Spin } from "antd";
 import React, { Component } from "react";
 
@@ -11,31 +12,102 @@ import "./LatestNews.css";
 class LatestNews extends Component {
   state = {
     maximumNumberOfArticleCards: 15,
-    maximumNumberOfArticleInSlider: 3
+    maximumNumberOfArticleInSlider: 3,
+    articles: null,
+    chosenNewsGenre: "general",
+    firstLoad: true
   };
 
   componentDidMount() {
-    if (this.props.numberOfMassiveAPIRequests === 0)
+    if (this.props.numberOfMassiveAPIRequests === 0) {
       this.props.requestEverythingFromInternet();
+    }
   }
 
+  handleChooseGenre = (e, { name }) => {
+    if (name === "general") {
+      this.setState(() => ({
+        articles: this.props.generalArticles
+      }));
+    } else if (name === "sports") {
+      this.setState(() => ({
+        articles: this.props.sportsArticles
+      }));
+    } else if (name === "technology") {
+      this.setState(() => ({
+        articles: this.props.technologyArticles
+      }));
+    } else if (name === "nature") {
+      this.setState(() => ({
+        articles: this.props.natureArticles
+      }));
+    }
+    this.setState({ chosenNewsGenre: name, firstLoad: false });
+  };
+
   render() {
+    let articles = this.state.firstLoad
+      ? this.props.generalArticles
+      : this.state.articles;
+
     return (
       <div>
+        <Menu
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "center"
+          }}
+        >
+          <Menu.Item
+            name="general"
+            active={this.state.chosenNewsGenre === "general"}
+            onClick={this.handleChooseGenre}
+          >
+            General
+          </Menu.Item>
+
+          <Menu.Item
+            name="technology"
+            active={this.state.chosenNewsGenre === "technology"}
+            onClick={this.handleChooseGenre}
+          >
+            Technology
+          </Menu.Item>
+
+          <Menu.Item
+            name="sports"
+            active={this.state.chosenNewsGenre === "sports"}
+            onClick={this.handleChooseGenre}
+          >
+            Sports
+          </Menu.Item>
+          <Menu.Item
+            name="nature"
+            active={this.state.chosenNewsGenre === "nature"}
+            onClick={this.handleChooseGenre}
+          >
+            Nature
+          </Menu.Item>
+        </Menu>
+
+        {/*
         <div>
           <NewsSlider
-            articles={this.props.articles}
+            articles={articles}
             maximumNumberOfArticleInSlider={
               this.state.maximumNumberOfArticleInSlider
             }
           />
         </div>
+        */}
 
-        {!this.props.articles ? (
+        {!articles ? (
           <Spin style={{ marginTop: "80px" }} />
         ) : (
           <NewsCardsCollection
-            articles={this.props.articles}
+            articles={articles}
             maximumNumberOfArticleCards={this.state.maximumNumberOfArticleCards}
             maximumNumberOfArticleInSlider={
               this.state.maximumNumberOfArticleInSlider
@@ -49,7 +121,10 @@ class LatestNews extends Component {
 
 const mapStateToProps = state => {
   return {
-    articles: state.internet.latestNews,
+    generalArticles: state.internet.latestNews,
+    sportsArticles: state.internet.latestNewsSports,
+    technologyArticles: state.internet.latestNewsTechnology,
+    natureArticles: state.internet.latestNewsNature,
     numberOfMassiveAPIRequests: state.internet.numberOfMassiveAPIRequests
   };
 };

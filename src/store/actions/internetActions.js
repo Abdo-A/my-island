@@ -3,6 +3,11 @@ import axios from "axios";
 import { newsApiKey } from "../../data/apiKeys";
 import * as actionTypes from "./actionTypes";
 
+const latestNewsGeneralUrl = `https://newsapi.org/v2/top-headlines?language=en&apiKey=${newsApiKey}`;
+const latestNewsSportsUrl = `https://newsapi.org/v2/top-headlines?sources=bbc-sport,talksport,the-sport-bible&apiKey=${newsApiKey}`;
+const latestNewsTechnologyUrl = `https://newsapi.org/v2/top-headlines?sources=techradar,techcrunch&apiKey=${newsApiKey}`;
+const latestNewsNatureUrl = `https://newsapi.org/v2/top-headlines?sources=national-geographic&apiKey=${newsApiKey}`;
+
 ///////////////////////////////////////REQUEST LOCATION///////////////////////////////////////////////
 //
 //
@@ -306,17 +311,23 @@ export const requestUserLocationInfoAndRequestUserWeatherInfo = () => {
 
 //
 //
-//Requesting quote
+//Requesting latest news
 //
 //
-/*1*/ export const requestLatestNews = () => {
+/*1*/ export const requestLatestNews = newsType => {
+  let url = latestNewsGeneralUrl;
+  if (newsType === "sports") {
+    url = latestNewsSportsUrl;
+  } else if (newsType === "technology") {
+    url = latestNewsTechnologyUrl;
+  } else if (newsType === "nature") {
+    url = latestNewsNatureUrl;
+  }
   return dispatch => {
     axios
-      .get(
-        `https://newsapi.org/v2/top-headlines?language=en&apiKey=${newsApiKey}`
-      )
+      .get(url)
       .then(res => {
-        dispatch(setLatestNews(res.data.articles));
+        dispatch(setLatestNews(res.data.articles, newsType));
       })
       .catch(error => error);
   };
@@ -324,13 +335,14 @@ export const requestUserLocationInfoAndRequestUserWeatherInfo = () => {
 
 //
 //
-//Setting quote
+//Setting latest news
 //
 //
-/*2*/ const setLatestNews = info => {
+/*2*/ const setLatestNews = (info, newsType) => {
   return {
     type: actionTypes.SET_LATEST_NEWS,
-    news: info
+    news: info,
+    newsType: newsType
   };
 };
 

@@ -18,7 +18,12 @@ export const requestEverythingFromInternet = () => {
     dispatch(internetActions.requestSillyNews());
     dispatch(internetActions.requestQuote());
     dispatch(internetActions.requestComic());
-    dispatch(internetActions.requestLatestNews());
+
+    dispatch(internetActions.requestLatestNews("general"));
+    dispatch(internetActions.requestLatestNews("sports"));
+    dispatch(internetActions.requestLatestNews("technology"));
+    dispatch(internetActions.requestLatestNews("nature"));
+
     dispatch(internetActions.requestUserLocationInfoAndRequestMyCountryNews());
 
     dispatch(incrementMassiveRequestsCount());

@@ -12,7 +12,12 @@ const initialState = {
   sillyNews: null,
   randomComic: null,
   loadingComic: false,
+
   latestNews: null,
+  latestNewsSports: null,
+  latestNewsTechnology: null,
+  latestNewsNature: null,
+
   myCountryNews: null
 };
 
@@ -83,10 +88,27 @@ const internetReducer = (state = initialState, action) => {
     //LATEST NEWS
     //
     case actionTypes.SET_LATEST_NEWS:
-      return {
-        ...state,
-        latestNews: action.news
-      };
+      if (action.newsType === "sports") {
+        return {
+          ...state,
+          latestNewsSports: action.news
+        };
+      } else if (action.newsType === "technology") {
+        return {
+          ...state,
+          latestNewsTechnology: action.news
+        };
+      } else if (action.newsType === "nature") {
+        return {
+          ...state,
+          latestNewsNature: action.news
+        };
+      } else {
+        return {
+          ...state,
+          latestNews: action.news
+        };
+      }
 
     //
     //MyCountry NEWS

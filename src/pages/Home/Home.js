@@ -101,6 +101,21 @@ class Home extends Component {
           </div>
         )}
 
+        {/* Today's Advice */}
+        <div className="Home__Advice">
+          <Card>
+            <h3 className="Home__Header Home__Advice__Header">
+              What's <span className="Home__Header__FocusWord">today's</span>{" "}
+              best <span className="Home__Header__FocusWord2">advice</span>?
+            </h3>
+            <img
+              className="Home__Advice__Comic"
+              src="http://belikebill.azurewebsites.net/billgen-API.php?default=1"
+              alt="comic"
+            />
+          </Card>
+        </div>
+
         {/*Today's Picture*/}
         <div className="Home__Picture">
           <Card>
@@ -144,21 +159,6 @@ class Home extends Component {
             ) : (
               <Spin style={{ marginTop: "50px", marginBottom: "50px" }} />
             )}
-          </Card>
-        </div>
-
-        {/* Today's Advice */}
-        <div className="Home__Advice">
-          <Card>
-            <h3 className="Home__Header Home__Advice__Header">
-              What's <span className="Home__Header__FocusWord">today's</span>{" "}
-              best <span className="Home__Header__FocusWord2">advice</span>?
-            </h3>
-            <img
-              className="Home__Advice__Comic"
-              src="http://belikebill.azurewebsites.net/billgen-API.php?default=1"
-              alt="comic"
-            />
           </Card>
         </div>
       </div>
