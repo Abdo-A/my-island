@@ -29,7 +29,7 @@ const saveAndFetchReducer = (state = initialState, action) => {
       };
 
     case actionTypes.SAVE_ITEM_SUCCESS:
-      let item = { ...action.itemData, id: action.id };
+      //let item = { ...action.itemData, id: action.id };
       return {
         ...state,
         //[action.itemType]: [item, ...state[action.itemType]],

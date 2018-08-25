@@ -49,14 +49,17 @@ class Home extends Component {
         <div className="Home__NewsPiecesWrapper">
           <span className="Home__NewsPiece">
             <h3 className="Home__Header Home__NewsPiece__Header__Serious">
-              What's the world SERIOUS about NOW?
+              What's the world{" "}
+              <span className="Home__Header__FocusWord">serious</span> about
+              NOW?
             </h3>
             {seriousNews}
           </span>
 
           <span className="Home__NewsPiece">
             <h3 className="Home__Header Home__NewsPiece__Header__Silly">
-              What's the world SILLY about NOW?
+              What's the world{" "}
+              <span className="Home__Header__FocusWord">silly</span> about NOW?
             </h3>
             {sillyNews}
           </span>
@@ -67,7 +70,9 @@ class Home extends Component {
           <div className="Home__Weather">
             <Card>
               <h3 className="Home__Header Home__Weather__Header">
-                What's the WEATHER in your city NOW?
+                What's the{" "}
+                <span className="Home__Header__FocusWord">weather</span> in your
+                city NOW?
               </h3>
               <div className="Home__Weather__Parts__Wrapper">
                 <div className="Home__Weather__Part">
@@ -95,11 +100,27 @@ class Home extends Component {
           </div>
         )}
 
+        {/*Today's Picture*/}
+        <div className="Home__Picture">
+          <Card>
+            <h3 className="Home__Header Home__Picture__Header">
+              What's today's best{" "}
+              <span className="Home__Header__FocusWord">picture</span>?
+            </h3>
+            <img
+              className="Home__Picture__Picture"
+              src="https://source.unsplash.com/daily"
+              alt="art"
+            />
+          </Card>
+        </div>
+
         {/* Today's Quote */}
         <div className="Home__Quote">
           <Card>
             <h3 className="Home__Header Home__Quote__Header">
-              What's today's most valuable saying?
+              What's today's most valuable{" "}
+              <span className="Home__Header__FocusWord">saying</span>?
             </h3>
             {this.props.quote ? (
               <span>
@@ -128,7 +149,8 @@ class Home extends Component {
         <div className="Home__Advice">
           <Card>
             <h3 className="Home__Header Home__Advice__Header">
-              What's today's best advice?
+              What's today's best{" "}
+              <span className="Home__Header__FocusWord">advice</span>?
             </h3>
             <img
               className="Home__Advice__Comic"

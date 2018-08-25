@@ -1,13 +1,13 @@
+import { connect } from "react-redux";
 import React, { Component } from "react";
 
 import Aux from "../Auxe/Auxe";
 import MainMenu from "../../components/Navigation/MainMenu/MainMenu";
 import MusicPlayer from "../../components/Music/MusicPlayer/MusicPlayer";
-
-import "./Layout.css";
 import SignIn from "../../components/Authentication/SignIn/SignIn";
 import SignUp from "../../components/Authentication/SignUp/SignUp";
-import { connect } from "react-redux";
+
+import "./Layout.css";
 
 class Layout extends Component {
   render() {
@@ -19,9 +19,7 @@ class Layout extends Component {
         <MusicPlayer autoplay={false} />
 
         <main className="container" style={{ marginTop: "10vh" }}>
-          {this.props.authenticated
-            ? "Welcome to your account"
-            : "Please sign up"}
+          {this.props.authenticated ? "Welcome to your account" : ""}
           {this.props.children}
         </main>
       </Aux>

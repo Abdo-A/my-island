@@ -48,6 +48,10 @@ import * as actionTypes from "./actionTypes";
 //
 //
 /*1*/ export const requestUserWeatherInfo = userCityName => {
+  if (!userCityName) {
+    console.log("City name is not passed");
+    return "City name is not passed";
+  }
   return dispatch => {
     axios
       .get(
@@ -94,19 +98,20 @@ export const requestUserLocationInfoAndRequestUserWeatherInfo = () => {
         };
         dispatch(setUserLocationInfo(info));
 
-        axios
-          .get(
-            `//api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
-              res.data.city
-            }&units=metric`
-          )
-          .then(res => {
-            const info = {
-              temp: res.data.main.temp,
-              description: res.data.weather[0].description
-            };
-            dispatch(setUserWeatherInfo(info));
-          });
+        if (res.data.city)
+          axios
+            .get(
+              `//api.openweathermap.org/data/2.5/weather?APPID=6db884c885d37b28b2a29b1aa5fa3609&q=${
+                res.data.city
+              }&units=metric`
+            )
+            .then(res => {
+              const info = {
+                temp: res.data.main.temp,
+                description: res.data.weather[0].description
+              };
+              dispatch(setUserWeatherInfo(info));
+            });
       })
 
       .catch(err => {

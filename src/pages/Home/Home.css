@@ -17,18 +17,25 @@
   margin-bottom: 0;
 }
 
+.Home__Header__FocusWord {
+  text-transform: uppercase;
+  font-weight: 900;
+  color: turquoise;
+  font-style: italic;
+}
+
 .Home__NewsPiece {
   width: 40%;
 }
 
 .Home__NewsPiece__Header__Serious {
-  color: thistle;
-  background-color: rgb(17, 9, 9);
+  color: seashell;
+  background-color: sienna;
 }
 
 .Home__NewsPiece__Header__Silly {
-  color: rgb(17, 9, 9);
-  background-color: thistle;
+  color: seashell;
+  background-color: sienna;
 }
 
 .Home__Weather {
@@ -43,6 +50,21 @@
 .Home__Weather__Part {
   width: 33%;
   float: left;
+}
+
+.Home__Picture {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.Home__Picture__Header {
+  color: seashell;
+  background-color: sienna;
+}
+
+.Home__Picture__Picture {
+  width: 80%;
+  height: 80vh;
 }
 
 .Home__Quote {
