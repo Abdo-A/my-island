@@ -4,6 +4,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   forcedSongOnMusicPlayer: null,
+  mainMenuVisible: false,
   openSignIn: false,
   openSignUp: false
 };
@@ -15,6 +16,12 @@ const basicReducer = (state = initialState, action) => {
       return {
         ...state,
         forcedSongOnMusicPlayer: action.songIndex
+      };
+
+    case actionTypes.SET_MAINMENU_VISIBLE:
+      return {
+        ...state,
+        mainMenuVisible: action.mainMenuVisible
       };
 
     case actionTypes.OPEN_SIGN_IN:

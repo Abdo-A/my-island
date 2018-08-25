@@ -3,50 +3,6 @@
   top: 0;
   right: 0;
   text-align: center;
-  /* opacity: 0.6; */
-  transition: opacity 0.5s ease-in;
-}
-
-.MusicPlayer:hover {
-  opacity: 1;
-}
-
-.MusicPlayer__Body {
-  margin-right: 80px;
-}
-
-.MusicPlayer__LyricsButton {
-  position: absolute;
-  left: -25%;
-  top: 50px;
-}
-
-.MusicPlayer__LyricsCard {
-  z-index: 0;
-  position: fixed;
-  background-color: darkgoldenrod;
-  color: antiquewhite;
-}
-
-.MusicPlayer__LyricsContainer {
-  height: 100px;
-  overflow: auto;
-}
-
-.MusicPlayer__Audio {
-  transition: all 0.5s linear;
-  box-shadow: 2px 2px 4px 0px #1f2e30;
-  border-radius: 40px;
-  margin-top: 10px;
-}
-
-
-
-.MusicPlayer__Audio:hover,
-.MusicPlayer__Audio:focus,
-.MusicPlayer__Audio:active {
-  box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.4);
-  transform: scale(1.05);
 }
 
 .MusicPlayer__ToggleIcon {
@@ -58,14 +14,18 @@
   color: #343638;
 }
 
-/* MusicPlayer__Drawer__DesktopJustify {
-  width: 20%;
+.MusicPlayer__SongInfo {
+  color: antiquewhite;
 }
 
-.MusicPlayer__Drawer__Audio {
-  border-radius: 0;
-  width:80%;
-} */
+.MusicPlayer__LyricsContainer {
+  height: 60vh;
+  overflow: auto;
+}
+
+.MusicPlayer__LyricsButton {
+  background-color: #1b1c1d;
+}
 
 @media (max-width: 1050px) {
   .MusicPlayer {
@@ -73,36 +33,16 @@
     right: calc(-50vw + 50%);
     margin-left: auto;
     margin-right: auto;
-    opacity: 1;
     background-color: darkgoldenrod;
   }
 
   .MusicPlayer__Body {
     margin-top: 30px;
-    margin-right: 0;
-  }
-
-  .MusicPlayer__Audio {
-    width: 70vw;
-  }
-
-  .MusicPlayer__LyricsButton {
-    position: static;
-  }
-
-  .MusicPlayer__LyricsCard {
-    width: 80vw;
-    margin-left: 10vw;
-    margin-right: 10vw;
-    height: 55vh;
-    overflow: auto;
-    margin-top: 15px;
+    margin-bottom: 8px;
   }
 
   .MusicPlayer__LyricsContainer {
-    height: 100%;
-    margin-left: 0;
-    padding-right: 0;
+    width: 70vw;
   }
 }
 
@@ -124,31 +64,17 @@
   .MusicPlayer__SongInfo {
     font-size: 10px;
   }
-
-  .MusicPlayer__LyricsContainer {
-    height: 50vh;
-  }
 }
 
 @media (min-width: 1050px) {
   .MusicPlayer__Body {
-    margin-top: 10px;
+    margin-top: 12px;
+    margin-right: 100px;
+    background-color: #1b1c1d;
+    padding: 10px;
+    border-radius: 4px;
   }
-
-  .MusicPlayer__LyricsCard {
-    opacity: 0.6;
-    transition: opacity 0.5s ease-in;
-    left: 19%;
-    top: 3%;
-  }
-
-  .MusicPlayer__LyricsCard:hover {
-    opacity: 1;
-  }
-}
-
-@media (max-width: 1250px) and (min-width: 1050px) {
-  .MusicPlayer__LyricsCard {
-    left: 6%;
+  .ant-popover {
+    margin-right: 30px;
   }
 }

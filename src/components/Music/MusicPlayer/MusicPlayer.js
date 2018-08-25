@@ -1,7 +1,7 @@
-import { Button, Card } from "antd";
+import { Popover } from "antd";
 import { connect } from "react-redux";
-import { Icon } from "semantic-ui-react";
-import Drawer from '@material-ui/core/Drawer';
+import { Icon, Button } from "semantic-ui-react";
+import Drawer from "@material-ui/core/Drawer";
 import React, { Component } from "react";
 import withSizes from "react-sizes";
 
@@ -10,13 +10,11 @@ import songs from "../../../data/songs/songs";
 
 import "./MusicPlayer.css";
 
-let maxScreenSizeForHorizontalLyrics = 1050;
-
 class MusicPlayer extends Component {
   state = {
     currentSong: 0,
-    showLyrics:
-      this.props.screenWidth > maxScreenSizeForHorizontalLyrics ? true : false
+    showControllers: true,
+    showMusicPlayer: true
   };
 
   componentWillReceiveProps(nextProps) {
@@ -25,7 +23,7 @@ class MusicPlayer extends Component {
       nextProps.forcedSong !== this.state.currentSong &&
       nextProps.forcedSong !== this.props.forcedSong
     ) {
-      document.getElementById("floatingAudio").src =
+      document.getElementById("drawerAudio").src =
         songs[nextProps.forcedSong].src;
       this.setState(() => ({
         currentSong: nextProps.forcedSong
@@ -45,47 +43,101 @@ class MusicPlayer extends Component {
                 : ""
         }),
         () => {
-          document.getElementById("floatingAudio").src =
+          document.getElementById("drawerAudio").src =
             songs[this.state.currentSong].src;
-          document
-            .getElementById("floatingAudioLyricsContainer")
-            .scrollTo(0, 0);
+          if (document.getElementById("drawerAudioLyricsContainer")) {
+            document
+              .getElementById("drawerAudioLyricsContainer")
+              .scrollTo(0, 0);
+          }
         }
       );
   };
 
-  onLyricsToggle = () => {
+  onMusicIconClick = () => {
     this.setState(prevState => ({
-      showLyrics: !prevState.showLyrics
+      showControllers: !prevState.showControllers
     }));
   };
 
-  onMusicIconClick = () => {
+  showOrHideMusicPlayer = showOrHide => {
     this.setState(() => ({
-      showLyrics: this.props.screenWidth > 1050 ? true : false
+      showMusicPlayer: showOrHide === "show" ? true : false
     }));
-    this.props.toggleShow();
   };
 
   render() {
     let song = songs[this.state.currentSong];
+
+    const lyricsContainer = (
+      <div
+        id="drawerAudioLyricsContainer"
+        className="MusicPlayer__LyricsContainer"
+      >
+        {song.lyrics}
+      </div>
+    );
+
+    const controlButtons = (
+      <div>
+        <Button
+          onClick={() => this.navigateSong("last")}
+          color="grey"
+          size="tiny"
+          disabled={this.state.currentSong === 0}
+        >
+          <Icon name="backward" />
+          Last
+        </Button>
+
+        <Popover
+          content={lyricsContainer}
+          title="Lyrics"
+          trigger="click"
+          style={{ marginLeft: "20px" }}
+        >
+          <Button
+            className="MusicPlayer__LyricsButton"
+            size="tiny"
+            disabled={!song.lyrics}
+          >
+            Lyrics
+          </Button>
+        </Popover>
+
+        <Button
+          onClick={() => this.navigateSong("next")}
+          color="grey"
+          size="tiny"
+        >
+          Next <Icon name="forward" />
+        </Button>
+
+        <Button
+          size="mini"
+          title="Show music player"
+          color="green"
+          style={{
+            display: this.state.showMusicPlayer ? "none" : "block",
+            margin: "10px auto 0 auto"
+          }}
+          onClick={() => this.showOrHideMusicPlayer("show")}
+        >
+          Music Player
+        </Button>
+      </div>
+    );
+
     return (
       <div
         className="MusicPlayer"
         style={{
-          zIndex: MusicPlayerZIndex,
-          paddingBottom: this.props.show ? "10px" : "0"
+          zIndex: MusicPlayerZIndex
         }}
       >
-
-
-
-
-
-
         <div
           className="MusicPlayer__Body"
-          style={{ display: this.props.show ? "block" : "none" }}
+          style={{ display: this.state.showControllers ? "block" : "none" }}
         >
           <strong className="MusicPlayer__SongInfo">
             {song.name}
@@ -93,75 +145,76 @@ class MusicPlayer extends Component {
             <i>{song.singer}</i>
           </strong>
           <br />
-          <audio
-            controls
-            autoPlay={this.props.autoplay}
-            preload="auto"
-            className="MusicPlayer__Audio"
-            id="floatingAudio"
-          >
-            <source src={song.src} />
-            Your browser does not support the audio tag.
-          </audio>
-          <div>
-            <Button
-              onClick={() => this.navigateSong("last")}
-              disabled={this.state.currentSong === 0}
-            >
-              <Icon name="backward" />
-              Last
-            </Button>
-            <Card
-              className="MusicPlayer__LyricsCard"
-              style={{ display: this.state.showLyrics ? "block" : "none" }}
-            >
-              <div
-                className="MusicPlayer__LyricsContainer"
-                id="floatingAudioLyricsContainer"
-              >
-                {song.lyrics}
-              </div>
-            </Card>
-
-            <Button
-              type="primary"
-              className="MusicPlayer__LyricsButton"
-              onClick={this.onLyricsToggle}
-            >
-              Lyrics
-            </Button>
-
-            <Button onClick={() => this.navigateSong("next")}>
-              Next <Icon name="forward" />
-            </Button>
-          </div>
+          <br />
+          <span>{controlButtons}</span>
         </div>
 
-
-
-
-
-
-        <Drawer anchor="bottom" variant="permanent"
-          style={{visibility:this.state.showLyrics?'visible':'hidden'}}>
-          <div style={{width:'100%', backgroundColor:'red'}}>
-            <span style={{width:'20%'}} className="MusicPlayer__Drawer__DesktopJustify"></span>
-            <audio
-            controls
-            autoPlay={this.props.autoplay}
-            preload="auto"
-            style={{width:'80%', float:'right', borderRadius:'0px'}}
-          >
-              <source src={song.src} />
-            Your browser does not support the audio tag.
-            </audio>
+        <Drawer
+          anchor="bottom"
+          variant="permanent"
+          style={{
+            visibility: this.state.showMusicPlayer ? "visible" : "hidden"
+          }}
+        >
+          <div style={{ width: "100%", backgroundColor: "#1B1C1D" }}>
+            <span
+              className="MusicPlayer__Drawer__DesktopJustify"
+              style={{
+                width:
+                  this.props.screenWidth < 800 || !this.props.mainMenuVisible
+                    ? "0"
+                    : "150px"
+              }}
+            />
+            <div
+              style={{
+                float: "right",
+                width:
+                  this.props.screenWidth < 800 || !this.props.mainMenuVisible
+                    ? this.props.screenWidth + "px"
+                    : this.props.screenWidth - 150 + "px"
+              }}
+              className="MusicPlayer__Drawer__Container"
+            >
+              <div
+                style={{
+                  backgroundColor: "#f1f3f4",
+                  width: "100%",
+                  float: "left",
+                  margin: "0",
+                  padding: "0",
+                  height: "100%",
+                  position: "relative"
+                }}
+                className="MusicPlayer__Drawer__AudioContainer"
+              >
+                <audio
+                  controls
+                  autoPlay={this.props.autoplay}
+                  preload="auto"
+                  style={{ width: "100%" }}
+                  id="drawerAudio"
+                >
+                  <source src={song.src} />
+                  Your browser does not support the audio tag.
+                </audio>
+              </div>
+              <Icon
+                title="Hide music player"
+                name="close"
+                onClick={() => this.showOrHideMusicPlayer("hide")}
+                style={{
+                  cursor: "pointer",
+                  margin: "0",
+                  borderRadius: "50%",
+                  position: "absolute",
+                  top: "0",
+                  right: "0"
+                }}
+              />
+            </div>
           </div>
         </Drawer>
-
-
-
-
-
 
         <Icon
           name="music"
@@ -182,7 +235,8 @@ const mapSizesToProps = ({ width }) => ({
 
 const mapStateToProps = state => {
   return {
-    forcedSong: state.basic.forcedSongOnMusicPlayer
+    forcedSong: state.basic.forcedSongOnMusicPlayer,
+    mainMenuVisible: state.basic.mainMenuVisible
   };
 };
 

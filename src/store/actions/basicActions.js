@@ -7,6 +7,13 @@ export const setForcedSongOnMusicPlayer = songIndex => {
   };
 };
 
+export const setMainMenuVisible = showOrHide => {
+  return {
+    type: actionTypes.SET_MAINMENU_VISIBLE,
+    mainMenuVisible: showOrHide === "show" ? true : false
+  };
+};
+
 export const openSignIn = songIndex => {
   return {
     type: actionTypes.OPEN_SIGN_IN

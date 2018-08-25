@@ -15,7 +15,6 @@ import "./MainMenu.css";
 
 class MainMenu extends Component {
   state = {
-    menuVisible: this.props.screenWidth >= 800 ? true : false,
     backdropVisible: false,
     loadingLogout: false
   };
@@ -26,11 +25,16 @@ class MainMenu extends Component {
     ).forEach(element => {
       element.style.backgroundColor = "rgba(96, 101, 101, 0.39)";
     });
+
+    //Initializing the menu visibility state:
+    this.props.handleMainMenuShowAndHide(
+      this.props.screenWidth >= 800 ? "show" : "hide"
+    );
   }
 
   handleMainMenuShowAndHide = showOrHide => {
+    this.props.handleMainMenuShowAndHide(showOrHide);
     this.setState(() => ({
-      menuVisible: showOrHide === "show" ? true : false,
       backdropVisible: showOrHide === "show" ? true : false
     }));
   };
@@ -113,7 +117,7 @@ class MainMenu extends Component {
           icon="labeled"
           inverted
           vertical
-          visible={this.state.menuVisible}
+          visible={this.props.menuVisible}
           width="thin"
           style={{ zIndex: MainMenuZIndex }}
         >
@@ -170,7 +174,8 @@ const mapSizesToProps = ({ width }) => ({
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.authentication.authenticated
+    authenticated: state.authentication.authenticated,
+    menuVisible: state.basic.mainMenuVisible
   };
 };
 
@@ -178,7 +183,9 @@ const mapDispatchToProps = dispatch => {
   return {
     openSignUp: () => dispatch(actions.openSignUp()),
     openSignIn: () => dispatch(actions.openSignIn()),
-    logout: () => dispatch(actions.authenticationLogout())
+    logout: () => dispatch(actions.authenticationLogout()),
+    handleMainMenuShowAndHide: showOrHide =>
+      dispatch(actions.setMainMenuVisible(showOrHide))
   };
 };
 
