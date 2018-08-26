@@ -13,9 +13,13 @@ class LatestNews extends Component {
   state = {
     maximumNumberOfArticleCards: 15,
     maximumNumberOfArticleInSlider: 3,
-    articles: null,
     chosenNewsGenre: "general",
-    firstLoad: true
+    firstLoad: true,
+
+    //To make sure that we request a genre news only once
+    numberOfSportsRequests: 0,
+    numberOfTechnologyRequests: 0,
+    numberOfNatureRequests: 0
   };
 
   componentDidMount() {
@@ -27,27 +31,26 @@ class LatestNews extends Component {
   handleChooseGenre = (e, { name }) => {
     if (name === "general") {
       //this.props.requestLatestNews("general");
-
-      this.setState(() => ({
-        articles: this.props.generalArticles
-      }));
     } else if (name === "sports") {
-      this.props.requestLatestNews("sports");
+      if (this.state.numberOfSportsRequests === 0)
+        this.props.requestLatestNews("sports");
 
-      this.setState(() => ({
-        articles: this.props.sportsArticles
+      this.setState(prevState => ({
+        numberOfSportsRequests: prevState.numberOfSportsRequests + 1
       }));
     } else if (name === "technology") {
-      this.props.requestLatestNews("technology");
+      if (this.state.numberOfTechnologyRequests === 0)
+        this.props.requestLatestNews("technology");
 
-      this.setState(() => ({
-        articles: this.props.technologyArticles
+      this.setState(prevState => ({
+        numberOfTechnologyRequests: prevState.numberOfTechnologyRequests + 1
       }));
     } else if (name === "nature") {
-      this.props.requestLatestNews("nature");
+      if (this.state.numberOfNatureRequests === 0)
+        this.props.requestLatestNews("nature");
 
-      this.setState(() => ({
-        articles: this.props.natureArticles
+      this.setState(prevState => ({
+        numberOfNatureRequests: prevState.numberOfNatureRequests + 1
       }));
     }
     this.setState({ chosenNewsGenre: name, firstLoad: false });
@@ -56,7 +59,13 @@ class LatestNews extends Component {
   render() {
     let articles = this.state.firstLoad
       ? this.props.generalArticles
-      : this.state.articles;
+      : this.state.chosenNewsGenre === "sports"
+        ? this.props.sportsArticles
+        : this.state.chosenNewsGenre === "technology"
+          ? this.props.technologyArticles
+          : this.state.chosenNewsGenre === "nature"
+            ? this.props.natureArticles
+            : this.props.generalArticles;
 
     return (
       <div>

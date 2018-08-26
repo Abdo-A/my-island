@@ -14,9 +14,13 @@ class MyCountryNews extends Component {
   state = {
     maximumNumberOfArticleCards: 15,
     maximumNumberOfArticleInSlider: 3,
-    articles: null,
     chosenNewsGenre: "general",
-    firstLoad: true
+    firstLoad: true,
+
+    //To make sure that we request a genre news only once
+    numberOfSportsRequests: 0,
+    numberOfTechnologyRequests: 0,
+    numberOfBusinessRequests: 0
   };
 
   componentDidMount() {
@@ -27,29 +31,29 @@ class MyCountryNews extends Component {
   handleChooseGenre = (e, { name }) => {
     if (name === "general") {
       //this.props.requestUserLocationInfoAndRequestMyCountryNews("general");
-
-      this.setState(() => ({
-        articles: this.props.generalArticles
-      }));
     } else if (name === "sports") {
-      this.props.requestUserLocationInfoAndRequestMyCountryNews("sports");
+      if (this.state.numberOfSportsRequests === 0)
+        this.props.requestUserLocationInfoAndRequestMyCountryNews("sports");
 
-      this.setState(() => ({
-        articles: this.props.sportsArticles
+      this.setState(prevState => ({
+        numberOfSportsRequests: prevState.numberOfSportsRequests + 1
       }));
     } else if (name === "technology") {
-      this.props.requestUserLocationInfoAndRequestMyCountryNews("technology");
+      if (this.state.numberOfTechnologyRequests === 0)
+        this.props.requestUserLocationInfoAndRequestMyCountryNews("technology");
 
-      this.setState(() => ({
-        articles: this.props.technologyArticles
+      this.setState(prevState => ({
+        numberOfTechnologyRequests: prevState.numberOfTechnologyRequests + 1
       }));
     } else if (name === "business") {
-      this.props.requestUserLocationInfoAndRequestMyCountryNews("business");
+      if (this.state.numberOfBusinessRequests === 0)
+        this.props.requestUserLocationInfoAndRequestMyCountryNews("business");
 
-      this.setState(() => ({
-        articles: this.props.businessArticles
+      this.setState(prevState => ({
+        numberOfBusinessRequests: prevState.numberOfBusinessRequests + 1
       }));
     }
+
     this.setState({ chosenNewsGenre: name, firstLoad: false });
   };
 
@@ -69,7 +73,13 @@ class MyCountryNews extends Component {
 
     let articles = this.state.firstLoad
       ? this.props.generalArticles
-      : this.state.articles;
+      : this.state.chosenNewsGenre === "sports"
+        ? this.props.sportsArticles
+        : this.state.chosenNewsGenre === "technology"
+          ? this.props.technologyArticles
+          : this.state.chosenNewsGenre === "business"
+            ? this.props.businessArticles
+            : this.props.generalArticles;
 
     return (
       <div>

@@ -37,7 +37,7 @@ class Layout extends Component {
         <MainMenu location={this.props.location} />
         <SignIn />
         <SignUp />
-        <MusicPlayer autoplay={false} />
+        <MusicPlayer autoplay={true} />
         <div className="Layout__MainHeader">My Island</div>
         <main className="container" style={{ marginTop: "125px" }}>
           {this.props.authenticated && this.state.greetUser ? (
