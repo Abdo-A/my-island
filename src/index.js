@@ -34,3 +34,11 @@ ReactDOM.render(
   document.getElementById("root")
 );
 registerServiceWorker();
+
+//Setup for publishing on gitpages is only:
+//1-the basename "/my-island" in the BrowserRouter
+//2-the changes in the package.json
+
+//https://abdo-a.github.io/my-island/
+
+//https://myisland.netlify.com
