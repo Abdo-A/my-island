@@ -187,7 +187,7 @@ class MyNotes extends Component {
 
         <Form>
           <Form.Field>
-            <label>Title</label>
+            <label className="MyNotes__MainTitleHeader">Title</label>
             <Input
               placeholder="Title..."
               style={{ width: "70%" }}
@@ -196,7 +196,7 @@ class MyNotes extends Component {
           </Form.Field>
 
           <Form.Field>
-            <label>Body</label>
+            <label className="MyNotes__MainBodyHeader">Body</label>
             <TextArea
               placeholder="So, what would you like to talk about?"
               style={{
@@ -216,6 +216,12 @@ class MyNotes extends Component {
           >
             Save Note
           </Button>
+
+          {this.props.authenticated || (
+            <p style={{ margin: "0", color: "#fff0dd", fontWeight: "bold" }}>
+              (Sign up to be able to get back to your saved notes)
+            </p>
+          )}
         </Form>
         {/**/}
         {/* Viewing saved notes: */}

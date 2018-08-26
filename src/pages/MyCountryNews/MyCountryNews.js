@@ -149,7 +149,7 @@ class MyCountryNews extends Component {
 
         {!articles ? (
           <Spin
-            style={{ marginTop: window.innerWidth < 800 ? "60px" : "250px" }}
+            style={{ marginTop: window.innerWidth < 800 ? "60px" : "80px" }}
           />
         ) : (
           <NewsCardsCollection

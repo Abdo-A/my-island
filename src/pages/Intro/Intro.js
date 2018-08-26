@@ -18,10 +18,15 @@ class Intro extends Component {
       <div className="Intro" style={{ height: this.props.screenHeight + "px" }}>
         <div className="Intro__Start">
           <h1 className="Intro__Start__Header">My Island</h1>
-          <p className="Intro__Start__Text">
+          <p className="Intro__Start__Text__Desktop">
             The only place online where you will be able to express yourself
             while getting the world's latest updates.
           </p>
+
+          <p className="Intro__Start__Text__Mobile">
+            Connect to the world.. <br /> through your island..
+          </p>
+
           <Link to="/home">
             <Button color="green">Let me in</Button>
           </Link>

@@ -190,6 +190,7 @@ class MusicPlayer extends Component {
               >
                 <audio
                   controls
+                  loop
                   autoPlay={this.props.autoplay}
                   preload="auto"
                   style={{ width: "100%" }}
@@ -199,6 +200,7 @@ class MusicPlayer extends Component {
                   Your browser does not support the audio tag.
                 </audio>
               </div>
+
               <Icon
                 title="Hide music player"
                 name="close"
@@ -212,6 +214,22 @@ class MusicPlayer extends Component {
                   right: "0"
                 }}
               />
+
+              <strong
+                className="MusicPlayer__SongInfo"
+                style={{
+                  margin: "0",
+                  position: "absolute",
+                  bottom: "0",
+                  left: "50%",
+                  transform: "translate(-50%, 0)",
+                  color: "#0000007a",
+                  width: "100%"
+                }}
+              >
+                {song.name} -{" "}
+                <i style={{ fontFamily: "serif" }}>{song.singer}</i>
+              </strong>
             </div>
           </div>
         </Drawer>

@@ -121,6 +121,13 @@
 }
 
 @media (max-width: 900px) {
+  .Home__Advice__Comic {
+    width: 85%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 700px) {
   .Home__NewsPiecesWrapper {
     flex-flow: row wrap;
     justify-content: center;
@@ -154,11 +161,6 @@
 
   .Home__Quote__Author {
     font-size: 12px;
-  }
-
-  .Home__Advice__Comic {
-    width: 85%;
-    margin: 0 auto;
   }
 }
 

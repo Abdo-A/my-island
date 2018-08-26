@@ -9,77 +9,69 @@ const getLyrics = id => {
 const lyrics = [
   {
     id: 1,
-    name: "I need a doctor",
-    singer: "Eminem and Skyler Grey",
+    name: "Shape of You",
+    singer: "Ed Sheeran",
+    src:
+      "https://vocaroo.com/media_command.php?media=s0lW9Dn3d0nt&command=download_mp3",
     lyrics: (
       <strong>
         <p>
-          I'm about to lose my mind<br />You've been gone for so long<br />I'm
-          running out of time<br />I need a doctor<br />Call me a doctor<br />I
-          need a doctor, doctor<br />To bring me back to life<br />
-          <br />[Verse 1: Eminem]<br />I told the world one day I would pay it
-          back<br />Say it on tape, and lay it, record it<br />So that one day I
-          could play it back<br />But I don't even know if I believe it when I'm
-          saying that<br />Y'all starting to creep in, everyday it's so grey and
-          black<br />Hope, I just need a ray of that<br />Cause no one see's my
-          vision when I play it for 'em<br />They just say it's whack<br />They
-          don't know what dope is<br />And I don't know if I was awake or asleep<br />When
-          I wrote this<br />All I know is you came to me when I was at my lowest<br />You
-          picked me up, breeding life in me<br />I owe my life to you<br />But
-          for the life of me, I don't see why you don't see like I do<br />But
-          it just dawned on me you lost a son<br />See this light in you, it's
-          dark<br />Let me turn on the lights and brighten me and enlighten you<br />I
-          don't think you realize what you mean to me<br />Not the slightest
-          clue<br />Cause me and you were like a crew<br />I was like your
-          sidekick<br />You gon' either wanna fight me when I get off this
-          f*cking mic<br />Or you gon' hug me<br />But I'm not an option,
-          there's nothing else I can do cause&hellip;<br />
-          <br />[Chorus: Skylar Grey]<br />I'm about to lose my mind<br />You've
-          been gone for so long<br />I'm running out of time<br />I need a
-          doctor<br />Call me a doctor<br />I need a doctor, doctor<br />To
-          bring me back to life<br />
-          <br />[Verse 2: Eminem]<br />It hurts when I see you struggle<br />You
-          come to me with ideas<br />You say they're just pieces so I'm puzzled<br />Cause
-          the sh*t I hear is crazy<br />But you're either getting lazy or you
-          don't believe in you no more<br />Seems like your own opinions, not
-          one you can form<br />Can't make a decision you keep questioning
-          yourself<br />Second guessing and it's almost like you're begging for
-          my help<br />Like I'm your leader<br />You're supposed to f*cking be
-          my mentor<br />I can endure no more<br />I demand you remember who you
-          are<br />It was you, who believed in me<br />When everyone was telling
-          you don't sign me<br />Everyone at the f*cking label, let's tell the
-          truth<br />You risked your career for me<br />I know it as well as you<br />Nobody
-          wanted to f*ck with the white boy<br />Dre, I'm crying in this booth<br />You
-          saved my life, now maybe it's my turn to save yours<br />But I can
-          never repay you, what you did for me is way more<br />But I ain't
-          giving up faith and you ain't giving up on me<br />Get up Dre, I'm
-          dying, I need you, come back for f*ck's sake<br />
-          <br />[Chorus: Skylar Grey]<br />I'm about to lose my mind<br />You've
-          been gone for so long<br />I'm running out of time<br />I need a
-          doctor<br />Call me a doctor<br />I need a doctor, doctor<br />To
-          bring me back to life<br />Bring me back to life<br />Bring me back to
-          life<br />
-          <br />(I need a doctor, doctor<br />To bring me back to life)<br />
-          <br />[Verse 3: Dr. Dre]<br />It literally feels like a lifetime ago<br />But
-          I still remember the sh*t like it was just yesterday though<br />You
-          walked in, yellow jump suit<br />Whole room, cracked jokes<br />Once
-          you got inside the booth, told you, like smoke<br />Went through
-          friends, some of them I put on<br />But they just left, they said they
-          was riding to the death<br />But where the f*ck are they now<br />Now
-          that I need them, I don't see none of them<br />All I see is slim<br />F*ck
-          all you fair-weather friends<br />All I need is him<br />F*cking
-          backstabbers<br />When the chips were down you just laughed at us<br />Now
-          you bout to feel the f*cking wrath of aftermath, fagots<br />You gon'
-          see us in our lab jackets and ask us where the f*ck we been?<br />You
-          can kiss my indecisive ass crack maggots and the crackers ass<br />Little
-          crack a jack beat making whack math<br />Backwards producers, I'm back
-          bastards<br />One more CD and then I'm packing up my bags and as I'm
-          leaving<br />I'll guarantee they scream Dre don't leave us like that
-          man cause&hellip;<br />
-          <br />[Chorus: Skylar Grey]<br />I'm about to lose my mind<br />You've
-          been gone for so long<br />I'm running out of time<br />I need a
-          doctor<br />Call me a doctor<br />I need a doctor, doctor<br />To
-          bring me back to life
+          The club isn't the best place to find a lover<br />So the bar is where
+          I go (mmmm)<br />Me and my friends at the table doing shots<br />Drinking
+          fast and then we talk slow (mmmm)<br />And you come over and start up
+          a conversation with just me<br />And trust me I'll give it a chance
+          now (mmmm)<br />Take my hand, stop, put Van The Man on the jukebox<br />And
+          then we start to dance<br />And now I'm singing like<br />
+          <br />Girl, you know I want your love<br />Your love was handmade for
+          somebody like me<br />Come on now, follow my lead<br />I may be crazy,
+          don't mind me<br />Say, boy, let's not talk too much<br />Grab on my
+          waist and put that body on me<br />Come on now, follow my lead<br />Come,
+          come on now, follow my lead (mmmm)<br />
+          <br />I'm in love with the shape of you<br />We push and pull like a
+          magnet do<br />Although my heart is falling too<br />I'm in love with
+          your body<br />Last night you were in my room<br />And now my
+          bedsheets smell like you<br />Every day discovering something brand
+          new<br />I'm in love with your body<br />
+          <br />Oh I oh I oh I oh I<br />I'm in love with your body<br />Oh I oh
+          I oh I oh I<br />I'm in love with your body<br />Oh I oh I oh I oh I<br />I'm
+          in love with your body<br />Every day discovering something brand new<br />I'm
+          in love with the shape of you<br />
+          <br />One week in we let the story begin<br />We're going out on our
+          first date (mmmm)<br />You and me are thrifty, so go all you can eat<br />Fill
+          up your bag and I fill up a plate (mmmm)<br />We talk for hours and
+          hours about the sweet and the sour<br />And how your family is doing
+          okay (mmmm)<br />And leave and get in a taxi, then kiss in the
+          backseat<br />Tell the driver make the radio play<br />And I'm singing
+          like<br />
+          <br />Girl, you know I want your love<br />Your love was handmade for
+          somebody like me<br />Come on now, follow my lead<br />I may be crazy,
+          don't mind me<br />Say, boy, let's not talk too much<br />Grab on my
+          waist and put that body on me<br />Come on now, follow my lead<br />Come,
+          come on now, follow my lead (mmmm)<br />
+          <br />I'm in love with the shape of you<br />We push and pull like a
+          magnet do<br />Although my heart is falling too<br />I'm in love with
+          your body<br />Last night you were in my room<br />And now my
+          bedsheets smell like you<br />Every day discovering something brand
+          new<br />I'm in love with your body<br />
+          <br />Oh I oh I oh I oh I<br />I'm in love with your body<br />Oh I oh
+          I oh I oh I<br />I'm in love with your body<br />Oh I oh I oh I oh I<br />I'm
+          in love with your body<br />Every day discovering something brand new<br />I'm
+          in love with the shape of you<br />
+          <br />Come on, be my baby, come on<br />Come on, be my baby, come on<br />Come
+          on, be my baby, come on<br />Come on, be my baby, come on<br />Come
+          on, be my baby, come on<br />Come on, be my baby, come on<br />Come
+          on, be my baby, come on<br />Come on, be my baby, come on<br />
+          <br />I'm in love with the shape of you<br />We push and pull like a
+          magnet do<br />Although my heart is falling too<br />I'm in love with
+          your body<br />Last night you were in my room<br />And now my
+          bedsheets smell like you<br />Every day discovering something brand
+          new<br />I'm in love with your body<br />
+          <br />Come on, be my baby, come on<br />Come on, be my baby, come on<br />I'm
+          in love with your body<br />Come on, be my baby, come on<br />Come on,
+          be my baby, come on<br />I'm in love with your body<br />Come on, be
+          my baby, come on<br />Come on, be my baby, come on<br />I'm in love
+          with your body<br />Every day discovering something brand new<br />I'm
+          in love with the shape of you
         </p>
       </strong>
     )
@@ -166,69 +158,77 @@ const lyrics = [
   },
   {
     id: 4,
-    name: "Shape of You (NOTD Remix)",
-    singer: "Ed Sheeran",
-    src:
-      "https://vocaroo.com/media_command.php?media=s0lW9Dn3d0nt&command=download_mp3",
+    name: "I need a doctor",
+    singer: "Eminem and Skyler Grey",
     lyrics: (
       <strong>
         <p>
-          The club isn't the best place to find a lover<br />So the bar is where
-          I go (mmmm)<br />Me and my friends at the table doing shots<br />Drinking
-          fast and then we talk slow (mmmm)<br />And you come over and start up
-          a conversation with just me<br />And trust me I'll give it a chance
-          now (mmmm)<br />Take my hand, stop, put Van The Man on the jukebox<br />And
-          then we start to dance<br />And now I'm singing like<br />
-          <br />Girl, you know I want your love<br />Your love was handmade for
-          somebody like me<br />Come on now, follow my lead<br />I may be crazy,
-          don't mind me<br />Say, boy, let's not talk too much<br />Grab on my
-          waist and put that body on me<br />Come on now, follow my lead<br />Come,
-          come on now, follow my lead (mmmm)<br />
-          <br />I'm in love with the shape of you<br />We push and pull like a
-          magnet do<br />Although my heart is falling too<br />I'm in love with
-          your body<br />Last night you were in my room<br />And now my
-          bedsheets smell like you<br />Every day discovering something brand
-          new<br />I'm in love with your body<br />
-          <br />Oh I oh I oh I oh I<br />I'm in love with your body<br />Oh I oh
-          I oh I oh I<br />I'm in love with your body<br />Oh I oh I oh I oh I<br />I'm
-          in love with your body<br />Every day discovering something brand new<br />I'm
-          in love with the shape of you<br />
-          <br />One week in we let the story begin<br />We're going out on our
-          first date (mmmm)<br />You and me are thrifty, so go all you can eat<br />Fill
-          up your bag and I fill up a plate (mmmm)<br />We talk for hours and
-          hours about the sweet and the sour<br />And how your family is doing
-          okay (mmmm)<br />And leave and get in a taxi, then kiss in the
-          backseat<br />Tell the driver make the radio play<br />And I'm singing
-          like<br />
-          <br />Girl, you know I want your love<br />Your love was handmade for
-          somebody like me<br />Come on now, follow my lead<br />I may be crazy,
-          don't mind me<br />Say, boy, let's not talk too much<br />Grab on my
-          waist and put that body on me<br />Come on now, follow my lead<br />Come,
-          come on now, follow my lead (mmmm)<br />
-          <br />I'm in love with the shape of you<br />We push and pull like a
-          magnet do<br />Although my heart is falling too<br />I'm in love with
-          your body<br />Last night you were in my room<br />And now my
-          bedsheets smell like you<br />Every day discovering something brand
-          new<br />I'm in love with your body<br />
-          <br />Oh I oh I oh I oh I<br />I'm in love with your body<br />Oh I oh
-          I oh I oh I<br />I'm in love with your body<br />Oh I oh I oh I oh I<br />I'm
-          in love with your body<br />Every day discovering something brand new<br />I'm
-          in love with the shape of you<br />
-          <br />Come on, be my baby, come on<br />Come on, be my baby, come on<br />Come
-          on, be my baby, come on<br />Come on, be my baby, come on<br />Come
-          on, be my baby, come on<br />Come on, be my baby, come on<br />Come
-          on, be my baby, come on<br />Come on, be my baby, come on<br />
-          <br />I'm in love with the shape of you<br />We push and pull like a
-          magnet do<br />Although my heart is falling too<br />I'm in love with
-          your body<br />Last night you were in my room<br />And now my
-          bedsheets smell like you<br />Every day discovering something brand
-          new<br />I'm in love with your body<br />
-          <br />Come on, be my baby, come on<br />Come on, be my baby, come on<br />I'm
-          in love with your body<br />Come on, be my baby, come on<br />Come on,
-          be my baby, come on<br />I'm in love with your body<br />Come on, be
-          my baby, come on<br />Come on, be my baby, come on<br />I'm in love
-          with your body<br />Every day discovering something brand new<br />I'm
-          in love with the shape of you
+          I'm about to lose my mind<br />You've been gone for so long<br />I'm
+          running out of time<br />I need a doctor<br />Call me a doctor<br />I
+          need a doctor, doctor<br />To bring me back to life<br />
+          <br />[Verse 1: Eminem]<br />I told the world one day I would pay it
+          back<br />Say it on tape, and lay it, record it<br />So that one day I
+          could play it back<br />But I don't even know if I believe it when I'm
+          saying that<br />Y'all starting to creep in, everyday it's so grey and
+          black<br />Hope, I just need a ray of that<br />Cause no one see's my
+          vision when I play it for 'em<br />They just say it's whack<br />They
+          don't know what dope is<br />And I don't know if I was awake or asleep<br />When
+          I wrote this<br />All I know is you came to me when I was at my lowest<br />You
+          picked me up, breeding life in me<br />I owe my life to you<br />But
+          for the life of me, I don't see why you don't see like I do<br />But
+          it just dawned on me you lost a son<br />See this light in you, it's
+          dark<br />Let me turn on the lights and brighten me and enlighten you<br />I
+          don't think you realize what you mean to me<br />Not the slightest
+          clue<br />Cause me and you were like a crew<br />I was like your
+          sidekick<br />You gon' either wanna fight me when I get off this
+          f*cking mic<br />Or you gon' hug me<br />But I'm not an option,
+          there's nothing else I can do cause&hellip;<br />
+          <br />[Chorus: Skylar Grey]<br />I'm about to lose my mind<br />You've
+          been gone for so long<br />I'm running out of time<br />I need a
+          doctor<br />Call me a doctor<br />I need a doctor, doctor<br />To
+          bring me back to life<br />
+          <br />[Verse 2: Eminem]<br />It hurts when I see you struggle<br />You
+          come to me with ideas<br />You say they're just pieces so I'm puzzled<br />Cause
+          the sh*t I hear is crazy<br />But you're either getting lazy or you
+          don't believe in you no more<br />Seems like your own opinions, not
+          one you can form<br />Can't make a decision you keep questioning
+          yourself<br />Second guessing and it's almost like you're begging for
+          my help<br />Like I'm your leader<br />You're supposed to f*cking be
+          my mentor<br />I can endure no more<br />I demand you remember who you
+          are<br />It was you, who believed in me<br />When everyone was telling
+          you don't sign me<br />Everyone at the f*cking label, let's tell the
+          truth<br />You risked your career for me<br />I know it as well as you<br />Nobody
+          wanted to f*ck with the white boy<br />Dre, I'm crying in this booth<br />You
+          saved my life, now maybe it's my turn to save yours<br />But I can
+          never repay you, what you did for me is way more<br />But I ain't
+          giving up faith and you ain't giving up on me<br />Get up Dre, I'm
+          dying, I need you, come back for f*ck's sake<br />
+          <br />[Chorus: Skylar Grey]<br />I'm about to lose my mind<br />You've
+          been gone for so long<br />I'm running out of time<br />I need a
+          doctor<br />Call me a doctor<br />I need a doctor, doctor<br />To
+          bring me back to life<br />Bring me back to life<br />Bring me back to
+          life<br />
+          <br />(I need a doctor, doctor<br />To bring me back to life)<br />
+          <br />[Verse 3: Dr. Dre]<br />It literally feels like a lifetime ago<br />But
+          I still remember the sh*t like it was just yesterday though<br />You
+          walked in, yellow jump suit<br />Whole room, cracked jokes<br />Once
+          you got inside the booth, told you, like smoke<br />Went through
+          friends, some of them I put on<br />But they just left, they said they
+          was riding to the death<br />But where the f*ck are they now<br />Now
+          that I need them, I don't see none of them<br />All I see is slim<br />F*ck
+          all you fair-weather friends<br />All I need is him<br />F*cking
+          backstabbers<br />When the chips were down you just laughed at us<br />Now
+          you bout to feel the f*cking wrath of aftermath, fagots<br />You gon'
+          see us in our lab jackets and ask us where the f*ck we been?<br />You
+          can kiss my indecisive ass crack maggots and the crackers ass<br />Little
+          crack a jack beat making whack math<br />Backwards producers, I'm back
+          bastards<br />One more CD and then I'm packing up my bags and as I'm
+          leaving<br />I'll guarantee they scream Dre don't leave us like that
+          man cause&hellip;<br />
+          <br />[Chorus: Skylar Grey]<br />I'm about to lose my mind<br />You've
+          been gone for so long<br />I'm running out of time<br />I need a
+          doctor<br />Call me a doctor<br />I need a doctor, doctor<br />To
+          bring me back to life
         </p>
       </strong>
     )
@@ -427,8 +427,8 @@ const lyrics = [
   },
   {
     id: 10,
-    name: "Dua Lipa",
-    singer: "New Rules",
+    name: "New Rules",
+    singer: "Dua Lipa",
     src:
       "https://vocaroo.com/media_command.php?media=s0NNpYXvFr06&command=download_mp3",
     lyrics: (

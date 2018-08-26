@@ -25,7 +25,13 @@ class MyMusic extends Component {
             >
               <List.Item.Meta
                 avatar={
-                  <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                  <Avatar
+                    src={
+                      song.avatar
+                        ? song.avatar
+                        : "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                    }
+                  />
                 }
                 title={<strong>{song.name}</strong>}
                 description={<span>{song.singer}</span>}

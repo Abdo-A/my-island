@@ -8,7 +8,6 @@ import SignIn from "../../components/Authentication/SignIn/SignIn";
 import SignUp from "../../components/Authentication/SignUp/SignUp";
 
 import "./Layout.css";
-import { Spin } from "antd";
 
 class Layout extends Component {
   state = {
@@ -28,7 +27,7 @@ class Layout extends Component {
   }
 
   render() {
-    let userName = <Spin />;
+    let userName = "";
     if (this.props.fullName) {
       userName = this.props.fullName[0].fullName;
     }
@@ -39,10 +38,8 @@ class Layout extends Component {
         <SignIn />
         <SignUp />
         <MusicPlayer autoplay={false} />
-
-        <main className="container" style={{ marginTop: "30px" }}>
-          <p className="Layout__MainHeader">My Island</p>
-
+        <div className="Layout__MainHeader">My Island</div>
+        <main className="container" style={{ marginTop: "125px" }}>
           {this.props.authenticated && this.state.greetUser ? (
             <p className="Layout__UserGreeting">Welcome {userName}!</p>
           ) : (

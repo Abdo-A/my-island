@@ -1,3 +1,8 @@
 .MyNotes {
   width: "100%";
 }
+
+.MyNotes__MainTitleHeader,
+.MyNotes__MainBodyHeader {
+  color: #fff0dd !important;
+}

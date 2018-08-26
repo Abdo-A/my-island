@@ -113,6 +113,13 @@ class Home extends Component {
               What's <span className="Home__Header__FocusWord">today's</span>{" "}
               best <span className="Home__Header__FocusWord2">advice</span>?
             </h3>
+
+            {this.props.authenticated || (
+              <p style={{ margin: "0" }}>
+                (Sign up to have a more customized advice)
+              </p>
+            )}
+
             <img
               className="Home__Advice__Comic"
               src={
@@ -177,6 +184,7 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
+    authenticated: state.authentication.authenticated,
     userCountryName: state.internet.userCountryName,
     userCountryCode: state.internet.userCountryCode,
     userCityName: state.internet.userCityName,

@@ -5,16 +5,28 @@
   margin: 0;
   padding: 0;
   user-select: none;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 100%;
+  top: 5px;
 }
 
 .Layout__UserGreeting {
   font-weight: bold;
-  color: fff0dd;
+  color: #fff0dd;
   font-size: 16px;
 }
 
 @media (max-width: 600px) {
   .Layout__MainHeader {
     font-size: 61px;
+    top: 35px;
+  }
+}
+
+@media (max-width: 300px) {
+  .Layout__MainHeader {
+    font-size: 30px;
   }
 }

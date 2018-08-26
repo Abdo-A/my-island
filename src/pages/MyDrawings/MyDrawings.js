@@ -356,6 +356,12 @@ class MyDrawings extends Component {
             }}
           />
 
+          {this.props.authenticated || (
+            <p style={{ margin: "0", color: "#fff0dd", fontWeight: "bold" }}>
+              (Sign up to be able to get back to your saved drawings)
+            </p>
+          )}
+
           {/* Displaying Saved Items through Map function:*/}
 
           {savedDrawings}
