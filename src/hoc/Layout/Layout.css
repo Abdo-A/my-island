@@ -1,0 +1,20 @@
+.Layout__MainHeader {
+  font-family: "Permanent Marker", cursive;
+  font-size: 90px;
+  color: #fff0dd;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+.Layout__UserGreeting {
+  font-weight: bold;
+  color: fff0dd;
+  font-size: 16px;
+}
+
+@media (max-width: 600px) {
+  .Layout__MainHeader {
+    font-size: 61px;
+  }
+}

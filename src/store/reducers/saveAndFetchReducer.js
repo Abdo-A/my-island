@@ -16,7 +16,15 @@ const initialState = {
   loadingFetchingDrawings: false,
   errorFetchingDrawings: null,
   LoadingDeletingDrawings: false,
-  errorDeletingDrawings: null
+  errorDeletingDrawings: null,
+
+  fullName: null,
+  loadingSavingFullName: false,
+  errorSavingFullName: false,
+  loadingFetchingFullName: false,
+  errorFetchingFullName: null,
+  LoadingDeletingFullName: false,
+  errorDeletingFullName: null
 };
 
 const saveAndFetchReducer = (state = initialState, action) => {
@@ -53,6 +61,7 @@ const saveAndFetchReducer = (state = initialState, action) => {
       };
 
     case actionTypes.FETCH_ITEMS_SUCCESS:
+      console.log(action.items, action.itemType);
       return {
         ...state,
         [action.itemType]: action.items,
@@ -86,6 +95,12 @@ const saveAndFetchReducer = (state = initialState, action) => {
         ...state,
         ["loadingDeleting" + capitalize(action.itemType)]: false,
         ["errorDeleting" + capitalize(action.error)]: action.error
+      };
+
+    case actionTypes.REMOVE_FULLNAME:
+      return {
+        ...state,
+        fullName: null
       };
 
     default:

@@ -8,9 +8,31 @@ import SignIn from "../../components/Authentication/SignIn/SignIn";
 import SignUp from "../../components/Authentication/SignUp/SignUp";
 
 import "./Layout.css";
+import { Spin } from "antd";
 
 class Layout extends Component {
+  state = {
+    greetUser: true
+  };
+
+  componentDidMount() {
+    setTimeout(() => {
+      if (this.props.authenticated) {
+        setTimeout(() => {
+          this.setState(() => ({
+            greetUser: false
+          }));
+        }, 5000);
+      }
+    }, 2000);
+  }
+
   render() {
+    let userName = <Spin />;
+    if (this.props.fullName) {
+      userName = this.props.fullName[0].fullName;
+    }
+
     return (
       <Aux>
         <MainMenu location={this.props.location} />
@@ -18,8 +40,14 @@ class Layout extends Component {
         <SignUp />
         <MusicPlayer autoplay={false} />
 
-        <main className="container" style={{ marginTop: "10vh" }}>
-          {this.props.authenticated ? "Welcome to your account" : ""}
+        <main className="container" style={{ marginTop: "7px" }}>
+          <p className="Layout__MainHeader">My Island</p>
+
+          {this.props.authenticated && this.state.greetUser ? (
+            <p className="Layout__UserGreeting">Welcome {userName}!</p>
+          ) : (
+            ""
+          )}
           {this.props.children}
         </main>
       </Aux>
@@ -28,8 +56,10 @@ class Layout extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
-    authenticated: state.authentication.authenticated
+    authenticated: state.authentication.authenticated,
+    fullName: state.saveAndFetch.fullName
   };
 };
 

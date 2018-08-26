@@ -4,6 +4,7 @@ import axiosDatabase from "../../axios";
 //Saving the item
 
 export const saveItem = (itemData, tokenId, userId, itemType) => {
+  console.log(itemData, tokenId, userId, itemType);
   return dispatch => {
     dispatch(saveItemStart(itemType));
 

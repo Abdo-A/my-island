@@ -1,11 +1,13 @@
-import * as actionTypes from "./actionTypes";
-import { firebaseSignInURL, firebaseSignUpURL } from "../../data/apiKeys";
 import axios from "axios";
+
 import { closeSignIn, closeSignUp } from "./basicActions";
+import { firebaseSignInURL, firebaseSignUpURL } from "../../data/apiKeys";
+import * as actions from "./";
+import * as actionTypes from "./actionTypes";
 
 //Sign in and sign up
 export const authenticationSignIn = authData => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(authenticationStart());
     const data = {
       email: authData.email,
@@ -23,6 +25,7 @@ export const authenticationSignIn = authData => {
         localStorage.setItem("tokenId", response.data.idToken);
         localStorage.setItem("expirationDate", expirationDate);
         localStorage.setItem("userId", response.data.localId);
+
         dispatch(
           authenticationSuccess(response.data.idToken, response.data.localId)
         );
@@ -32,6 +35,14 @@ export const authenticationSignIn = authData => {
         );
 
         dispatch(closeSignIn());
+
+        dispatch(
+          actions.fetchItems(
+            getState().authentication.tokenId,
+            getState().authentication.userId,
+            "fullName"
+          )
+        );
       })
       .catch(error => {
         dispatch(authenticationFail(error.response.data.error.message));
@@ -40,7 +51,7 @@ export const authenticationSignIn = authData => {
 };
 
 export const authenticationSignUp = authData => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(authenticationStart());
     const data = {
       email: authData.email,
@@ -58,6 +69,7 @@ export const authenticationSignUp = authData => {
         localStorage.setItem("tokenId", response.data.idToken);
         localStorage.setItem("expirationDate", expirationDate);
         localStorage.setItem("userId", response.data.localId);
+
         dispatch(
           authenticationSuccess(response.data.idToken, response.data.localId)
         );
@@ -67,6 +79,15 @@ export const authenticationSignUp = authData => {
         );
 
         dispatch(closeSignUp());
+
+        dispatch(
+          actions.saveItem(
+            { fullName: authData.fullName },
+            getState().authentication.tokenId,
+            response.data.localId,
+            "fullName"
+          )
+        );
       })
       .catch(error => {
         dispatch(authenticationFail(error.response.data.error.message));
@@ -98,9 +119,17 @@ const authenticationFail = error => {
 //log out
 
 export const authenticationLogout = () => {
+  return dispatch => {
+    dispatch({ type: actionTypes.REMOVE_FULLNAME });
+    dispatch(authenticationLogoutNow());
+  };
+};
+
+const authenticationLogoutNow = () => {
   localStorage.removeItem("tokenId");
   localStorage.removeItem("expirationDate");
   localStorage.removeItem("userId");
+
   return {
     type: actionTypes.AUTHENTICATION_LOGOUT
   };
@@ -119,7 +148,7 @@ const authenticationLogoutAfterExpirationTime = expirationTime => {
 //check state every time the page refreshes
 
 export const authenticationCheckState = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
     const tokenId = localStorage.getItem("tokenId");
     if (!tokenId) {
       dispatch(authenticationLogout());
@@ -133,6 +162,14 @@ export const authenticationCheckState = () => {
         dispatch(
           authenticationLogoutAfterExpirationTime(
             (expirationDate.getTime() - new Date().getTime()) / 1000
+          )
+        );
+
+        dispatch(
+          actions.fetchItems(
+            getState().authentication.tokenId,
+            getState().authentication.userId,
+            "fullName"
           )
         );
       }

@@ -43,6 +43,11 @@ class Home extends Component {
       );
     }
 
+    let userFirstName = null;
+    if (this.props.fullName) {
+      userFirstName = this.props.fullName[0].fullName.split(" ")[0];
+    }
+
     return (
       <div>
         {/* Serious and silly news */}
@@ -110,7 +115,11 @@ class Home extends Component {
             </h3>
             <img
               className="Home__Advice__Comic"
-              src="http://belikebill.azurewebsites.net/billgen-API.php?default=1"
+              src={
+                userFirstName
+                  ? `http://belikebill.azurewebsites.net/billgen-API.php?default=1&name=${userFirstName}&sex=m`
+                  : "http://belikebill.azurewebsites.net/billgen-API.php?default=1"
+              }
               alt="comic"
             />
           </Card>
@@ -175,6 +184,7 @@ const mapStateToProps = state => {
     seriousNews: state.internet.seriousNews,
     sillyNews: state.internet.sillyNews,
     quote: state.internet.quote,
+    fullName: state.saveAndFetch.fullName,
     numberOfMassiveAPIRequests: state.internet.numberOfMassiveAPIRequests
   };
 };

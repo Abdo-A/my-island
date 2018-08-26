@@ -10,7 +10,9 @@ export * from "./authenticationActions";
 export * from "./saveAndFetchActions";
 
 export const requestEverythingFromInternet = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    let state = getState();
+
     dispatch(
       internetActions.requestUserLocationInfoAndRequestUserWeatherInfo()
     );

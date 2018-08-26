@@ -184,6 +184,7 @@ class MyNotes extends Component {
         {/**/}
         {/* Form for the current note: */}
         {/**/}
+
         <Form>
           <Form.Field>
             <label>Title</label>
