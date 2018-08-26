@@ -61,7 +61,6 @@ const saveAndFetchReducer = (state = initialState, action) => {
       };
 
     case actionTypes.FETCH_ITEMS_SUCCESS:
-      console.log(action.items, action.itemType);
       return {
         ...state,
         [action.itemType]: action.items,

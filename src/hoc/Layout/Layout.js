@@ -40,7 +40,7 @@ class Layout extends Component {
         <SignUp />
         <MusicPlayer autoplay={false} />
 
-        <main className="container" style={{ marginTop: "7px" }}>
+        <main className="container" style={{ marginTop: "30px" }}>
           <p className="Layout__MainHeader">My Island</p>
 
           {this.props.authenticated && this.state.greetUser ? (
@@ -56,7 +56,6 @@ class Layout extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     authenticated: state.authentication.authenticated,
     fullName: state.saveAndFetch.fullName

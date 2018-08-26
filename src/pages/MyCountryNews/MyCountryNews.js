@@ -26,18 +26,26 @@ class MyCountryNews extends Component {
 
   handleChooseGenre = (e, { name }) => {
     if (name === "general") {
+      //this.props.requestUserLocationInfoAndRequestMyCountryNews("general");
+
       this.setState(() => ({
         articles: this.props.generalArticles
       }));
     } else if (name === "sports") {
+      this.props.requestUserLocationInfoAndRequestMyCountryNews("sports");
+
       this.setState(() => ({
         articles: this.props.sportsArticles
       }));
     } else if (name === "technology") {
+      this.props.requestUserLocationInfoAndRequestMyCountryNews("technology");
+
       this.setState(() => ({
         articles: this.props.technologyArticles
       }));
     } else if (name === "business") {
+      this.props.requestUserLocationInfoAndRequestMyCountryNews("business");
+
       this.setState(() => ({
         articles: this.props.businessArticles
       }));
@@ -65,7 +73,7 @@ class MyCountryNews extends Component {
 
     return (
       <div>
-        <div>
+        <div className="MyCountryNews__LocationIndication">
           Latest news in
           {locationIndication || (
             <span style={{ marginTop: "30px" }}>
@@ -174,7 +182,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     requestEverythingFromInternet: () =>
-      dispatch(actions.requestEverythingFromInternet())
+      dispatch(actions.requestEverythingFromInternet()),
+    requestUserLocationInfoAndRequestMyCountryNews: newsType =>
+      dispatch(actions.requestUserLocationInfoAndRequestMyCountryNews(newsType))
   };
 };
 

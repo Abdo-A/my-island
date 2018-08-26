@@ -26,18 +26,26 @@ class LatestNews extends Component {
 
   handleChooseGenre = (e, { name }) => {
     if (name === "general") {
+      //this.props.requestLatestNews("general");
+
       this.setState(() => ({
         articles: this.props.generalArticles
       }));
     } else if (name === "sports") {
+      this.props.requestLatestNews("sports");
+
       this.setState(() => ({
         articles: this.props.sportsArticles
       }));
     } else if (name === "technology") {
+      this.props.requestLatestNews("technology");
+
       this.setState(() => ({
         articles: this.props.technologyArticles
       }));
     } else if (name === "nature") {
+      this.props.requestLatestNews("nature");
+
       this.setState(() => ({
         articles: this.props.natureArticles
       }));
@@ -133,7 +141,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     requestEverythingFromInternet: () =>
-      dispatch(actions.requestEverythingFromInternet())
+      dispatch(actions.requestEverythingFromInternet()),
+    requestLatestNews: newsType => dispatch(actions.requestLatestNews(newsType))
   };
 };
 

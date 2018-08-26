@@ -22,24 +22,24 @@ export const requestEverythingFromInternet = () => {
     dispatch(internetActions.requestComic());
 
     dispatch(internetActions.requestLatestNews("general"));
-    dispatch(internetActions.requestLatestNews("sports"));
-    dispatch(internetActions.requestLatestNews("technology"));
-    dispatch(internetActions.requestLatestNews("nature"));
+    //dispatch(internetActions.requestLatestNews("sports"));
+    //dispatch(internetActions.requestLatestNews("technology"));
+    //dispatch(internetActions.requestLatestNews("nature"));
 
     dispatch(
       internetActions.requestUserLocationInfoAndRequestMyCountryNews("general")
     );
-    dispatch(
-      internetActions.requestUserLocationInfoAndRequestMyCountryNews("sports")
-    );
-    dispatch(
-      internetActions.requestUserLocationInfoAndRequestMyCountryNews(
-        "technology"
-      )
-    );
-    dispatch(
-      internetActions.requestUserLocationInfoAndRequestMyCountryNews("business")
-    );
+    // dispatch(
+    //   internetActions.requestUserLocationInfoAndRequestMyCountryNews("sports")
+    // );
+    // dispatch(
+    //   internetActions.requestUserLocationInfoAndRequestMyCountryNews(
+    //     "technology"
+    //   )
+    // );
+    // dispatch(
+    //   internetActions.requestUserLocationInfoAndRequestMyCountryNews("business")
+    // );
 
     dispatch(incrementMassiveRequestsCount());
   };
