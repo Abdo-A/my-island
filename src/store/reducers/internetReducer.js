@@ -18,7 +18,10 @@ const initialState = {
   latestNewsTechnology: null,
   latestNewsNature: null,
 
-  myCountryNews: null
+  myCountryNews: null,
+  myCountryNewsSports: null,
+  myCountryNewsTechnology: null,
+  myCountryNewsBusiness: null
 };
 
 const internetReducer = (state = initialState, action) => {
@@ -114,13 +117,30 @@ const internetReducer = (state = initialState, action) => {
     //MyCountry NEWS
     //
     case actionTypes.SET_MYCOUNTRY_NEWS:
-      return {
-        ...state,
-        myCountryNews: action.news
-      };
+      if (action.newsType === "sports") {
+        return {
+          ...state,
+          myCountryNewsSports: action.news
+        };
+      } else if (action.newsType === "technology") {
+        return {
+          ...state,
+          myCountryNewsTechnology: action.news
+        };
+      } else if (action.newsType === "business") {
+        return {
+          ...state,
+          myCountryNewsBusiness: action.news
+        };
+      } else {
+        return {
+          ...state,
+          myCountryNews: action.news
+        };
+      }
 
     //
-    //MyCountry NEWS
+    //MASSIVE REQUESTS COUNT (to make sure we only make one massive request)
     //
     case actionTypes.INCREMENT_MASSIVE_REQUESTS_COUNT:
       return {

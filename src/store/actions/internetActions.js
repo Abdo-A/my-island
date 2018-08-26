@@ -355,15 +355,25 @@ export const requestUserLocationInfoAndRequestUserWeatherInfo = () => {
 //Requesting mycountry for user country
 //
 //
-/*1*/ export const requestMyCountryNews = userCountryName => {
+/*1*/ const requestMyCountryNews = (userCountryName, newsType) => {
+  const countryNewsGeneralUrl = `https://newsapi.org/v2/top-headlines?country=${userCountryName}&category=general&apiKey=${newsApiKey}`;
+  const countryNewsSportsUrl = `https://newsapi.org/v2/top-headlines?country=${userCountryName}&category=sports&apiKey=${newsApiKey}`;
+  const countryNewsTechnologyUrl = `https://newsapi.org/v2/top-headlines?country=${userCountryName}&category=technology&apiKey=${newsApiKey}`;
+  const countryNewsBusinessUrl = `https://newsapi.org/v2/top-headlines?country=${userCountryName}&category=business&apiKey=${newsApiKey}`;
+
+  let url = countryNewsGeneralUrl;
+  if (newsType === "sports") {
+    url = countryNewsSportsUrl;
+  } else if (newsType === "technology") {
+    url = countryNewsTechnologyUrl;
+  } else if (newsType === "business") {
+    url = countryNewsBusinessUrl;
+  }
+
   return dispatch => {
-    axios
-      .get(
-        `https://newsapi.org/v2/top-headlines?country=${userCountryName}&language=en&apiKey=${newsApiKey}`
-      )
-      .then(res => {
-        dispatch(setMyCountryNews(res.data.articles));
-      });
+    axios.get(url).then(res => {
+      dispatch(setMyCountryNews(res.data.articles, newsType));
+    });
   };
 };
 
@@ -372,45 +382,46 @@ export const requestUserLocationInfoAndRequestUserWeatherInfo = () => {
 //Setting mycountry news for user country
 //
 //
-/*2*/ const setMyCountryNews = info => {
+/*2*/ const setMyCountryNews = (info, newsType) => {
   return {
     type: actionTypes.SET_MYCOUNTRY_NEWS,
-    news: info
+    news: info,
+    newsType: newsType
   };
 };
 
-///////////////////////////////////////REQUEST LOCATION AND WEATHER///////////////////////////////////////////////
+///////////////////////////////////////REQUEST LOCATION AND MYCOUNTRYNEWS///////////////////////////////////////////////
 
 //
 //
 //Request user location info then request mycountry news for user country
 //
 //
-export const requestUserLocationInfoAndRequestMyCountryNews = () => {
-  return dispatch => {
-    axios
-      .get("https://geoip-db.com/json/")
-      .then(res => {
-        const info = {
-          userCountryName: res.data.country_name,
-          userCountryCode: res.data.country_code,
-          userCityName: res.data.city
-        };
-        dispatch(setUserLocationInfo(info));
+export const requestUserLocationInfoAndRequestMyCountryNews = newsType => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const userCountryCode = state.internet.userCountryCode;
 
-        //getting headlines for userCountryCode
-        axios
-          .get(
-            `https://newsapi.org/v2/top-headlines?country=${
-              res.data.country_code
-            }&language=en&apiKey=${newsApiKey}`
-          )
-          .then(res => {
-            dispatch(setMyCountryNews(res.data.articles));
-          });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (userCountryCode) {
+      dispatch(requestMyCountryNews(userCountryCode, newsType));
+    } else {
+      axios
+        .get("https://geoip-db.com/json/")
+        .then(res => {
+          const info = {
+            userCountryName: res.data.country_name,
+            userCountryCode: res.data.country_code,
+            userCityName: res.data.city
+          };
+          dispatch(setUserLocationInfo(info));
+
+          //getting headlines for userCountryCode
+
+          dispatch(requestMyCountryNews(res.data.country_code, newsType));
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   };
 };

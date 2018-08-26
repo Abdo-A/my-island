@@ -5,7 +5,7 @@ import React, { Component } from "react";
 
 import * as actions from "../../store/actions/index";
 import NewsCardsCollection from "../../components/News/NewsCardsCollection/NewsCardsCollection";
-import NewsSlider from "../../components/News/NewsSlider/NewsSlider";
+//import NewsSlider from "../../components/News/NewsSlider/NewsSlider";
 
 import "./LatestNews.css";
 
@@ -125,6 +125,7 @@ const mapStateToProps = state => {
     sportsArticles: state.internet.latestNewsSports,
     technologyArticles: state.internet.latestNewsTechnology,
     natureArticles: state.internet.latestNewsNature,
+
     numberOfMassiveAPIRequests: state.internet.numberOfMassiveAPIRequests
   };
 };
