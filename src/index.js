@@ -27,7 +27,7 @@ const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename="/my-island">
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </Provider>,
@@ -39,6 +39,7 @@ registerServiceWorker();
 //1-the basename "/my-island" in the BrowserRouter
 //2-the changes in the package.json
 
-//https://abdo-a.github.io/my-island/
+//https://codeburst.io/deploy-react-to-github-pages-to-create-an-amazing-website-42d8b09cd4d
 
+//https://abdo-a.github.io/my-island/
 //https://myisland.netlify.com

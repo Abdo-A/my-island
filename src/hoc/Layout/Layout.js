@@ -39,7 +39,7 @@ class Layout extends Component {
         <SignUp />
         <MusicPlayer autoplay={true} />
         <div className="Layout__MainHeader">My Island</div>
-        <main className="container" style={{ marginTop: "125px" }}>
+        <main className="container" style={{ marginTop: "40px" }}>
           {this.props.authenticated && this.state.greetUser ? (
             <p className="Layout__UserGreeting">Welcome {userName}!</p>
           ) : (
