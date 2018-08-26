@@ -3,6 +3,16 @@
   margin: 0 auto;
 }
 
+.RandomComic__Comic h2 {
+  font-weight: 800;
+  color: black;
+}
+
+.RandomComic__Comic h5 {
+  font-weight: 800;
+  color: black;
+}
+
 .RandomComic__Comic h2,
 .RandomComic__Comic img {
   margin: 0 auto;
