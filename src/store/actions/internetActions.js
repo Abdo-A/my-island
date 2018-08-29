@@ -182,16 +182,20 @@ export const requestUserLocationInfoAndRequestUserWeatherInfo = () => {
   return dispatch => {
     axios
       .get(
-        `https://newsapi.org/v2/everything?sources=buzzfeed&language=en&apiKey=${newsApiKey}`
+        //`https://newsapi.org/v2/everything?sources=buzzfeed&language=en&apiKey=${newsApiKey}`
+        //`https://newsapi.org/v2/everything?q=+funny+entertainment&sortBy=publishedAt&language=en&apiKey=${newsApiKey}`
+        `https://newsapi.org/v2/everything?sources=mtv-news&language=en&apiKey=${newsApiKey}`
       )
       .then(res => {
+        console.log(res.data.articles);
         let i;
         for (i = 0; i < res.data.articles.length; i++) {
           if (
             res.data.articles[i].title &&
             res.data.articles[i].urlToImage &&
             res.data.articles[i].description &&
-            res.data.articles[i].title.length < 90
+            res.data.articles[i].title.length < 90 &&
+            res.data.articles[i].source.id !== "buzzfeed"
           ) {
             break;
           }

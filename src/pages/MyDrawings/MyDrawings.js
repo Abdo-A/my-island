@@ -119,8 +119,16 @@ class MyDrawings extends Component {
   };
 
   handleViewSavedItem = index => {
-    let savedDrawing = this.state.savedItems[index].saveData;
-    this.mainCanvas.loadSaveData(savedDrawing, true);
+    //for unauthenticated users
+    if (!this.props.authenticated) {
+      let savedDrawing = this.state.unauthenticatedUserDrawings[index].saveData;
+      this.mainCanvas.loadSaveData(savedDrawing, true);
+    }
+    //for authenticated users
+    if (this.props.authenticated) {
+      let savedDrawing = this.props.drawings[index].saveData;
+      this.mainCanvas.loadSaveData(savedDrawing, true);
+    }
   };
 
   onDeleteDrawing = order => {
@@ -313,12 +321,12 @@ class MyDrawings extends Component {
             >
               <input
                 type="range"
-                min="0"
+                min="1"
                 max="10"
                 value={this.state.currentBrushSize}
                 onChange={e => this.onBrushSizeChange(e)}
               />
-              <input value={this.state.currentBrushSize} readOnly />
+              {this.state.currentBrushSize}
             </div>
           ) : null}
         </Button>
