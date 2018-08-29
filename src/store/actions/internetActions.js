@@ -187,7 +187,6 @@ export const requestUserLocationInfoAndRequestUserWeatherInfo = () => {
         `https://newsapi.org/v2/everything?sources=mtv-news&language=en&apiKey=${newsApiKey}`
       )
       .then(res => {
-        console.log(res.data.articles);
         let i;
         for (i = 0; i < res.data.articles.length; i++) {
           if (

@@ -70,7 +70,6 @@ class SignInForm extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <Form onSubmit={this.onSubmit}>
         <Form.Field>
