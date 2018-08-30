@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import React, { Component } from "react";
 
 import { pages } from "./data/pagesData";
@@ -28,6 +28,7 @@ class App extends Component {
                   key={page.path}
                 />
               ))}
+              <Redirect to="/" />
             </Switch>
           </Layout>
         </Switch>
