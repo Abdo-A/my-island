@@ -121,6 +121,14 @@
 }
 
 @media (max-width: 900px) {
+  .Home__NewsPiece__Header__Serious {
+    font-size: 14px;
+  }
+
+  .Home__NewsPiece__Header__Silly {
+    font-size: 14px;
+  }
+
   .Home__Advice__Comic {
     width: 85%;
     margin: 0 auto;

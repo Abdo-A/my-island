@@ -22,7 +22,13 @@ const newsCard = props => {
           style={{
             display: "flex",
             height:
-              props.screenWidth < 900 ? "auto" : props.date ? "440px" : "380px",
+              props.screenWidth < 900 && props.date
+                ? "auto"
+                : props.screenWidth < 700 && !props.date
+                  ? "auto"
+                  : props.date
+                    ? "440px"
+                    : "380px",
             margin: props.noMargin ? "0 auto" : "35px",
             boxShadow: "15px 25px 30px 0px rgba(0,0,0,0.75)"
           }}

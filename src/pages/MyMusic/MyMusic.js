@@ -10,7 +10,7 @@ import "./MyMusic.css";
 class MyMusic extends Component {
   render() {
     return (
-      <div>
+      <div className="MyMusic">
         <List
           className="MyMusic__MusicList"
           itemLayout="horizontal"
