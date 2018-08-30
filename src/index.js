@@ -27,7 +27,7 @@ const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename="/my-island">
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </Provider>,

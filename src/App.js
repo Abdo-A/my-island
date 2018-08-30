@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { Route, Switch, withRouter } from "react-router-dom";
+import { Spin } from "antd";
 import React, { Component } from "react";
 
 import { pages } from "./data/pagesData";
@@ -18,7 +19,7 @@ class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Route path="/" exact component={Intro} />
+          <Route path="/" exact component={Intro ? Intro : Spin} />
           <Layout>
             <Switch>
               {pages.map(page => (
