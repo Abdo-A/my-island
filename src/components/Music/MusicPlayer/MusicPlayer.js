@@ -13,7 +13,7 @@ import "./MusicPlayer.css";
 class MusicPlayer extends Component {
   state = {
     currentSong: 0,
-    showControllers: true,
+    showControllers: this.props.screenWidth > 850 ? true : false,
     showMusicPlayer: true
   };
 
