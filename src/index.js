@@ -27,7 +27,7 @@ const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename="/my-island">
       <App />
     </BrowserRouter>
   </Provider>,
@@ -36,7 +36,7 @@ ReactDOM.render(
 registerServiceWorker();
 
 //Setup for publishing on gitpages is only:
-//1-the basename "/my-island" in the BrowserRouter
+//1-the basename  in the BrowserRouter
 //2-the changes in the package.json ("homepage": "https://abdo-a.github.io/my-island/")
 
 //https://codeburst.io/deploy-react-to-github-pages-to-create-an-amazing-website-42d8b09cd4d
