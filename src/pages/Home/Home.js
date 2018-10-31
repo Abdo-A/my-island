@@ -106,8 +106,8 @@ class Home extends Component {
           </div>
         )}
 
-        {/* Today's Advice */}
-        <div className="Home__Advice">
+        {/* Today's Advice => api doesn't work anymore */}
+        {/* <div className="Home__Advice">
           <Card>
             <h3 className="Home__Header Home__Advice__Header">
               What's <span className="Home__Header__FocusWord">today's</span>{" "}
@@ -130,7 +130,7 @@ class Home extends Component {
               alt="comic"
             />
           </Card>
-        </div>
+        </div> */}
 
         {/*Today's Picture*/}
         <div className="Home__Picture">
@@ -147,8 +147,8 @@ class Home extends Component {
           </Card>
         </div>
 
-        {/* Today's Quote */}
-        <div className="Home__Quote">
+        {/* Today's Quote => Quotes api doesn't work anymore */}
+        {/* <div className="Home__Quote">
           <Card>
             <h3 className="Home__Header Home__Quote__Header">
               What's <span className="Home__Header__FocusWord">today's</span>{" "}
@@ -176,7 +176,7 @@ class Home extends Component {
               <Spin style={{ marginTop: "50px", marginBottom: "50px" }} />
             )}
           </Card>
-        </div>
+        </div> */}
       </div>
     );
   }

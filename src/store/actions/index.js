@@ -16,7 +16,7 @@ export const requestEverythingFromInternet = () => {
     );
     dispatch(internetActions.requestSeriousNews());
     dispatch(internetActions.requestSillyNews());
-    dispatch(internetActions.requestQuote());
+    //dispatch(internetActions.requestQuote());  -> api not working because of cors issue
     dispatch(internetActions.requestComic());
 
     dispatch(internetActions.requestLatestNews("general"));
