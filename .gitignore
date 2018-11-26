@@ -9,6 +9,8 @@
 # production
 /build
 
+/src/songs/data/mp3
+
 # misc
 .DS_Store
 .env.local
@@ -19,4 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/src/songs/data/mp3
